@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!--Messages page
+	Main author: Yinfu
+-->
+
+<html lang="en">
+	<head>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<div> placeholder for navbar</div>
+		<title>Tandem - Messages</title>
+
+		<!--load stylesheets & bootstrap-->
+		<link rel="stylesheet" type="text/css" href="message.css">
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+		<!-- load necessary javascript files-->
+		<script type="text/javascript" src="external_js/jquery-1.9.0.min.js"></script>
+        <script type="text/javascript" src="external_js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="message.js"></script>
+
+		<script type="text/javascript">
+
+			var students = ["Adams, Sophie", "Baker, Mike", "Brown, Ashley", "Clark, Leslie", 
+							"Cook, Linda", "Craig, Yinfu", "Farr, Nike", "Faust, Ben", "Fox, Johnny",
+							"Hans, Peter", "He, Sally", "Hung, Jackie", "Kardashian, Kim", "Moon, Jason",
+							"Weaver, Joanie", "Xavier, Tom", "Yoon, Charles", "Zakarian, Sylvia"];
+
+			var messages = ["message1", "message2", "message3", "message4", "message5", "message6",
+							"message7", "message8"];
+
+			var hilightStudent = function(elem) {
+				$(".student-label").removeClass("btn-success");
+				$(elem).addClass("btn-success");
+
+				//fake interaction, leave one message left when a student selected
+				$("#messages-panel").empty().append("<div class='message-label btn btn-block' onclick=hilightMessage(this)>message1</div>");
+
+				$(".message-label").removeClass("btn-success");
+				$("#message-detail").hide();
+			}
+
+			var hilightMessage = function(elem) {
+				$(".message-label").removeClass("btn-success");
+				$(elem).addClass("btn-success");
+				$("#message-detail").show()
+			}
+
+			var loadAllMessages = function() {
+				for (var i=0; i<messages.length; i++) {
+					$("#messages-panel").append("<div class='message-label btn btn-block' onclick=hilightMessage(this)>" + messages[i] + "</div>");
+				};
+				$(".student-label").removeClass("btn-success");
+				$(".message-label").removeClass("btn-success");
+				$("#message-detail").hide();
+				$("#all-messages-label").addClass("btn-success");
+			}
+
+			$(document).ready(function() {
+				//appending each student to the student panel
+				for (var i=0; i<students.length; i++) {
+					var student = "<div class='student-label btn btn-block' onclick=hilightStudent(this)>" + students[i] + "</div>";
+					$("#students-panel").append(student);
+					//$("#" + i).toggle("highlight");
+					//student.toggle("highlight");
+				};
+
+				loadAllMessages();
+
+
+				//initialize messages panel and message details to be hidden
+				$("#message-detail").hide();
+
+			});
+
+
+
+
+
+		</script>
+
+	</head>
+
+
+	<body>
+		<div id="content-wrapper" class="container">
+			<div class="row">
+				<div id="students-panel" class="col-md-3">
+					<div id="all-messages-label" class="message-label btn btn-block btn-success" onclick=loadAllMessages()>All messages</div>
+				</div>
+
+				<div id="messages-panel" class="col-md-3">
+				</div>
+
+				<div id="message-detail" class="col-md-6">
+					<div id="message-header">Johnny's Fight</div>
+					<div id="message-content">blah blah blah blah blah</div>
+				</div>
+			</div>
+
+		</div>
+
+
+
+
+	</body>
+
+</html>
