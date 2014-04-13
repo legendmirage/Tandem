@@ -1,0 +1,76 @@
+<!--Student Profile Page
+	Main author: jcweaver
+
+    Notes: Search Bar To Be implemented in future?
+-->
+<html>
+
+<title>Student Profile Page </title>
+
+<head>
+	<div> <em>placeholder for navbar</em></div>
+	<link rel="stylesheet" type="text/css" href="jqtimeline/css/jquery.jqtimeline.css" />
+	<link rel="stylesheet" type="text/css" href="css/profile.css" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="jqtimeline/js/jquery.jqtimeline.js"></script>
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="column-left">
+            <img src="images/johnny_fox_prof.jpeg" class="prof">
+
+         </div>
+        <div class="column-center">
+            <h1>Jonathon Fox</h1>
+            <p><b><i>Preferred Name:</b></i> Johnny</p>
+            <p><b><i>Date of Birth:</b></i> 5/20/2007</p>
+            <p><b><i>Age:</b></i> 6</p>
+
+         </div>
+        <div class="column-right">
+            <h2>Parents/Guardians</h2>
+            <p>James Fox <a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></a><a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a></p>
+            <p>Susan Fox<a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></a><a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a></p>
+     
+         </div>
+     </div> 
+
+
+	
+	<div id="myTimeline"></div>
+	
+
+	<!-- Initializing timeline with info for initial prototype -->
+	<script type="text/javascript">
+    var ev = [{
+        id : 1,
+        name : "Had fever",
+        on : new Date(2014,2,11)
+    },
+    {
+        id : 2,
+        name : "Share",
+        on : new Date(2014,2,21)
+    },
+    {
+        id : 3,
+        name : "Fight",
+        on : new Date(2014,2,24)
+    }]
+        var tl = $('#myTimeline').jqtimeline({
+        events : ev,
+        numYears:2,
+        startYear:2013,
+        gap: 40,
+        click:function(e,event){
+            alert(event.name);
+        }
+    });
+</script>
+
+
+</body>
+</html>
