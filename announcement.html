@@ -4,20 +4,61 @@
 
 <html>
 <head>
-	<div> placeholder for navbar</div>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 	<title>Tandem - Announcements</title>
 
 	<!--load stylesheets & bootstrap-->
-	<link rel="stylesheet" type="text/css" href="announcement.css"
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/message.css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
 	<!-- load necessary javascript files-->
+	<script type="text/javascript" src="external_js/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript" src="external_js/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="announcement.js"></script>
+
+	<script type="text/javascript">
+		var announcements = {"announcment1": "blahblahblah", "announcment2": "blahblahblah2", "announcment3": "blahblahblah3"};
+
+		var toggleDisplay= function(elem) {
+			$(".announcement-content").hide();
+			var content = "#content" + $(elem).attr('row');
+			$(content).show();
+		}
+
+		$(document).ready(function() {
+				var i = 0;
+				//appending each student to the student panel
+				for (var subject in announcements) {
+					var announce_box = "<div id='announcement" + i + "'' class='announcement-box'></div>";
+					$("#announcements-wrapper").append(announce_box);
+
+					var announce_subject = "<div row=" + i + " class='announcement-title row btn-warning btn-block' onclick=toggleDisplay(this)>" + subject + "</div>";
+					var announce_content = "<div id='content" + i + "'' class='announcement-content'>" + announcements[subject] + "</div>";
+
+					$("#announcement" + i).append(announce_subject);
+					$("#announcement" + i).append(announce_content);
+
+					$("#content" + i).hide();
+
+					i++;
+
+				};
+
+			});
+
+
+	</script>
 
 </head>
 
 
 <body>
+
+
+	<div id='page-header' class="page-header">Announcements</div>
+	<div id="announcements-wrapper" class="container">
+
+	</div>
 
 
 
