@@ -9,12 +9,20 @@
 
 <head>
 	<div> <em>placeholder for navbar</em></div>
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 	<link rel="stylesheet" type="text/css" href="jqtimeline/css/jquery.jqtimeline.css" />
 	<link rel="stylesheet" type="text/css" href="css/profile.css" />
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript" src="jqtimeline/js/jquery.jqtimeline.js"></script>
-
-
+    <script>
+        $(function() {
+            $( "#datepicker" ).datepicker({});
+        });
+    </script>
 </head>
 
 <body>
@@ -48,7 +56,7 @@
     <form id="overlay_form" style="display:none">
         <h2> Add an Event to the Timeline</h2>
         <label>Event Name: </label><input type="text" name="eventname" /><br /><br />
-        <label>Event Date: </label><input type="text" name="eventdate" /><br /><br />
+        <label>Event Date: </label><input type="text" name="eventdate" id="datepicker" /><br /><br />
         <input id="submitform" type="button" value="Submit" />
         <a href="#" id="close" >Close</a>
     </form>
@@ -84,12 +92,16 @@
         $("#overlay_form").fadeIn(1000);
         positionPopup();
     });
-    var numevents=6;
     $("#submitform").click(function(evt) {
-        var eventObj = {id:numevents, name:evt.name, on : evt.date};
-        $("#myTimeline").addEvent(eventObj);
+        var timelineObj = $('#myTimeline').data('jqtimeline');
+        console.log($('#overlay_form input[name="eventdate"]').val());
+        //timelineObj.method();
+        var numevents=timelineObj.getAllEvents().length;
+        var eventObj = {id:numevents, name:$('input[name="eventname"]').val(), on : new Date()};
+        timelineObj.addEvent(eventObj);
         $("#overlay_form").fadeOut(500);
     });
+
 
     //position the popup at the center of the page
     function positionPopup(){
