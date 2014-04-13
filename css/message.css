@@ -1,0 +1,39 @@
+.student-label{
+	font-size: large;
+}
+
+.message-label{
+	font-size: large;
+}
+
+#students-panel{
+	display: inline-block;
+	border-style: solid;
+	border-width: 4px;
+	vertical-align: top;
+
+}
+
+#messages-panel{
+	display: inline-block;
+	border-style: solid;
+	border-width: 4px 2px 4px 0;
+	vertical-align: top;
+
+}
+
+#message-detail{
+	display: inline-block;
+	border-style: solid;
+	border-width: 4px 4px 4px 2px;
+	vertical-align: top;
+
+}
+
+#message-header{
+	height: 50px;
+}
+
+#message-content{
+	height: 300px;
+}
