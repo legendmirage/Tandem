@@ -17,7 +17,14 @@
     <script src="external_js/jquery.ui.datepicker.js"></script>
     <script src="external_js/jquery.ui.widget.js"></script>
     <script src="external_js/jquery.ui.core.js"></script>
+
     <link rel="stylesheet" type="text/css" href="css/common.css">
+
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="jqtimeline/css/jquery.jqtimeline.css" />
 	<link rel="stylesheet" type="text/css" href="css/profile.css" />
 	<script type="text/javascript" src="jqtimeline/js/jquery.jqtimeline.js"></script>
@@ -53,17 +60,51 @@
 	
 	<div id="myTimeline"></div>
 	
+<<<<<<< HEAD
     <div id="button-wrapper">
         <input id="addevent" type="button" name="new" value="+"/>
+=======
+
+    <button id="addevent" data-toggle="modal" data-target="#myModal"/>+</button>
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="eventform" class="form-horizontal">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Add an Event to the Timeline</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for='eventname' class='col-lg-2 control-label'>Event:</label>
+                            <div class='col-lg-10'>
+                                <input type='text' class='form-control' id='eventname' placeholder='Event Name'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for='eventdescription' class='col-lg-2 control-label'>Description:</label>
+                            <div class='col-lg-10'>
+                                <textarea id="eventdescription" class='form-control' rows="8"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for='datepicker' class='col-lg-2 control-label'>Date:</label>
+                            <div class='col-lg-10'>
+                                <input type='text' class='form-control' id='datepicker' >
+                            </div>
+                        </div>
+                     </div>
+                     <div class="modal-footer">
+                        <button id="closeform" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id="submitform" type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                    </div>  
+            </form>
+            </div>
+        </div>
+>>>>>>> e959791be426a1aa6416164090ca2ba1d93abf66
     </div>
 
-    <form id="overlay_form" style="display:none">
-        <h2> Add an Event to the Timeline</h2>
-        <label>Event Name: </label><input type="text" name="eventname" /><br /><br />
-        <label>Event Date: </label><input type="text" name="eventdate" id="datepicker" /><br /><br />
-        <input id="submitform" type="button" value="Submit" />
-        <a href="#" id="close" >Close</a>
-    </form>
 	<!-- Initializing timeline with info for initial prototype -->
 	<script type="text/javascript">
     var ev = [{
@@ -90,39 +131,34 @@
             alert(event.name);
         }
     });
-    $("#addevent").click(function(evt) {
-        console.log("form");
-        //display an input form for adding an event
-        $("#overlay_form").fadeIn(1000);
-        positionPopup();
-    });
+
     $("#submitform").click(function(evt) {
+        evt.preventDefault();
         var timelineObj = $('#myTimeline').data('jqtimeline');
-        console.log($('#overlay_form input[name="eventdate"]').val());
+        console.log($('#eventname').val());
         //timelineObj.method();
         var numevents=timelineObj.getAllEvents().length;
-        var eventObj = {id:numevents, name:$('input[name="eventname"]').val(), on : new Date($('input[name="eventdate"]').val())};
+        var eventObj = {id:numevents, name:$('#eventname').val(), on : new Date($('#datepicker').val())};
         timelineObj.addEvent(eventObj);
-        $("#overlay_form").fadeOut(500);
     });
 
 
-    //position the popup at the center of the page
-    function positionPopup(){
-        console.log("positioning");
-        if(!$("#overlay_form").is(':visible')){
-            return;
-        }
-        $("#overlay_form").css({
-            left: ($(window).width() - $('#overlay_form').width()) / 2,
-            top: ($(window).width() - $('#overlay_form').width()) / 7,
-            position:'absolute'
-        });
-    }
-    //close popup
-    $("#close").click(function(){
-        $("#overlay_form").fadeOut(500);
-    });
+    // //position the popup at the center of the page
+    // function positionPopup(){
+    //     console.log("positioning");
+    //     if(!$("#overlay_form").is(':visible')){
+    //         return;
+    //     }
+    //     $("#overlay_form").css({
+    //         left: ($(window).width() - $('#overlay_form').width()) / 2,
+    //         top: ($(window).width() - $('#overlay_form').width()) / 7,
+    //         position:'absolute'
+    //     });
+    // }
+    // //close popup
+    // $("#close").click(function(){
+    //     $("#overlay_form").fadeOut(500);
+    // });
 </script>
 
 
