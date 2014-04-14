@@ -2,6 +2,7 @@ body{
 	font-family: "Avant Garde", Avantgarde, sans-serif;
 }
 button{
-	background: #134520;
+	/*background: #134520;*/
+	background: #428BCA;
 	color: white;
 }
