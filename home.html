@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--Messages page
+	Main author: Sylvia
+-->
+
+<html lang="en">
+	<head>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<title>Tandem</title>
+
+		<!--load stylesheets & bootstrap-->
+		<link rel="stylesheet" type="text/css" href="css/home.css">
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+		<!-- load necessary javascript files-->
+		<script type="text/javascript" src="external_js/jquery-1.9.0.min.js"></script>
+        <script type="text/javascript" src="external_js/jquery-ui.min.js"></script>
+		
+		<script> 
+    		$(function(){
+      			$("#navbar").load("nav_bar.html"); 
+    		});
+    	</script>
+		
+	</head>
+
+
+	<body>
+		<div id="navbar"></div>
+		<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+  			Popover on right
+		</button>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Leslie C.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Ashley B.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Sally H.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Kim K.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Linda C.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Charles Y.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Nike F.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Jason M.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Johnny F.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Mike B.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Jackie H.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Sylvia Z.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Joanie W.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Yinfu C.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Ben F.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Sophie A.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Peter H.</div>
+		</div>
+		<div class="desk">
+			<img class="box" src="images/desk.jpg">
+			<div class="names">Tom X.</div>
+		</div>
+
+
+		<script>
+			var top_offset = 150;
+			var left_offset = 200;
+			var name_top_offset = 200;
+			var name_left_offset = 200;
+
+			var desks = $(".desk");
+			desks.draggable();
+			for (i = 0; i < desks.length; i++) {
+				var desk = desks[i];
+				desk.style.position = "absolute";
+				desk.style.top = "" + top_offset + "px";
+				desk.style.left = "" + left_offset + "px";
+				left_offset = left_offset + 110;
+				if ((i+1) % 2 == 0) {
+					left_offset += 20;
+				} if ((i+1) %6 == 0) {
+					left_offset = 200;
+					top_offset += 110;
+				}
+			}
+		</script>
+
+	</body>
+
+</html>
