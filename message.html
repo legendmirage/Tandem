@@ -18,6 +18,7 @@
 		<!-- load necessary javascript files-->
 		<script type="text/javascript" src="external_js/jquery-1.9.0.min.js"></script>
         <script type="text/javascript" src="external_js/jquery-ui.min.js"></script>
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/message.js"></script>
 
 		<script type="text/javascript">
@@ -27,15 +28,14 @@
 							"Hans, Peter", "He, Sally", "Hung, Jackie", "Kardashian, Kim", "Moon, Jason",
 							"Weaver, Joanie", "Xavier, Tom", "Yoon, Charles", "Zakarian, Sylvia"];
 
-			var messages = ["message1", "message2", "message3", "message4", "message5", "message6",
-							"message7", "message8"];
+			var messages = {"message1":'4/1 12:00', "message2":'4/2 12:00', "message3":'4/5 12:44', "message4":'4/7 15:49', "message5":'4/11 9:30', "message6":'4/12 11:32'};
 
 			var hilightStudent = function(elem) {
 				$(".student-label").removeClass("btn-success");
 				$(elem).addClass("btn-success");
 
 				//fake interaction, leave one message left when a student selected
-				$("#messages-panel").empty().append("<div class='message-label btn btn-block' onclick=hilightMessage(this)>message1</div>");
+				$("#messages-panel").empty().append("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>message1</div><div class='col-md-4'>4/1 12:00</div>");
 
 				$(".message-label").removeClass("btn-success");
 				$("#message-detail").hide();
@@ -48,13 +48,35 @@
 			}
 
 			var loadAllMessages = function() {
-				for (var i=0; i<messages.length; i++) {
-					$("#messages-panel").append("<div class='message-label btn btn-block' onclick=hilightMessage(this)>" + messages[i] + "</div>");
+				for (var msg in messages) {
+					$("#messages-panel").prepend("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>" + msg + "</div><div class='col-md-4'>" + messages[msg] + "</div>");
 				};
 				$(".student-label").removeClass("btn-success");
 				$(".message-label").removeClass("btn-success");
 				$("#message-detail").hide();
 				$("#all-messages-label").addClass("btn-success");
+			}
+
+			//convert js date object to our date time format
+			var convertDate = function(d) {
+				var month = d.getMonth() + 1;
+				var dateTime = month + "/" + d.getDate() + " " + d.getHours() + ":";
+				if (d.getMinutes() < 10){
+					dateTime = dateTime + "0" + d.getMinutes();
+				} else {
+					dateTime = dateTime + d.getMinutes();
+				}
+				return dateTime;
+			}
+
+			var newMessage = function() {
+				var subject = $('#subject').val();
+				var details = $('#details').val();
+				var d = new Date();
+				var dateTime = convertDate(d);
+				messages[subject] = details;
+				$("#messages-panel").prepend("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>" + subject + "</div><div class='col-md-4'>" + dateTime + "</div>");
+
 			}
 
 			$(document).ready(function() {
@@ -72,6 +94,20 @@
 				//initialize messages panel and message details to be hidden
 				$("#message-detail").hide();
 
+				$('#sendBTN').click(function(e) {
+					e.preventDefault();
+					newMessage();
+					$("#newMessageModal").modal('hide');
+
+				}); 
+
+				$('#sendResponse').click(function(e) {
+					e.preventDefault();
+					$('#message-data').append("<div class='row'><div class='col-md-2'>Me:</div><div class='col-md-10'>" + $('#responseText').val() + "</div></div></div>");
+					$('#responseText').val('');
+
+				});
+
 			});
 
 
@@ -84,7 +120,11 @@
 
 
 	<body>
-		<div id='page-header' class="page-header">Messages</div>
+		<div id='header-bar' class='row'>
+			<div id='page-header' class="page-header col-md-4">Messages</div>
+			<button id='new-message-button' class='col-md-2 btn btn-success' data-toggle='modal' data-target='#newMessageModal'>New Message</button>
+		</div>
+
 		<div id="content-wrapper" class="container">
 			<div class="row">
 				<div id="students-panel" class="col-md-3">
@@ -96,11 +136,59 @@
 
 				<div id="message-detail" class="col-md-6">
 					<div id="message-header">Johnny's Fight</div>
-					<div id="message-content">Hi, </br>Johnny had a fight today...blah blah blah </div>
+					<div id='message-data'>
+						<div class='row'>
+							<div class='col-md-2'>Parent:</div>
+							<div class="col-md-10">Hi, </br>Johnny had a fight today...blah blah blah </div>
+						</div>
+					</div>
+
+					<div id='responseBox' class='row'>
+						<textarea id='responseText' class='col-md-10'></textarea>
+						<button id='sendResponse' type='submit' class='col-md-2 btn btn-success'>send</button>
+					</div>
 				</div>
 			</div>
 
 		</div>
+
+		<div id='newMessageModal' class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form id='newMessageForm' class='form-horizontal'>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">New Message</h4>
+						</div>
+						<div class="modal-body">
+
+							<div class='form-group'>
+								<label for='subject' class='col-lg-2 control-label'>Subject</label>
+								<div class='col-lg-10'>
+									<input type='text' class='form-control' id='subject' placeholder='Enter subject'>
+								</div>
+
+							</div>
+
+							<div class='form-group'>
+								<label for='details' class='col-lg-2 control-label'>Message Details</label>
+								<div class='col-lg-10'>
+									<textarea id='details' class='form-control' rows='10'></textarea>
+								</div>
+							</div>
+
+
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button id='sendBTN' type="submit" class="btn btn-success">Send</button>
+						</div>
+
+					</form>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 
 
 
