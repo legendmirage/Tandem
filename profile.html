@@ -64,33 +64,34 @@
     <div class="modal fade" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form id="eventform">
+                <form id="eventform" class="form-horizontal">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">Add an Event to the Timeline</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for='eventname' class='col-lg-2 control-label'>Event Name:</label>
+                            <label for='eventname' class='col-lg-2 control-label'>Event:</label>
                             <div class='col-lg-10'>
                                 <input type='text' class='form-control' id='eventname' placeholder='Event Name'>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for='eventdescription' class='col-lg-2 control-label'>Event Description:</label>
+                            <label for='eventdescription' class='col-lg-2 control-label'>Description:</label>
                             <div class='col-lg-10'>
                                 <textarea id="eventdescription" class='form-control' rows="8"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for='datepicker' class='col-lg-2 control-label'>Event Date:</label>
+                            <label for='datepicker' class='col-lg-2 control-label'>Date:</label>
                             <div class='col-lg-10'>
                                 <input type='text' class='form-control' id='datepicker' >
                             </div>
                         </div>
                      </div>
                      <div class="modal-footer">
-                        <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id="closeform" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id="submitform" type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
                     </div>  
             </form>
             </div>
@@ -123,20 +124,15 @@
             alert(event.name);
         }
     });
-    // $("#addevent").click(function(evt) {
-    //     console.log("form");
-    //     //display an input form for adding an event
-    //     $("#overlay_form").fadeIn(1000);
-    //     positionPopup();
-    // });
+
     $("#submitform").click(function(evt) {
+        evt.preventDefault();
         var timelineObj = $('#myTimeline').data('jqtimeline');
-        console.log($('#overlay_form input[name="eventdate"]').val());
+        console.log($('#eventname').val());
         //timelineObj.method();
         var numevents=timelineObj.getAllEvents().length;
-        var eventObj = {id:numevents, name:$('input[name="eventname"]').val(), on : new Date($('input[name="eventdate"]').val())};
+        var eventObj = {id:numevents, name:$('#eventname').val(), on : new Date($('#datepicker').val())};
         timelineObj.addEvent(eventObj);
-        $("#overlay_form").fadeOut(500);
     });
 
 
