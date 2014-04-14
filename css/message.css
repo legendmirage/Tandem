@@ -7,17 +7,23 @@
 }
 
 #students-panel{
+	margin-top: 0;
 	display: inline-block;
 	border-style: solid;
-	border-width: 4px;
+	border-color: white;
+	/*border-width: 4px;*/
+	background: rgba(42, 139, 202, .2);
 	vertical-align: top;
 
 }
 
 #messages-panel{
+	margin-top: 0;
 	display: inline-block;
 	border-style: solid;
-	border-width: 4px 2px 4px 0;
+	border-color: white;
+	/*border-width: 4px 2px 4px 0;*/
+	background: rgba(42, 139, 202, .2);
 	vertical-align: top;
 
 }
@@ -25,15 +31,20 @@
 #message-detail{
 	display: inline-block;
 	border-style: solid;
-	border-width: 4px 4px 4px 2px;
+	border-color: white;
+	/*border-width: 4px 4px 4px 2px;*/
+	background: rgba(42, 139, 202, .2);
 	vertical-align: top;
 
 }
 
 #message-header{
+	padding: 10px;
+	font-size: 30px;
 	height: 50px;
 }
 
 #message-content{
+	padding: 10px;
 	height: 300px;
 }
