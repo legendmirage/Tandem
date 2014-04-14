@@ -17,12 +17,12 @@
 	<script type="text/javascript" src="announcement.js"></script>
 
 	<script type="text/javascript">
-		var announcements = {"announcment1": "blahblahblah", "announcment2": "blahblahblah2", "announcment3": "blahblahblah3"};
+		var announcements = {"announcment1": ["blahblahblah", "4/11 12:00pm"], "announcment2": ["blahblahblah2", "4/8 3:15pm"], "announcment3": ["blahblahblah3", "4/7, 2:12pm"]};
 
 		var toggleDisplay= function(elem) {
-			$(".announcement-content").hide();
+			//$(".announcement-content").hide();
 			var content = "#content" + $(elem).attr('row');
-			$(content).show();
+			$(content).toggle();
 		}
 
 		$(document).ready(function() {
@@ -32,8 +32,8 @@
 					var announce_box = "<div id='announcement" + i + "'' class='announcement-box'></div>";
 					$("#announcements-wrapper").append(announce_box);
 
-					var announce_subject = "<div row=" + i + " class='announcement-title row btn-warning btn-block' onclick=toggleDisplay(this)>" + subject + "</div>";
-					var announce_content = "<div id='content" + i + "'' class='announcement-content'>" + announcements[subject] + "</div>";
+					var announce_subject = "<div row=" + i + " class='announcement-title row btn-warning btn-block row' onclick=toggleDisplay(this)><div class='col-md-8'>" + subject + "</div><div class='date-time col-md-4'>" + announcements[subject][1] + "</div></div>";
+					var announce_content = "<div id='content" + i + "'' class='announcement-content'>" + announcements[subject][0] + "</div>";
 
 					$("#announcement" + i).append(announce_subject);
 					$("#announcement" + i).append(announce_content);
@@ -53,10 +53,12 @@
 
 
 <body>
-
-
-	<div id='page-header' class="page-header">Announcements</div>
-	<div id="announcements-wrapper" class="container">
+	<div class='container'>
+		<div id='header-bar' class='row'>
+			<div id='page-header' class="page-header col-md-4">Announcements</div>
+			<div id='new-announcement-btn' class="btn btn-default col-md-1" onclick='new()'>+ New</div>
+		</div>
+		<div id="announcements-wrapper" class='row'></div>
 
 	</div>
 
