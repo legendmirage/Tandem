@@ -13,11 +13,12 @@
 
 	<!-- load necessary javascript files-->
 	<script type="text/javascript" src="external_js/jquery-1.9.0.min.js"></script>
-    <script type="text/javascript" src="external_js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="external_js/jquery-ui.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="announcement.js"></script>
 
 	<script type="text/javascript">
-		var announcements = {"announcment1": ["blahblahblah", "4/11 12:00pm"], "announcment2": ["blahblahblah2", "4/8 3:15pm"], "announcment3": ["blahblahblah3", "4/7, 2:12pm"]};
+		var announcements = {"announcment1": ["blahblahblah3", "4/7, 14:12"], "announcment2": ["blahblahblah2", "4/8 15:15"] , "announcment3": ["blahblahblah", "4/11 12:00"]};
 
 		var toggleDisplay= function(elem) {
 			//$(".announcement-content").hide();
@@ -25,46 +26,124 @@
 			$(content).toggle();
 		}
 
+		var convertDate = function(d) {
+			var month = d.getMonth() + 1;
+			var dateTime = month + "/" + d.getDate() + " " + d.getHours() + ":";
+			if (d.getMinutes() < 10){
+				dateTime = dateTime + "0" + d.getMinutes();
+			} else {
+				dateTime = dateTime + d.getMinutes();
+			}
+			return dateTime;
+		}
+
+		var newAnnouncement = function(e) {
+			var subject = $('#subject').val();
+			var details = $('#details').val();
+			var d = new Date();
+			var dateTime = convertDate(d);
+			var i = announcements.length;
+
+			announcements[subject] = [details, dateTime];
+
+			var announce_box = "<div id='announcement" + i + "'' class='announcement-box'></div>";
+			$("#announcements-wrapper").prepend(announce_box);
+
+			var announce_subject = "<div row=" + i + " class='announcement-title row btn-warning btn-block row' onclick=toggleDisplay(this)><div class='col-md-8'>" + subject + "</div><div class='date-time col-md-4'>" + dateTime + "</div></div>";
+			var announce_content = "<div id='content" + i + "'' class='announcement-content'>" + details + "</div>";
+
+			$("#announcement" + i).append(announce_subject);
+			$("#announcement" + i).append(announce_content);
+
+			$("#content" + i).hide();
+
+		}
+
 		$(document).ready(function() {
-				var i = 0;
-				//appending each student to the student panel
-				for (var subject in announcements) {
-					var announce_box = "<div id='announcement" + i + "'' class='announcement-box'></div>";
-					$("#announcements-wrapper").append(announce_box);
+			var i = 0;
+			//appending each student to the student panel
+			for (var subject in announcements) {
+				var announce_box = "<div id='announcement" + i + "'' class='announcement-box'></div>";
+				$("#announcements-wrapper").prepend(announce_box);
 
-					var announce_subject = "<div row=" + i + " class='announcement-title row btn-warning btn-block row' onclick=toggleDisplay(this)><div class='col-md-8'>" + subject + "</div><div class='date-time col-md-4'>" + announcements[subject][1] + "</div></div>";
-					var announce_content = "<div id='content" + i + "'' class='announcement-content'>" + announcements[subject][0] + "</div>";
+				var announce_subject = "<div row=" + i + " class='announcement-title row btn-warning btn-block row' onclick=toggleDisplay(this)><div class='col-md-8'>" + subject + "</div><div class='date-time col-md-4'>" + announcements[subject][1] + "</div></div>";
+				var announce_content = "<div id='content" + i + "'' class='announcement-content'>" + announcements[subject][0] + "</div>";
 
-					$("#announcement" + i).append(announce_subject);
-					$("#announcement" + i).append(announce_content);
+				$("#announcement" + i).append(announce_subject);
+				$("#announcement" + i).append(announce_content);
 
-					$("#content" + i).hide();
+				$("#content" + i).hide();
 
-					i++;
+				i++;
 
-				};
+			};
 
-			});
+			$('#announceBTN').click(function(e) {
+				e.preventDefault();
+				newAnnouncement();
+				$("#newAnnouncementModal").modal('hide');
+
+			})
+
+		});	
 
 
-	</script>
+		</script>
 
-</head>
+	</head>
 
 
-<body>
-	<div class='container'>
-		<div id='header-bar' class='row'>
-			<div id='page-header' class="page-header col-md-4">Announcements</div>
-			<div id='new-announcement-btn' class="btn btn-default col-md-1" onclick='new()'>+ New</div>
+	<body>
+		<div class='container'>
+			<div id='header-bar' class='row'>
+				<div id='page-header' class="page-header col-md-4">Announcements</div>
+				<button id='new-announcement-button' class='col-md-2 btn btn-warning' data-toggle='modal' data-target='#newAnnouncementModal'>new</button>
+			</div>
+			<div id="announcements-wrapper" class='row'></div>
+
 		</div>
-		<div id="announcements-wrapper" class='row'></div>
 
-	</div>
+		<div id='newAnnouncementModal' class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form id='newAnnouncementForm' class='form-horizontal'>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">Add Announcement</h4>
+						</div>
+						<div class="modal-body">
+
+							<div class='form-group'>
+								<label for='subject' class='col-lg-2 control-label'>Subject</label>
+								<div class='col-lg-10'>
+									<input type='text' class='form-control' id='subject' placeholder='Enter subject'>
+								</div>
+
+							</div>
+
+							<div class='form-group'>
+								<label for='details' class='col-lg-2 control-label'>Announcement Details</label>
+								<div class='col-lg-10'>
+									<textarea id='details' class='form-control' rows='10'></textarea>
+								</div>
+							</div>
+
+
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button id='announceBTN' type="submit" class="btn btn-warning">Announce</button>
+						</div>
+
+					</form>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 
 
 
 
-</body>
+	</body>
 
-</html>
+	</html>
