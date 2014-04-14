@@ -1,6 +1,8 @@
 .prof{
 	float: left; 
 	padding: 25px 50px;
+	height: 50%;
+	width: 50%;
 }
 
 #contact{
@@ -39,13 +41,4 @@ display: inline-block;
 	font-weight: bold;
 	vertical-align: center;
 	text-align: center;
-}
-
-#overlay_form{
-position: absolute;
-border: 5px solid gray;
-padding: 10px;
-background: white;
-width: 270px;
-height: 190px;
 }
