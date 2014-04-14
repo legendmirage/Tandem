@@ -122,10 +122,13 @@
 	<body>
 		<div id='header-bar' class='row'>
 			<div id='page-header' class="page-header col-md-4">Messages</div>
-			<button id='new-message-button' class='col-md-2 btn btn-success' data-toggle='modal' data-target='#newMessageModal'>New Message</button>
+
 		</div>
 
 		<div id="content-wrapper" class="container">
+			<div id='button-wrapper'>
+				<button id='new-message-button' class='btn btn-success' data-toggle='modal' data-target='#newMessageModal'>Compose</button>
+			</div>
 			<div class="row">
 				<div id="students-panel" class="col-md-3">
 					<div id="all-messages-label" class="message-label btn btn-block btn-success" onclick=loadAllMessages()>All messages</div>
@@ -139,11 +142,17 @@
 					<div id='message-data'>
 						<div class='row'>
 							<div class='col-md-2'>Parent:</div>
-							<div class="col-md-10">Hi, </br>Johnny had a fight today...blah blah blah </div>
+							<div class="col-md-10">Hi, </br>My kid seems to had a fight with another kid in the class.
+							he came back with a lot of bruises and he wouldn't tell me what exactly happened. Could
+							you please explain what happened at school today? My son is very shy and introvert and I don't believe that he will start a fight with another kid with not proper reason. Please also include the parents of the other kid if necessary. </br> Thank you.
+
+
+						</div>
 						</div>
 					</div>
 
 					<div id='responseBox' class='row'>
+						Your Reply:
 						<textarea id='responseText' class='col-md-10'></textarea>
 						<button id='sendResponse' type='submit' class='col-md-2 btn btn-success'>send</button>
 					</div>

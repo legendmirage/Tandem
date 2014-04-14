@@ -1,7 +1,12 @@
 .student-label{
 	font-size: large;
 }
-
+#button-wrapper{
+/*	padding-left: 600px;
+	padding-top: 30px;*/
+	vertical-align: middle;
+	padding-left: 5px;
+}
 .message-label{
 	font-size: large;
 }
@@ -35,21 +40,34 @@
 	/*border-width: 4px 4px 4px 2px;*/
 	background: rgba(42, 139, 202, .2);
 	vertical-align: top;
+	padding: 10px;
 
 }
-
+#message-data{
+	padding: 10px;
+}
 #message-header{
 	padding: 10px;
 	font-size: 30px;
 	height: 50px;
 }
 
-
+#responseBox{
+	padding-left: 20px;
+	padding-top: 40px;
+	width: 100%;
+}
 #responseText{
-	height: 100px;
+	display: inline-block;
+	width: 100%;
+	height: 200px;
 
 }
 
 #sendResponse{
 	vertical-align: bottom;
+	margin-right: 0;
+}
+#new-message-button{
+	margin-right: 20px;
 }
