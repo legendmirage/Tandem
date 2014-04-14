@@ -1,0 +1,23 @@
+html, body {
+	margin-left: 5px;
+}
+
+.nav {
+	width: 100%;
+}
+
+.right{
+	float:right;
+}
+
+#announce {
+	float:right;
+}
+
+#inbox {
+	float:right;
+}
+
+#settings {
+	float:right;
+}
