@@ -23,6 +23,7 @@ html, body {
 }
 
 .navbar-inner{
+	width: 100%;
 	border-style: solid;
 	border-width: 1px;
 	border-color: #BBBBBB;
