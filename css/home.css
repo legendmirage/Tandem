@@ -22,3 +22,24 @@
 	width: 50%;
     margin: 0 auto;*/
 }
+
+.prof{
+	float: left; 
+	padding: 0px;
+	height: 150px;
+}
+
+.left {
+	float:left;
+}
+
+.contacticons{
+	margin:10px;
+}
+
+.column-right{
+	display: inline-block;
+	width: 25%;
+	vertical-align:top;
+	padding-left: 20px;
+}

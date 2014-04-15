@@ -11,11 +11,12 @@
 		<!--load stylesheets & bootstrap-->
 		<link rel="stylesheet" type="text/css" href="css/common.css">
 		<link rel="stylesheet" type="text/css" href="css/home.css">
-		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 
 		<!-- load necessary javascript files-->
 		<script type="text/javascript" src="external_js/jquery-1.9.0.min.js"></script>
         <script type="text/javascript" src="external_js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 		
 		<script> 
     		$(function(){
@@ -28,78 +29,75 @@
 
 	<body>
 		<div id="navbar"></div>
-		<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-  			Popover on right
-		</button>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Leslie C.</div>
 		</div>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Ashley B.</div>
 		</div>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Sally H.</div>
 		</div>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Kim K.</div>
 		</div>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Linda C.</div>
 		</div>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Charles Y.</div>
 		</div>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Nike F.</div>
 		</div>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Jason M.</div>
 		</div>
-		<div class="desk">
+		<div id="jfox" class="desk" data-toggle="popover" data-placement="right">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Johnny F.</div>
 		</div>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Mike B.</div>
 		</div>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Jackie H.</div>
 		</div>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Sylvia Z.</div>
 		</div>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Joanie W.</div>
 		</div>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Yinfu C.</div>
 		</div>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Ben F.</div>
 		</div>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Sophie A.</div>
 		</div>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Peter H.</div>
 		</div>
-		<div class="desk">
+		<div class="desk student">
 			<img class="box" src="images/desk.jpg">
 			<div class="names">Tom X.</div>
 		</div>
@@ -126,6 +124,75 @@
 					top_offset += 110;
 				}
 			}
+
+			$(".student").popover({
+				trigger: 'hover',
+				title: 'Student',
+				content: 'N/A',
+				delay: {show:200, hide:200},
+			})
+			$("#jfox").popover({
+				trigger: 'hover',
+				html: true,
+				title: 'Jonathon Fox (Johnny)',
+				content: '<div class="container"><img src="images/johnny_fox_prof.jpeg" alt="Johnny Fox profile image" class="prof"><div class="column-right"><h3>Parents / Guardians</h3><p>James Fox <a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons" width="30" height="30"></a><a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30" class="contacticons"></a></p><p>Susan Fox<a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons" width="30" height="30"></a><a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30" class="contacticons"></a></p></div></div><a href="profile.html">View Profile</a>',
+				container: '#jfox',
+				delay: {show:200, hide:200},
+			}).on({ //from http://jsfiddle.net/L4Hc2/
+			    show: function (e) {
+			        var $this = $(this);
+			        
+			        // Currently hovering popover
+			        $this.data("hoveringPopover", true);
+			        
+			        // If it's still waiting to determine if it can be hovered, don't allow other handlers
+			        if ($this.data("waitingForPopoverTO")) {
+			            e.stopImmediatePropagation();
+			        }
+			    },
+			    hide: function (e) {
+			        var $this = $(this);
+			        
+			        // If timeout was reached, allow hide to occur
+			        if ($this.data("forceHidePopover")) {
+			            $this.data("forceHidePopover", false);
+			            return true;
+			        }
+			        
+			        // Prevent other `hide` handlers from executing
+			        e.stopImmediatePropagation();
+			        
+			        // Reset timeout checker
+			        clearTimeout($this.data("popoverTO"));
+			        
+			        // No longer hovering popover
+			        $this.data("hoveringPopover", false);
+			        
+			        // Flag for `show` event
+			        $this.data("waitingForPopoverTO", true);
+			        
+			        // In 1500ms, check to see if the popover is still not being hovered
+			        $this.data("popoverTO", setTimeout(function () {
+			            // If not being hovered, force the hide
+			            if (!$this.data("hoveringPopover")) {
+			                $this.data("forceHidePopover", true);
+			                $this.data("waitingForPopoverTO", false);
+			                $this.popover("hide");
+			            }
+			        }, 1500));
+			        
+			        // Stop default behavior
+			        return false;
+			    }
+			}).on({
+			    show: function () {
+			        console.log("shown");
+			    },
+			    hide: function () {
+			        console.log("hidden");
+			    }
+			});
+
 		</script>
 
 	</body>
