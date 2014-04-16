@@ -220,7 +220,7 @@
 					// If the tooltip has more than one message make it non-dynamic
 					e.stopPropagation(); // Stop the propogation so that the parent wont get notified
 					var markup =	$('<div class="info">' + 
-										'<div>Select one even from below : </div>' + 
+										'<div>Select event : </div>' + 
 										'<div class="icon-close closeTooltip" id="eCloseButton_'+eventId+'"></div>' + 
 									'</div>');
 					$tooltipEl.prepend(markup);

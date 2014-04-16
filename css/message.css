@@ -1,23 +1,34 @@
 .student-label{
 	font-size: large;
 }
-
+#button-wrapper{
+/*	padding-left: 600px;
+	padding-top: 30px;*/
+	vertical-align: middle;
+	padding-left: 5px;
+}
 .message-label{
 	font-size: large;
 }
 
 #students-panel{
+	margin-top: 0;
 	display: inline-block;
 	border-style: solid;
-	border-width: 4px;
+	border-color: white;
+	/*border-width: 4px;*/
+	background: rgba(42, 139, 202, .2);
 	vertical-align: top;
 
 }
 
 #messages-panel{
+	margin-top: 0;
 	display: inline-block;
 	border-style: solid;
-	border-width: 4px 2px 4px 0;
+	border-color: white;
+	/*border-width: 4px 2px 4px 0;*/
+	background: rgba(42, 139, 202, .2);
 	vertical-align: top;
 
 }
@@ -25,15 +36,38 @@
 #message-detail{
 	display: inline-block;
 	border-style: solid;
-	border-width: 4px 4px 4px 2px;
+	border-color: white;
+	/*border-width: 4px 4px 4px 2px;*/
+	background: rgba(42, 139, 202, .2);
 	vertical-align: top;
+	padding: 10px;
 
 }
-
+#message-data{
+	padding: 10px;
+}
 #message-header{
+	padding: 10px;
+	font-size: 30px;
 	height: 50px;
 }
 
-#message-content{
-	height: 300px;
+#responseBox{
+	padding-left: 20px;
+	padding-top: 40px;
+	width: 100%;
+}
+#responseText{
+	display: inline-block;
+	width: 100%;
+	height: 200px;
+
+}
+
+#sendResponse{
+	vertical-align: bottom;
+	margin-right: 0;
+}
+#new-message-button{
+	margin-right: 20px;
 }

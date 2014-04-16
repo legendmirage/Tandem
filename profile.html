@@ -17,6 +17,9 @@
     <script src="external_js/jquery.ui.datepicker.js"></script>
     <script src="external_js/jquery.ui.widget.js"></script>
     <script src="external_js/jquery.ui.core.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+
     <script src="bootstrap/js/bootstrap.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.css"/>
@@ -37,17 +40,16 @@
     <div class="container">
         <div class="column-left">
             <img src="images/johnny_fox_prof.jpeg" alt="Johnny Fox profile image" class="prof">
-
          </div>
         <div class="column-center">
-            <h1>Jonathon Fox</h1>
-            <p><b><i>Preferred Name:</b></i> Johnny</p>
-            <p><b><i>Date of Birth:</b></i> 5/20/2007</p>
-            <p><b><i>Age:</b></i> 6</p>
-
-         </div>
+            <div display="inline-block"></div>
+            <h1 id="student-name">Jonathon Fox</h1>
+            <span><b>Preferred Name:</b> Johnny</br><span>
+            <span><b>Date of Birth:</b> 5/20/2007</br><span>
+            <span><b>Age:</b> 6</br><span>
+        </div>
         <div class="column-right">
-            <h2>Parents/Guardians</h2>
+            <h3>Parents / Guardians</h3>
             <p>James Fox <a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></a><a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a></p>
             <p>Susan Fox<a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></a><a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a></p>
      
@@ -57,10 +59,10 @@
 
 	
 	<div id="myTimeline"></div>
-	
 
-    <button id="addevent" data-toggle="modal" data-target="#myModal"/>+</button>
-
+    <div id="button-wrapper">
+        <button id="addevent" data-toggle="modal" data-target="#myModal"/>+</button>
+    </div>
     <div class="modal fade" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -77,7 +79,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for='eventdescription' class='col-lg-2 control-label'>Description:</label>
+                            <label for='eventdescription' class='col-lg-2 control-label'>Details:</label>
                             <div class='col-lg-10'>
                                 <textarea id="eventdescription" class='form-control' rows="8"></textarea>
                             </div>
