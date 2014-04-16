@@ -18,7 +18,7 @@
 			events : [],
 			click : null //Handler for click event for event
 		},
-	aMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+	aMonths = ['Sep', 'Oct', 'Nov', 'Dec','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
 
 	function jqTimeLine(element, options) {
 		this.options = $.extend({}, defaults, options);
@@ -87,17 +87,20 @@
 		}
 		_this.$el.append($mainContainer);
 	};
-
+/*Note: I have edited the function below to get the timeline to go from September to September, an academic calendar year
+*/
 	jqTimeLine.prototype._getMonthMarkup = function(num,year){
 		var _this = this;
 		var retStr = "";
-		if(num== 0){
+		//num=num+8
+		if(num == 4){
+			console.log("year");
 			retStr='<div class="horizontal-line leftend" style="left:'+_this._current_offset_x+'px">' + 
 						'<div class="year">'+year+'</div>' + 
 						'<div class="month">Jan</div>' + 
 					'</div>';
-		}else if(num%2 == 1){
-			retStr = '<div class="horizontal-line month-line odd-month" style="left:'+_this._current_offset_x+'px"></div>';
+		// }else if(num%2 == 1){
+		// 	retStr = '<div class="horizontal-line month-line odd-month" style="left:'+_this._current_offset_x+'px"></div>';
 		}else{
 			retStr = '<div class="horizontal-line month-line even-month" style="left:'+_this._current_offset_x+'px"><div class="month">'+aMonths[num]+'</div></div>';
 		}
@@ -142,14 +145,17 @@
 		if(typeof e.id === 'undefined') e.id = _this._getGenId();
 		_this._aEvents[e.id] = e; //Add event to event array
 		var eName = e.name;
+		var eDescription=e.description;
 		var d = e.on;
 		var n = d.getDate();
 		var yn = d.getFullYear() - _this.options.startYear;
 		var mn = d.getMonth();
-		var totalMonths = (yn * 12) + mn;
+		var totalMonths = (yn * 12) + mn +4;
+		console.log("totalMonths" , totalMonths);
 		var leftVal = Math.ceil(_this._offset_x + totalMonths * _this.options.gap + (_this.options.gap/31)*n - _this._eDotWidth/2);
 		var $retHtml = $('<div class="event" id="event_'+e.id+'" style="left:'+leftVal+'px">&nbsp;</div>').data('event',e);
 		$retHtml.data('eventInfo',_this._aEvents[e.id]);
+		
 		if(_this.options.click){
 			_this._addEventListner($retHtml,'click');
 		}
@@ -185,7 +191,13 @@
 					for (var i = 0; i < neighborEvents.length; i++) {
 						var $temp = $(neighborEvents[i]);
 						var oData = $temp.data('event');
-						strToolTip = strToolTip + '<div class="msg" id="msg_'+oData.id+'">'+oData.on.toDateString()+' : '+ oData.name +'</div>';
+						if (oData.description != null){
+							strToolTip = strToolTip + '<div class="msg" id="msg_'+oData.id+'">'+oData.on.toDateString()+' : '+ oData.name +oData.description+'</div>';
+						}
+						else{
+							strToolTip = strToolTip + '<div class="msg" id="msg_'+oData.id+'">'+oData.on.toDateString()+' : '+ oData.name +'</div>';
+						}
+						
 					};
 					_this._showToolTip(nLeft,strToolTip,eObj.id,false);
 				}

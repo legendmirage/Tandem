@@ -5,7 +5,7 @@
 -->
 <html>
 
-<title>Student Profile Page </title>
+<title>Jonathon Fox </title>
 
 <head>
 	<div class = "container">
@@ -114,24 +114,24 @@
                                 <input type='text' class='form-control' id='guardian1' >
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for='guardian1phone' class='col-lg-2 control-label'>Guardian 1 Phone:</label>
                             <div class='col-lg-10'>
                                 <input type='text' class='form-control' id='guardian1phone' >
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label for='guardian2' class='col-lg-2 control-label'>Guardian 2:</label>
                             <div class='col-lg-10'>
                                 <input type='text' class='form-control' id='guardian2'>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for='guardian2phone' class='col-lg-2 control-label'>Guardian 2 Phone:</label>
                             <div class='col-lg-10'>
                                 <input type='text' class='form-control' id='guardian2phone' >
                             </div>
-                        </div>
+                        </div> -->
                      </div>
                      <div class="modal-footer">
                         <button id="closeform2" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -190,7 +190,8 @@
     var ev = [{
         id : 1,
         name : "Had fever",
-        on : new Date(2014,2,11)
+        on : new Date(2014,2,11),
+        description: "High fever"
     },
     {
         id : 2,
@@ -204,9 +205,9 @@
     }]
         var tl = $('#myTimeline').jqtimeline({
         events : ev,
-        numYears:2,
-        startYear:2013,
-        gap: 40,
+        numYears:1,
+        startYear:2014,
+        gap: 60,
         click:function(e,event){
             alert(event.name);
         }
@@ -218,7 +219,7 @@
         console.log($('#eventname').val());
         //timelineObj.method();
         var numevents=timelineObj.getAllEvents().length;
-        var eventObj = {id:numevents, name:$('#eventname').val(), on : new Date($('#datepicker').val())};
+        var eventObj = {id:numevents, name:$('#eventname').val(), on : new Date($('#datepicker').val()), description: $("#eventdescription").val()};
         timelineObj.addEvent(eventObj);
     });
       $("#submitform2").click(function(evt) {
