@@ -60,7 +60,7 @@
         <div class="column-center">
             <div display="inline-block"></div>
             <h1 id="student-name">Jonathon Fox</h1>
-            <span><b>Preferred Name:</b> <span id="preferred-name">Johnny</span></br><span>
+            <span><b>Preferred Name:</b> <span id="preferred-name" >Johnny</span></br><span>
             <span><b>Date of Birth:</b><span id="dob"> 5/20/2007</span></br><span>
         </div>
         <div class="column-right">
@@ -216,12 +216,21 @@
     $("#submitform").click(function(evt) {
         evt.preventDefault();
         var timelineObj = $('#myTimeline').data('jqtimeline');
-        console.log($('#eventname').val());
+        var ename=$('#eventname').val();
+        var edescription=$("#eventdescription").val();
+        var edate=$('#datepicker').val();
         //timelineObj.method();
-        var numevents=timelineObj.getAllEvents().length;
+        var numevents=timelineObj.getAllEvents().length+1;
         var eventObj = {id:numevents, name:$('#eventname').val(), on : new Date($('#datepicker').val()), description: $("#eventdescription").val()};
         timelineObj.addEvent(eventObj);
-    });
+        console.log($("#event_"+numevents), "event");
+        $("#event_"+numevents).popover({
+                        trigger: 'hover',
+                        title: ename + " "+edate,
+                        content: edescription,
+                        delay: {show:200, hide:200},
+                    });
+     });
       $("#submitform2").click(function(evt) {
         $("#preferred-name").text($("#nickname").val());
         $("#dob").text($("#datepicker2").val());
@@ -234,6 +243,26 @@
         $("#guardian1").val($("#g1label").text());
         $("#guardian2").val($("#g2label").text());
       };
+      //initial events need popovers too
+      $("#event_"+1).popover({
+                        trigger: 'hover',
+                        title: "Had fever",
+                        content: "High Fever",
+                        delay: {show:200, hide:200},
+                    });
+      $("#event_"+3).popover({
+                        trigger: 'hover',
+                        title: "Fight",
+                        content: "Johnny started a fight with Yinfu Craig during recess today",
+                        delay: {show:200, hide:200},
+                    });
+      $("#event_"+2).popover({
+                        trigger: 'hover',
+                        title: "Share",
+                        content: "Johnny shared his dessert with Joanie during snack time",
+                        delay: {show:200, hide:200},
+                    });
+
 </script>
 
 
