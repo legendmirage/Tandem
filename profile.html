@@ -8,7 +8,21 @@
 <title>Student Profile Page </title>
 
 <head>
-	<div> <em>placeholder for navbar</em></div>
+	<div class = "container">
+        <div id="toolbar" class ="navbar navbar-fixed-top">
+            <div class= "navbar-inner">
+                <ul class="nav nav-pills">
+                    <!-- <li class="active"><a href="home.html">Tandem</a></li> -->
+                    <li ><a href="home.html"><img src="images/logo2.png" height="30" alt="Tandem"></a></li>
+                    <li class="active"><a href="home.html">Class 1</a></li>
+                    <li id="settings"><a>Settings</a></li>
+                    <li id="inbox"><a href="message.html">Inbox</a></li>            
+                    <li id="announce"><a href="announcement.html">Announcements</a></li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
 
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
@@ -27,6 +41,7 @@
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="jqtimeline/css/jquery.jqtimeline.css" />
 	<link rel="stylesheet" type="text/css" href="css/profile.css" />
+    <link rel="stylesheet" type="text/css" href="css/nav_bar.css">
 	<script type="text/javascript" src="jqtimeline/js/jquery.jqtimeline.js"></script>
     <script>
     $(function() {
@@ -50,8 +65,20 @@
         </div>
         <div class="column-right">
             <h3>Parents / Guardians</h3>
-            <p>James Fox <a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></a><a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a></p>
-            <p>Susan Fox<a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></a><a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a></p>
+            
+            <span class="parent">James Fox </span>
+
+            <div class="icon-wrapper">    
+                <a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></a>
+                <a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a>
+            </div>
+
+            <span class="parent">Susan Fox </span>
+
+            <div class="icon-wrapper">    
+                <a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></a>
+                <a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a>
+            </div>
      
          </div>
      </div> 
@@ -61,7 +88,7 @@
 	<div id="myTimeline"></div>
 
     <div id="button-wrapper">
-        <button id="addevent" data-toggle="modal" data-target="#myModal"/>+</button>
+        <button id="addevent" data-toggle="modal" data-target="#myModal"/>Add Event</button>
     </div>
     <div class="modal fade" id="myModal">
         <div class="modal-dialog">

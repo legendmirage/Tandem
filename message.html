@@ -6,12 +6,27 @@
 <html lang="en">
 	<head>
 		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-		<div> placeholder for navbar</div>
+		<div class = "container">
+			<div id="toolbar" class ="navbar navbar-fixed-top">
+				<div class= "navbar-inner">
+						<ul class="nav nav-pills">
+							<!-- <li class="active"><a href="home.html">Tandem</a></li> -->
+							<li ><a href="home.html"><img src="images/logo2.png" height="30" alt="Tandem"></a></li>
+							<li class="active"><a href="home.html">Class 1</a></li>
+							<li id="settings"><a>Settings</a></li>
+							<li id="inbox"><a href="message.html">Inbox</a></li>			
+							<li id="announce"><a href="announcement.html">Announcements</a></li>
+							</div>
+						</ul>
+				</div>
+			</div>
+		</div>
 		<title>Tandem - Messages</title>
 
 		<!--load stylesheets & bootstrap-->
 		<link rel="stylesheet" type="text/css" href="css/common.css">
 		<link rel="stylesheet" type="text/css" href="css/message.css">
+		<link rel="stylesheet" type="text/css" href="css/nav_bar.css">
 		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 		<!-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
 
@@ -120,15 +135,16 @@
 
 
 	<body>
+		<div class='container'>
 		<div id='header-bar' class='row'>
-			<div id='page-header' class="page-header col-md-4">Messages</div>
-
+			<div id='page-header' class="page-header col-md-4"><h3>Messages Inbox</h3></div>
+			<button id='new-message-button' class='btn btn-success' data-toggle='modal' data-target='#newMessageModal'>Compose</button>
 		</div>
 
 		<div id="content-wrapper" class="container">
-			<div id='button-wrapper'>
-				<button id='new-message-button' class='btn btn-success' data-toggle='modal' data-target='#newMessageModal'>Compose</button>
-			</div>
+<!-- 			<div id='button-wrapper'>
+				
+			</div> -->
 			<div class="row">
 				<div id="students-panel" class="col-md-3">
 					<div id="all-messages-label" class="message-label btn btn-block btn-success" onclick=loadAllMessages()>All messages</div>
@@ -158,7 +174,7 @@
 					</div>
 				</div>
 			</div>
-
+		</div>
 		</div>
 
 		<div id='newMessageModal' class="modal fade">
