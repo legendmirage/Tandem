@@ -180,26 +180,25 @@
         id : 1,
         name : "Had fever",
         on : new Date(2014,2,11),
-        description: "High fever"
+        description: "Johnny's mom called him in sick today with a high fever. Potential of missing a week of school"
     },
     {
         id : 2,
         name : "Share",
-        on : new Date(2014,2,21)
+        on : new Date(2014,2,21),
+        description: "Johnny shared his snack today with Joanie during snack time."
     },
     {
         id : 3,
         name : "Fight",
-        on : new Date(2014,2,24)
+        on : new Date(2014,2,24),
+        description: "Johnny started a fight with Yinfu Craig during recess about her Yu-Gi-Oh cards. This is the second time I've seen him upset with Yinfu."
     }]
         var tl = $('#myTimeline').jqtimeline({
         events : ev,
         numYears:1,
         startYear:2014,
-        gap: 60,
-        click:function(e,event){
-            alert(event.name);
-        }
+        gap: 60
     });
 
     $("#submitform").click(function(evt) {
@@ -215,9 +214,11 @@
         console.log($("#event_"+numevents), "event");
         $("#event_"+numevents).popover({
                         trigger: 'hover',
-                        title: ename + " "+edate,
-                        content: edescription,
+                        html: true,
+                        title: "<h3>"+ename + " "+edate+"</h3>",
+                        content: '<div class="container"><p>'+edescription+'<p></div>',
                         delay: {show:200, hide:200},
+                        container: '#event_'+numevents
                     });
      });
       $("#submitform2").click(function(evt) {
@@ -233,24 +234,50 @@
         $("#guardian2").val($("#g2label").text());
       };
       //initial events need popovers too
-      $("#event_"+1).popover({
+      var createInitialEvents=function (){
+        var timelineObj = $('#myTimeline').data('jqtimeline');
+        var numevents=timelineObj.getAllEvents().length;
+        console.log("calling", numevents);
+        for (var el=0; el<numevents; el++){
+            console.log(e);
+            var e=timelineObj.getAllEvents()[el];
+            var id=e.id;
+            var ename=e.name;
+            var edescription=e.description;
+            var edate=e.on.getMonth()+"/"+e.on.getDate()+"/"+e.on.getFullYear();
+            console.log("id", id);
+            $("#event_"+id).popover({
                         trigger: 'hover',
-                        title: "Had fever",
-                        content: "High Fever",
+                        html: true,
+                        title: "<h3>"+ename + " "+edate+"</h3>",
+                        content: '<div class="container">'+edescription+'</div>',
                         delay: {show:200, hide:200},
+                        container: '#event_'+numevents
                     });
-      $("#event_"+3).popover({
-                        trigger: 'hover',
-                        title: "Fight",
-                        content: "Johnny started a fight with Yinfu Craig during recess today",
-                        delay: {show:200, hide:200},
-                    });
-      $("#event_"+2).popover({
-                        trigger: 'hover',
-                        title: "Share",
-                        content: "Johnny shared his dessert with Joanie during snack time",
-                        delay: {show:200, hide:200},
-                    });
+        }
+      };
+      createInitialEvents();
+      // $("#event_"+1).popover({
+      //                   trigger: 'hover',
+      //                   html: true,
+      //                   title: "Had fever",
+      //                   content: "High Fever",
+      //                   delay: {show:200, hide:200},
+      //               });
+      // $("#event_"+3).popover({
+      //                   trigger: 'hover',
+      //                   html: true,
+      //                   title: "Fight",
+      //                   content: "Johnny started a fight with Yinfu Craig during recess today",
+      //                   delay: {show:200, hide:200},
+      //               });
+      // $("#event_"+2).popover({
+      //                   trigger: 'hover',
+      //                   html: true,
+      //                   title: "Share",
+      //                   content: "Johnny shared his dessert with Joanie during snack time",
+      //                   delay: {show:200, hide:200},
+      //               });
 
 </script>
 
