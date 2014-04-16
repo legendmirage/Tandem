@@ -1,3 +1,9 @@
+#header-bar{
+	margin-top: 30px;
+}
+#page-header {
+	display: inline-block;
+}
 .student-label{
 	font-size: large;
 }
@@ -71,5 +77,8 @@
 	margin-right: 0;
 }
 #new-message-button{
-	margin-right: 20px;
+	/*margin-right: 20px;*/
+	float: right;
+	margin-right: 130px;
+	margin-top: 50px;
 }

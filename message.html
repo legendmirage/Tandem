@@ -135,14 +135,16 @@
 
 
 	<body>
+		<div class='container'>
 		<div id='header-bar' class='row'>
 			<div id='page-header' class="page-header col-md-4"><h3>Messages Inbox</h3></div>
+			<button id='new-message-button' class='btn btn-success' data-toggle='modal' data-target='#newMessageModal'>Compose</button>
 		</div>
 
 		<div id="content-wrapper" class="container">
-			<div id='button-wrapper'>
-				<button id='new-message-button' class='btn btn-success' data-toggle='modal' data-target='#newMessageModal'>Compose</button>
-			</div>
+<!-- 			<div id='button-wrapper'>
+				
+			</div> -->
 			<div class="row">
 				<div id="students-panel" class="col-md-3">
 					<div id="all-messages-label" class="message-label btn btn-block btn-success" onclick=loadAllMessages()>All messages</div>
@@ -172,7 +174,7 @@
 					</div>
 				</div>
 			</div>
-
+		</div>
 		</div>
 
 		<div id='newMessageModal' class="modal fade">
