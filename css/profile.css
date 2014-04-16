@@ -3,7 +3,19 @@
 	padding: 0px;
 	height: 250px;
 }
-
+#header-bar{
+	margin-top: 30px;
+	width: 100%;
+}
+#editinfo-btn{
+	float: right;
+	margin-right: 130px;
+	margin-top: 50px;
+}
+#profile-wrapper{
+	margin-left: auto;
+	margin-right: auto;
+}
 #contact{
 	border-left: thick dashed #ff0000;
 	float: right;
@@ -11,14 +23,14 @@
 #student-name{
 	margin-top: 0px;
 }
-.container{
+/*.container{
 	padding-top: 40px;
 
 	border-left:none;
 	border-right:none;
 	font-size:16px;
 
-}
+}*/
 .container div{
 	display: inline-block;
 /*border-left: 2px dotted #ccc;*/
@@ -82,20 +94,16 @@
 	float: right;
 	padding-right: 30px;
 }
-#addevent{
+/*#addevent{
 	color: white;
 	font-size: 20px;
-	/*height: 30px;
-	width: 30px;*/
 	border: 0px;
 	border-radius: 5px;
-	/*font-weight: bold;*/
 	vertical-align: center;
 	text-align: center;
-	/*padding-top: 0;*/
 	padding-left: 10px;
 	padding-right: 10px;
-}
+}*/
 
 #overlay_form{
 	position: absolute;
