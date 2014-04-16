@@ -20,7 +20,6 @@
                 </ul>
             </div>
         </div>
-        </div>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
         <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
         <script src="external_js/jquery-1.8.3.js"></script>
@@ -173,55 +172,88 @@
                 </div>
             </div>
         </div>
-        <!-- Initializing timeline with info for initial prototype -->
-        <script type="text/javascript">
-            var ev = [{
-                id : 1,
-                name : "Had fever",
-                on : new Date(2014,2,11),
-                description: "High fever"
-            },
-            {
-                id : 2,
-                name : "Share",
-                on : new Date(2014,2,21)
-            },
-            {
-                id : 3,
-                name : "Fight",
-                on : new Date(2014,2,24)
-            }]
-            var tl = $('#myTimeline').jqtimeline({
-                events : ev,
-                numYears:1,
-                startYear:2014,
-                gap: 60,
-                click:function(e,event){
-                    alert(event.name);
-                }
-            });
-            
-            $("#submitform").click(function(evt) {
-                evt.preventDefault();
-                var timelineObj = $('#myTimeline').data('jqtimeline');
-                console.log($('#eventname').val());
-            //timelineObj.method();
-            var numevents=timelineObj.getAllEvents().length;
-            var eventObj = {id:numevents, name:$('#eventname').val(), on : new Date($('#datepicker').val()), description: $("#eventdescription").val()};
-            timelineObj.addEvent(eventObj);
-            });
-            $("#submitform2").click(function(evt) {
-                $("#preferred-name").text($("#nickname").val());
-                $("#dob").text($("#datepicker2").val());
-                $("#g1label").text($("#guardian1").val());
-                $("#g2label").text($("#guardian2").val());
-            });
-            var fillinfo = function(){
-                $("#nickname").val($("#preferred-name").text());
-                $("#datepicker2").val($("#dob").text());
-                $("#guardian1").val($("#g1label").text());
-                $("#guardian2").val($("#g2label").text());
-            };
-        </script>
-    </body>
+    </div>
+
+	<!-- Initializing timeline with info for initial prototype -->
+	<script type="text/javascript">
+    var ev = [{
+        id : 1,
+        name : "Had fever",
+        on : new Date(2014,2,11),
+        description: "High fever"
+    },
+    {
+        id : 2,
+        name : "Share",
+        on : new Date(2014,2,21)
+    },
+    {
+        id : 3,
+        name : "Fight",
+        on : new Date(2014,2,24)
+    }]
+        var tl = $('#myTimeline').jqtimeline({
+        events : ev,
+        numYears:1,
+        startYear:2014,
+        gap: 60,
+        click:function(e,event){
+            alert(event.name);
+        }
+    });
+
+    $("#submitform").click(function(evt) {
+        evt.preventDefault();
+        var timelineObj = $('#myTimeline').data('jqtimeline');
+        var ename=$('#eventname').val();
+        var edescription=$("#eventdescription").val();
+        var edate=$('#datepicker').val();
+        //timelineObj.method();
+        var numevents=timelineObj.getAllEvents().length+1;
+        var eventObj = {id:numevents, name:$('#eventname').val(), on : new Date($('#datepicker').val()), description: $("#eventdescription").val()};
+        timelineObj.addEvent(eventObj);
+        console.log($("#event_"+numevents), "event");
+        $("#event_"+numevents).popover({
+                        trigger: 'hover',
+                        title: ename + " "+edate,
+                        content: edescription,
+                        delay: {show:200, hide:200},
+                    });
+     });
+      $("#submitform2").click(function(evt) {
+        $("#preferred-name").text($("#nickname").val());
+        $("#dob").text($("#datepicker2").val());
+        $("#g1label").text($("#guardian1").val());
+        $("#g2label").text($("#guardian2").val());
+    });
+      var fillinfo = function(){
+        $("#nickname").val($("#preferred-name").text());
+        $("#datepicker2").val($("#dob").text());
+        $("#guardian1").val($("#g1label").text());
+        $("#guardian2").val($("#g2label").text());
+      };
+      //initial events need popovers too
+      $("#event_"+1).popover({
+                        trigger: 'hover',
+                        title: "Had fever",
+                        content: "High Fever",
+                        delay: {show:200, hide:200},
+                    });
+      $("#event_"+3).popover({
+                        trigger: 'hover',
+                        title: "Fight",
+                        content: "Johnny started a fight with Yinfu Craig during recess today",
+                        delay: {show:200, hide:200},
+                    });
+      $("#event_"+2).popover({
+                        trigger: 'hover',
+                        title: "Share",
+                        content: "Johnny shared his dessert with Joanie during snack time",
+                        delay: {show:200, hide:200},
+                    });
+
+</script>
+
+
+</body>
 </html>
