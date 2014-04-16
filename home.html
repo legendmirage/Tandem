@@ -38,171 +38,173 @@
 
 
 	<body>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Leslie C.</div>
-		</div>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Ashley B.</div>
-		</div>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Sally H.</div>
-		</div>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Kim K.</div>
-		</div>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Linda C.</div>
-		</div>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Charles Y.</div>
-		</div>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Nike F.</div>
-		</div>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Jason M.</div>
-		</div>
-		<div id="jfox" class="desk" data-toggle="popover" data-placement="right">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Johnny F.</div>
-		</div>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Mike B.</div>
-		</div>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Jackie H.</div>
-		</div>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Sylvia Z.</div>
-		</div>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Joanie W.</div>
-		</div>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Yinfu C.</div>
-		</div>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Ben F.</div>
-		</div>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Sophie A.</div>
-		</div>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Peter H.</div>
-		</div>
-		<div class="desk student">
-			<img class="box" src="images/desk.jpg">
-			<div class="names">Tom X.</div>
+		<div id="seat-container">
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Leslie C.</div>
+			</div>
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Ashley B.</div>
+			</div>
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Sally H.</div>
+			</div>
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Kim K.</div>
+			</div>
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Linda C.</div>
+			</div>
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Charles Y.</div>
+			</div>
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Nike F.</div>
+			</div>
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Jason M.</div>
+			</div>
+			<div id="jfox" class="desk" data-toggle="popover" data-placement="right">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Johnny F.</div>
+			</div>
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Mike B.</div>
+			</div>
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Jackie H.</div>
+			</div>
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Sylvia Z.</div>
+			</div>
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Joanie W.</div>
+			</div>
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Yinfu C.</div>
+			</div>
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Ben F.</div>
+			</div>
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Sophie A.</div>
+			</div>
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Peter H.</div>
+			</div>
+			<div class="desk student">
+				<img class="box" src="images/desk.jpg">
+				<div class="names">Tom X.</div>
+			</div>
 		</div>
 
+			<script>
+				var top_offset = 150;
+				var left_offset = 200;
+				var name_top_offset = 200;
+				var name_left_offset = 200;
 
-		<script>
-			var top_offset = 150;
-			var left_offset = 200;
-			var name_top_offset = 200;
-			var name_left_offset = 200;
-
-			var desks = $(".desk");
-			desks.draggable();
-			for (i = 0; i < desks.length; i++) {
-				var desk = desks[i];
-				desk.style.position = "absolute";
-				desk.style.top = "" + top_offset + "px";
-				desk.style.left = "" + left_offset + "px";
-				left_offset = left_offset + 110;
-				if ((i+1) % 2 == 0) {
-					left_offset += 20;
-				} if ((i+1) %6 == 0) {
-					left_offset = 200;
-					top_offset += 110;
+				var desks = $(".desk");
+				desks.draggable();
+				for (i = 0; i < desks.length; i++) {
+					var desk = desks[i];
+					desk.style.position = "absolute";
+					desk.style.top = "" + top_offset + "px";
+					desk.style.left = "" + left_offset + "px";
+					left_offset = left_offset + 110;
+					if ((i+1) % 2 == 0) {
+						left_offset += 20;
+					} if ((i+1) %6 == 0) {
+						left_offset = 200;
+						top_offset += 110;
+					}
 				}
-			}
 
-			$(".student").popover({
-				trigger: 'hover',
-				title: 'Student',
-				content: 'N/A',
-				delay: {show:200, hide:200},
-			})
-			$("#jfox").popover({
-				trigger: 'hover',
-				html: true,
-				title: '<h3>Jonathon Fox (Johnny)</h3>',
-				content: '<div class="container"><img src="images/johnny_fox_prof.jpeg" alt="Johnny Fox profile image" class="prof"><div class="column-right"><h4>Parents / Guardians</h4> <span class="parent">James Fox </span> <div class="icon-wrapper"> <a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></a> <a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a> </div> <span class="parent">Susan Fox </span> <div class="icon-wrapper"> <a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></a> <a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a> </div></div></div><a class="profile-link" href="profile.html">View Profile</a>',
-				container: '#jfox',
-				delay: {show:200, hide:200},
-			}).on({ //from http://jsfiddle.net/L4Hc2/
-			    show: function (e) {
-			        var $this = $(this);
-			        
-			        // Currently hovering popover
-			        $this.data("hoveringPopover", true);
-			        
-			        // If it's still waiting to determine if it can be hovered, don't allow other handlers
-			        if ($this.data("waitingForPopoverTO")) {
-			            e.stopImmediatePropagation();
-			        }
-			    },
-			    hide: function (e) {
-			        var $this = $(this);
-			        
-			        // If timeout was reached, allow hide to occur
-			        if ($this.data("forceHidePopover")) {
-			            $this.data("forceHidePopover", false);
-			            return true;
-			        }
-			        
-			        // Prevent other `hide` handlers from executing
-			        e.stopImmediatePropagation();
-			        
-			        // Reset timeout checker
-			        clearTimeout($this.data("popoverTO"));
-			        
-			        // No longer hovering popover
-			        $this.data("hoveringPopover", false);
-			        
-			        // Flag for `show` event
-			        $this.data("waitingForPopoverTO", true);
-			        
-			        // In 1500ms, check to see if the popover is still not being hovered
-			        $this.data("popoverTO", setTimeout(function () {
-			            // If not being hovered, force the hide
-			            if (!$this.data("hoveringPopover")) {
-			                $this.data("forceHidePopover", true);
-			                $this.data("waitingForPopoverTO", false);
-			                $this.popover("hide");
-			            }
-			        }, 1500));
-			        
-			        // Stop default behavior
-			        return false;
-			    }
-			}).on({
-			    show: function () {
-			        console.log("shown");
-			    },
-			    hide: function () {
-			        console.log("hidden");
-			    }
-			});
+				$(".student").popover({
+					trigger: 'hover',
+					title: 'Student',
+					content: 'N/A',
+					delay: {show:200, hide:200},
+				})
+				$("#jfox").popover({
+					trigger: 'hover',
+					html: true,
+					title: '<h3>Jonathon Fox (Johnny)</h3>',
+					content: '<div class="container"><img src="images/johnny_fox_prof.jpeg" alt="Johnny Fox profile image" class="prof"><div class="column-right"><h4>Parents / Guardians</h4> <span class="parent">James Fox </span> <div class="icon-wrapper"> <a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></a> <a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a> </div> <span class="parent">Susan Fox </span> <div class="icon-wrapper"> <a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></a> <a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a> </div></div></div><a class="profile-link" href="profile.html">View Profile</a>',
+					container: '#jfox',
+					delay: {show:200, hide:200},
+				}).on({ //from http://jsfiddle.net/L4Hc2/
+				    show: function (e) {
+				        var $this = $(this);
+				        
+				        // Currently hovering popover
+				        $this.data("hoveringPopover", true);
+				        
+				        // If it's still waiting to determine if it can be hovered, don't allow other handlers
+				        if ($this.data("waitingForPopoverTO")) {
+				            e.stopImmediatePropagation();
+				        }
+				    },
+				    hide: function (e) {
+				        var $this = $(this);
+				        
+				        // If timeout was reached, allow hide to occur
+				        if ($this.data("forceHidePopover")) {
+				            $this.data("forceHidePopover", false);
+				            return true;
+				        }
+				        
+				        // Prevent other `hide` handlers from executing
+				        e.stopImmediatePropagation();
+				        
+				        // Reset timeout checker
+				        clearTimeout($this.data("popoverTO"));
+				        
+				        // No longer hovering popover
+				        $this.data("hoveringPopover", false);
+				        
+				        // Flag for `show` event
+				        $this.data("waitingForPopoverTO", true);
+				        
+				        // In 1500ms, check to see if the popover is still not being hovered
+				        $this.data("popoverTO", setTimeout(function () {
+				            // If not being hovered, force the hide
+				            if (!$this.data("hoveringPopover")) {
+				                $this.data("forceHidePopover", true);
+				                $this.data("waitingForPopoverTO", false);
+				                $this.popover("hide");
+				            }
+				        }, 1500));
+				        
+				        // Stop default behavior
+				        return false;
+				    }
+				}).on({
+				    show: function () {
+				        console.log("shown");
+				    },
+				    hide: function () {
+				        console.log("hidden");
+				    }
+				});
 
-		</script>
+			</script>
+
 
 	</body>
 
