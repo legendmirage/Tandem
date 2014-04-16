@@ -47,6 +47,7 @@
     $(function() {
         console.log($( "#datepicker" ));
         $( "#datepicker" ).datepicker();
+        $("#datepicker2").datepicker({changeMonth: true,changeYear: true});
     });
     </script>
 </head>
@@ -59,21 +60,20 @@
         <div class="column-center">
             <div display="inline-block"></div>
             <h1 id="student-name">Jonathon Fox</h1>
-            <span><b>Preferred Name:</b> Johnny</br><span>
-            <span><b>Date of Birth:</b> 5/20/2007</br><span>
-            <span><b>Age:</b> 6</br><span>
+            <span><b>Preferred Name:</b> <span id="preferred-name">Johnny</span></br><span>
+            <span><b>Date of Birth:</b><span id="dob"> 5/20/2007</span></br><span>
         </div>
         <div class="column-right">
             <h3>Parents / Guardians</h3>
             
-            <span class="parent">James Fox </span>
+            <span id="g1label" class="parent">James Fox </span>
 
             <div class="icon-wrapper">    
                 <a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></a>
                 <a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a>
             </div>
-
-            <span class="parent">Susan Fox </span>
+            <br>    
+            <span id="g2label" class="parent">Susan Fox </span>
 
             <div class="icon-wrapper">    
                 <a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></a>
@@ -83,6 +83,64 @@
          </div>
      </div> 
 
+<!-- Modal for editing Johnny's info -->
+     <div id="button-wrapper">
+        <button id="editinfo" data-toggle="modal" data-target="#infoModal" onclick="fillinfo();"/>Edit Info</button>
+    </div>
+    <div class="modal fade" id="infoModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="editform" class="form-horizontal">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Edit Info</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for='nickname' class='col-lg-2 control-label'>Preferred Name:</label>
+                            <div class='col-lg-10'>
+                                <input type='text' class='form-control' id='nickname' placeholder='Preferred Name'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for='datepicker2' class='col-lg-2 control-label'>Date of Birth:</label>
+                            <div class='col-lg-10'>
+                                <input type='text' class='form-control' id='datepicker2' >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for='guardian1' class='col-lg-2 control-label'>Guardian 1:</label>
+                            <div class='col-lg-10'>
+                                <input type='text' class='form-control' id='guardian1' >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for='guardian1phone' class='col-lg-2 control-label'>Guardian 1 Phone:</label>
+                            <div class='col-lg-10'>
+                                <input type='text' class='form-control' id='guardian1phone' >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for='guardian2' class='col-lg-2 control-label'>Guardian 2:</label>
+                            <div class='col-lg-10'>
+                                <input type='text' class='form-control' id='guardian2'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for='guardian2phone' class='col-lg-2 control-label'>Guardian 2 Phone:</label>
+                            <div class='col-lg-10'>
+                                <input type='text' class='form-control' id='guardian2phone' >
+                            </div>
+                        </div>
+                     </div>
+                     <div class="modal-footer">
+                        <button id="closeform2" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id="submitform2" type="submit" class="btn btn-primary" data-dismiss="modal">Update</button>
+                    </div>  
+            </form>
+            </div>
+        </div>
+    </div>
 
 	
 	<div id="myTimeline"></div>
@@ -163,24 +221,18 @@
         var eventObj = {id:numevents, name:$('#eventname').val(), on : new Date($('#datepicker').val())};
         timelineObj.addEvent(eventObj);
     });
-
-
-    // //position the popup at the center of the page
-    // function positionPopup(){
-    //     console.log("positioning");
-    //     if(!$("#overlay_form").is(':visible')){
-    //         return;
-    //     }
-    //     $("#overlay_form").css({
-    //         left: ($(window).width() - $('#overlay_form').width()) / 2,
-    //         top: ($(window).width() - $('#overlay_form').width()) / 7,
-    //         position:'absolute'
-    //     });
-    // }
-    // //close popup
-    // $("#close").click(function(){
-    //     $("#overlay_form").fadeOut(500);
-    // });
+      $("#submitform2").click(function(evt) {
+        $("#preferred-name").text($("#nickname").val());
+        $("#dob").text($("#datepicker2").val());
+        $("#g1label").text($("#guardian1").val());
+        $("#g2label").text($("#guardian2").val());
+    });
+      var fillinfo = function(){
+        $("#nickname").val($("#preferred-name").text());
+        $("#datepicker2").val($("#dob").text());
+        $("#guardian1").val($("#g1label").text());
+        $("#guardian2").val($("#g2label").text());
+      };
 </script>
 
 
