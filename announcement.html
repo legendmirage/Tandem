@@ -1,5 +1,5 @@
 <!--Announcements page
-	Main author: Yinfu
+	Main author: Yinfu, Jackie
 	Sources: W3Schools, Bootstrap documentation
 -->
 
@@ -25,9 +25,9 @@
 
 	<!--load stylesheets & bootstrap-->
 	<link rel="stylesheet" type="text/css" href="css/common.css">
-	<link rel="stylesheet" type="text/css" href="css/message.css">
+	<link rel="stylesheet" type="text/css" href="css/annoucement2.css">
 	<link rel="stylesheet" type="text/css" href="css/nav_bar.css">
-	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 
 	<!-- load necessary javascript files-->
 	<script type="text/javascript" src="external_js/jquery-1.9.0.min.js"></script>
@@ -67,12 +67,11 @@
 			var i = announcements.length;
 
 			announcements[subject] = [details, dateTime];
+				var announce_box = "<div id='announcement" + i + "'' class='panel panel-default'></div>";
+				$("#announcements-wrapper").prepend(announce_box);
 
-			var announce_box = "<div id='announcement" + i + "'' class='announcement-box'></div>";
-			$("#announcements-wrapper").prepend(announce_box);
-
-			var announce_subject = "<div row=" + i + " class='announcement-title row btn-warning btn-block row' onclick=toggleDisplay(this)><div class='col-md-8'>" + subject + "</div><div class='date-time col-md-4'>" + dateTime + "</div></div>";
-			var announce_content = "<div id='content" + i + "'' class='announcement-content'>" + details + "</div>";
+				var announce_subject = "<div row=" + i + " class='panel-heading'> <h4 class='panel-title'> <a data-toggle='collapse' data-parent='#accordion' href='#collapse"+ i +"'>" + subject + "</a></h4><div class='date-time'>" + announcements[subject][1] +"</div></div>";
+				var announce_content = "<div id='collapse" + i + "'' class='panel-collapse collapse in'> <div class='panel-body'>" + announcements[subject][0] + "</div></div>";
 
 			$("#announcement" + i).append(announce_subject);
 			$("#announcement" + i).append(announce_content);
@@ -88,11 +87,11 @@
 			var i = 0;
 			//appending each student to the student panel
 			for (var subject in announcements) {
-				var announce_box = "<div id='announcement" + i + "'' class='announcement-box'></div>";
+				var announce_box = "<div id='announcement" + i + "'' class='panel panel-default'></div>";
 				$("#announcements-wrapper").prepend(announce_box);
 
-				var announce_subject = "<div row=" + i + " class='announcement-title row btn-warning btn-block row' onclick=toggleDisplay(this)><div class='col-md-8'>" + subject + "</div><div class='date-time col-md-4'>" + announcements[subject][1] + "</div></div>";
-				var announce_content = "<div id='content" + i + "'' class='announcement-content'>" + announcements[subject][0] + "</div>";
+				var announce_subject = "<div row=" + i + " class='panel-heading'> <h4 class='panel-title'> <a data-toggle='collapse' data-parent='#accordion' href='#collapse"+ i +"'>" + subject + "</a></h4><div class='date-time'>" + announcements[subject][1] +"</div></div>";
+				var announce_content = "<div id='collapse" + i + "'' class='panel-collapse collapse in'> <div class='panel-body'>" + announcements[subject][0] + "</div></div>";
 
 				$("#announcement" + i).append(announce_subject);
 				$("#announcement" + i).append(announce_content);
@@ -121,10 +120,10 @@
 	<body>
 		<div class='container'>
 			<div id='header-bar' class='row'>
-				<div id='page-header' class="page-header col-md-4">Announcements</div>
-				<button id='new-announcement-button' class='col-md-2 btn btn-warning' data-toggle='modal' data-target='#newAnnouncementModal'>new</button>
+				<div id='page-header' class="page-header col-md-4"><h3>Announcements</h3></div>
+				<button id='new-announcement-button' class='btn btn-success' data-toggle='modal' data-target='#newAnnouncementModal'>Compose</button>
 			</div>
-			<div id="announcements-wrapper" style='width:80%; display: block; margin-left: auto; margin-right: auto;' class='row'></div>
+			<div id="announcements-wrapper" class='row'></div>
 
 		</div>
 
@@ -147,7 +146,7 @@
 							</div>
 
 							<div class='form-group'>
-								<label for='details' class='col-lg-2 control-label'>Announcement Details</label>
+								<label for='details' class='col-lg-2 control-label'>Details</label>
 								<div class='col-lg-10'>
 									<textarea id='details' class='form-control' rows='10'></textarea>
 								</div>
@@ -158,7 +157,7 @@
 
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button id='announceBTN' type="submit" class="btn btn-warning">Announce</button>
+							<button id='announceBTN' type="submit" class="btn btn-success">Announce</button>
 						</div>
 
 					</form>
