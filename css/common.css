@@ -6,3 +6,9 @@ button{
 	background: #428BCA;
 	color: white;
 }
+
+.contacticons{
+	height:30px;
+	padding: 0px 15px;
+	cursor: pointer;
+}
