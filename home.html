@@ -113,7 +113,58 @@
 			</div>
 		</div>
 
+<!-- Message modal for sending a message from parents -->
+    <div id='newMessageModal' class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id='newMessageForm' class='form-horizontal'>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">New Message</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class='form-group'>
+                                <label for='subject' class='col-lg-2 control-label'>To:</label>
+                                <div class='col-lg-10'>
+                                    <label id="contactparent"></label>
+                                </div>
+
+                            </div>
+                            <div class='form-group'>
+                                <label for='subject' class='col-lg-2 control-label'>Subject</label>
+                                <div class='col-lg-10'>
+                                    <input type='text' class='form-control' id='subject' placeholder='Enter subject'>
+                                </div>
+
+                            </div>
+
+                            <div class='form-group'>
+                                <label for='details' class='col-lg-2 control-label'>Message Details</label>
+                                <div class='col-lg-10'>
+                                    <textarea id='details' class='form-control' rows='10'></textarea>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button id='sendBTN' type="submit" class="btn btn-success">Send</button>
+                        </div>
+
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 			<script>
+				// for updating contact parent name in message
+				var contactJames = function(){
+					$('#contactparent').text('James Fox');
+				};
+				var contactSusan = function(){
+					$('#contactparent').text('Susan Fox');
+				};
 				var top_offset = 150;
 				var left_offset = 200;
 				var name_top_offset = 200;
@@ -145,7 +196,7 @@
 					trigger: 'hover',
 					html: true,
 					title: '<h3>Jonathon Fox (Johnny)</h3>',
-					content: '<div class="container"><img src="images/johnny_fox_prof.jpeg" alt="Johnny Fox profile image" class="prof"><div class="column-right"><h4>Parents / Guardians</h4> <div><span class="parent">James Fox </span> <div class="icon-wrapper"> <a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></a> <a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a> </div></div><br/><div> <span class="parent">Susan Fox </span> <div class="icon-wrapper"> <a href="message.html"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></a> <a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a> </div></div></div></div><a class="profile-link" href="profile.html">View Profile</a>',
+					content: '<div class="container"><img src="images/johnny_fox_prof.jpeg" alt="Johnny Fox profile image" class="prof"><div class="column-right"><h4>Parents / Guardians</h4> <div><span class="parent">James Fox </span> <div class="icon-wrapper"> <div id="jfoxclick" onclick="contactJames();" data-toggle="modal" data-target="#newMessageModal"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></div> <a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a> </div></div><br/><div> <span class="parent">Susan Fox </span> <div class="icon-wrapper"> <div id="sfoxclick" onclick="contactSusan();" data-toggle="modal" data-target="#newMessageModal"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></div> <a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a> </div></div></div></div><a class="profile-link" href="profile.html">View Profile</a>',
 					container: '#jfox',
 					delay: {show:200, hide:200},
 				}).on({ //from http://jsfiddle.net/L4Hc2/
