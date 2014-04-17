@@ -94,7 +94,7 @@
 		var retStr = "";
 		//num=num+8
 		if(num == 4){
-			console.log("year");
+			
 			retStr='<div class="horizontal-line leftend" style="left:'+_this._current_offset_x+'px">' + 
 						'<div class="year">'+year+'</div>' + 
 						'<div class="month">Jan</div>' + 
