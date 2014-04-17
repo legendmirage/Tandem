@@ -43,14 +43,31 @@
 							"Hans, Peter", "He, Sally", "Hung, Jackie", "Kardashian, Kim", "Moon, Jason",
 							"Weaver, Joanie", "Xavier, Tom", "Yoon, Charles", "Zakarian, Sylvia"];
 
-			var messages = {"message1":'4/1 12:00', "message2":'4/2 12:00', "message3":'4/5 12:44', "message4":'4/7 15:49', "message5":'4/11 9:30', "message6":'4/12 11:32'};
+			var msg1 = "Hi, </br> My kid seems to had a fight with another kid in the class.  He came back with a lot of bruises and he wouldn't tell me what exactly happened. Could you please explain what happened at school today? My son is very shy and introvert and I don't believe that he will start a fight with another kid with not proper reason. Please also include the parents of the other kid if necessary. </br>Thank you.";
+			
+			var msg2 = "Hi Ms. Smith, </br> Ben is sick with a fever and cannot attend school today. Please send me any assignments. Thanks.";
+
+			var msg3 = "Hello, </br> Yinfu has a doctor's appointment today and will be late to school.";
+
+
+			var messages = {"Johnny's Fight":['4/1 12:00', msg1], "Ben Sick":['4/2 12:00', msg2], "Yinfu Absent":['4/5 12:44', msg3]};
+
+			var messageMap = {};
 
 			var hilightStudent = function(elem) {
 				$(".student-label").removeClass("btn-success");
 				$(elem).addClass("btn-success");
 
-				//fake interaction, leave one message left when a student selected
-				$("#messages-panel").empty().append("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>message1</div><div class='col-md-4'>4/1 12:00</div>");
+				$("#messages-panel").empty();
+
+				//only render msg if exists for student
+				var stud = $(elem).text();
+				if (stud in messageMap) {
+					var len = messageMap[stud].length -1;
+					for (var i=len; i > -1; i--) {
+						$("#messages-panel").append("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>" + messageMap[stud][i][0] + "</div><div class='col-md-4'>" + messageMap[stud][i][1] + "</div>");
+					}
+				}
 
 				$(".message-label").removeClass("btn-success");
 				$("#message-detail").hide();
@@ -59,12 +76,15 @@
 			var hilightMessage = function(elem) {
 				$(".message-label").removeClass("btn-success");
 				$(elem).addClass("btn-success");
+				$("#actual-msg").html(messages[$(elem.firstChild).text()][1]);
+				$("#message-header").html($(elem.firstChild).text());
 				$("#message-detail").show()
 			}
 
 			var loadAllMessages = function() {
+				$("#messages-panel").empty();
 				for (var msg in messages) {
-					$("#messages-panel").prepend("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>" + msg + "</div><div class='col-md-4'>" + messages[msg] + "</div>");
+					$("#messages-panel").prepend("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>" + msg + "</div><div class='col-md-4'>" + messages[msg][0] + "</div>");
 				};
 				$(".student-label").removeClass("btn-success");
 				$(".message-label").removeClass("btn-success");
@@ -87,9 +107,11 @@
 			var newMessage = function() {
 				var subject = $('#subject').val();
 				var details = $('#details').val();
+				var recipient = $('#recipient').val();
 				var d = new Date();
 				var dateTime = convertDate(d);
-				messages[subject] = details;
+				messages[subject] = [dateTime, details];
+				messageMap[recipient].push([subject, dateTime, details]);
 				$("#messages-panel").prepend("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>" + subject + "</div><div class='col-md-4'>" + dateTime + "</div>");
 
 			}
@@ -99,9 +121,12 @@
 				for (var i=0; i<students.length; i++) {
 					var student = "<div class='student-label btn btn-block' onclick=hilightStudent(this)>" + students[i] + "</div>";
 					$("#students-panel").append(student);
-					//$("#" + i).toggle("highlight");
-					//student.toggle("highlight");
+
 				};
+
+				messageMap['Fox, Johnny'] = [["Johnny's Fight", '4/1 12:00', msg1]];
+				messageMap["Faust, Ben"] = [["Ben Sick", '4/2 12:00', msg2]];
+				messageMap["Craig, Yinfu"] = [["Yinfu Absent",'4/5 12:44', msg3]];
 
 				loadAllMessages();
 
@@ -151,16 +176,11 @@
 				</div>
 
 				<div id="message-detail" class="col-md-6">
-					<div id="message-header">Johnny's Fight</div>
+					<div id="message-header"></div>
 					<div id='message-data'>
 						<div class='row'>
 							<div class='col-md-2'>Parent:</div>
-							<div class="col-md-10">Hi, </br>My kid seems to had a fight with another kid in the class.
-							he came back with a lot of bruises and he wouldn't tell me what exactly happened. Could
-							you please explain what happened at school today? My son is very shy and introvert and I don't believe that he will start a fight with another kid with not proper reason. Please also include the parents of the other kid if necessary. </br> Thank you.
-
-
-						</div>
+							<div id='actual-msg' class="col-md-10"></div>
 						</div>
 					</div>
 
@@ -183,6 +203,13 @@
 							<h4 class="modal-title">New Message</h4>
 						</div>
 						<div class="modal-body">
+
+							<div class='form-group'>
+								<label for='recipient' class='col-lg-2 control-label'>To: </label>
+								<div class='col-lg-10'>
+									<input type='text' class='form-control' id='recipient' placeholder='Enter student name'>
+								</div>
+							</div>
 
 							<div class='form-group'>
 								<label for='subject' class='col-lg-2 control-label'>Subject</label>
