@@ -5,6 +5,7 @@ $(document).ready(function () {
         "Weaver, Joanie", "Xavier, Tom", "Yoon, Charles", "Zakarian, Sylvia"
     ];
 
+//list of students
     // var studentList = document.getElementById("student-list");
 
     // for (var i = 0; i < students.length; i++) {
@@ -33,13 +34,24 @@ $(document).ready(function () {
 */
     //search
     var availableTags = students;
-    
+    var src = []
+    for(var i = 0; i < students.length; i++) {
+        var s = {};
+        s['value'] = students[i];
+        s['label'] = students[i];
+        s['link'] = "profile.html";
+        src.push(s);
+    }
+
     $( "#tags" ).autocomplete({
-      source: availableTags,
+      source: src,
       messages: {
         noResults: '',
         results: function() {}
-    }
+        },
+      select: function( event, ui ) { 
+        window.location.href = ui.item.link;
+        }
     });
 
 });
