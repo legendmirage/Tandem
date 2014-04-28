@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--Messages page
-	Main author: Sylvia
+	Main author: Sylvia, Jackie
 -->
 
 <html lang="en">
@@ -28,16 +28,18 @@
 		<link rel="stylesheet" type="text/css" href="css/home.css">
 		<link rel="stylesheet" type="text/css" href="css/nav_bar.css">
 		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-
+		<link type="text/css" href="css/ui-lightness/jquery-ui-1.10.4.custom.css" rel="stylesheet" />
 		<!-- load necessary javascript files-->
 		<script type="text/javascript" src="external_js/jquery-1.9.0.min.js"></script>
         <script type="text/javascript" src="external_js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-			
+        <script type="text/javascript" src="js/home.js"></script>
+		
 	</head>
 
 
 	<body>
+	<div class="container">
 		<div id="seat-container">
 			<div class="desk student">
 				<img class="box" src="images/desk.jpg">
@@ -112,6 +114,14 @@
 				<div class="names">Tom X.</div>
 			</div>
 		</div>
+		<div id="list-container">
+			<h3>Student Search:</h3>
+			<form>
+				<input id="tags"/>
+			</form>
+		</div>
+	</div>
+
 
 <!-- Message modal for sending a message from parents -->
     <div id='newMessageModal' class="modal fade">
