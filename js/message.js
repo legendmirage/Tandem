@@ -16,7 +16,8 @@ var msg4 = "Hello, </br> Sophie had a fever so she can't attend school today.";
 var messages = {
     "Johnny's Fight": ['4/1 12:00', msg1],
     "Ben Sick": ['4/2 12:00', msg2],
-    "Yinfu Absent": ['4/5 12:44', msg3]
+    "Yinfu Absent": ['4/5 12:44', msg3],
+    "Sophie Fever": ['4/6 12:44', msg4]
 };
 
 var messageMap = {};
@@ -45,8 +46,9 @@ var hilightStudent = function (elem) {
 var hilightMessage = function (elem) {
     $(".message-label").removeClass("btn-success");
     $(elem).addClass("btn-success");
-    $("#actual-msg").html(messages[$(elem.firstChild).text()][1]);
-    $("#message-header").html($(elem.firstChild).text());
+    var stud = $(elem.firstChild).text();
+    $("#actual-msg").html(messages[stud][1]);
+    $("#message-header").html(stud);
     $("#message-detail").show()
 }
 

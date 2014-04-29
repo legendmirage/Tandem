@@ -18,6 +18,7 @@
 }
 .message-label{
 	font-size: large;
+	margin-left: 3px !important;
 }
 #students-panel{
 	margin-top: 0;
