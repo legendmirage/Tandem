@@ -6,7 +6,9 @@ button{
 	background: #428BCA;
 	color: white;
 }
-
+.hidden{
+	display: none;
+}
 .contacticons{
 	height:30px;
 	padding: 0px 15px;

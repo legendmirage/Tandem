@@ -17,7 +17,8 @@ var messages = {
     "Johnny's Fight": ['4/1 12:00', msg1],
     "Ben Sick": ['4/2 12:00', msg2],
     "Yinfu Absent": ['4/5 12:44', msg3],
-    "Sophie Fever": ['4/6 12:44', msg4]
+    "Sophie Fever": ['4/6 12:44', msg4],
+    "Johnny sick":['4/2 1:10', msg2]
 };
 
 var messageMap = {};
@@ -40,26 +41,40 @@ var hilightStudent = function (elem) {
     }
 
     $(".message-label").removeClass("btn-success");
-    $("#message-detail").hide();
+    $("#message-detail").fadeOut();
 }
 
 var hilightMessage = function (elem) {
     $(".message-label").removeClass("btn-success");
     $(elem).addClass("btn-success");
-    var stud = $(elem.firstChild).text();
-    $("#actual-msg").html(messages[stud][1]);
-    $("#message-header").html(stud);
-    $("#message-detail").show()
+    var subject = $(elem.firstChild).text();
+    var stud_name = elem.getElementsByTagName('span')[0].innerHTML;
+    
+    
+    console.log(stud_name);
+    document.getElementById("student-name").innerHTML = "x";
+    $("#actual-msg").html(messages[subject][1]);
+    $("#message-header").html(subject);
+    $("#message-detail").fadeIn()
 }
 
 var loadAllMessages = function () {
     $("#messages-panel").empty();
-    for (var msg in messages) {
-        $("#messages-panel").prepend("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>" + msg + "</div><div class='col-md-4'>" + messages[msg][0] + "</div>");
-    };
+    for (var key in messageMap) {
+        var ms = messageMap[key];
+        for(var i=0;i<ms.length;i++){
+            var m = ms[i];
+                $("#messages-panel").prepend("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>" +
+                m[0] + "</div><div class='col-md-4'>" + m[1] + "<span id='student-name' class='hidden'>"+key+"</span></div>");
+
+       }
+            };
+    // for (var msg in message) {
+    //     $("#messages-panel").prepend("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>" + msg + "</div><div class='col-md-4'>" + messages[msg][0] + "</div>");
+    // };
     $(".student-label").removeClass("btn-success");
     $(".message-label").removeClass("btn-success");
-    $("#message-detail").hide();
+    $("#message-detail").fadeOut();
     $("#all-messages-label").addClass("btn-success");
 }
 
@@ -125,7 +140,7 @@ $(document).ready(function () {
 
 
     //initialize messages panel and message details to be hidden
-    $("#message-detail").hide();
+    $("#message-detail").fadeOut();
 
     $('#sendBTN').click(function (e) {
         e.preventDefault();
