@@ -32,7 +32,7 @@ var hilightStudent = function (elem) {
     var stud = $(elem).text();
     stud = stud.replace(/[0-9]/g, '');
     if (stud in messageMap) {
-        
+
         var len = messageMap[stud].length - 1;
         for (var i = len; i > -1; i--) {
             $("#messages-panel").append("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>" + messageMap[stud][i][0] + "</div><div class='col-md-4'>" + messageMap[stud][i][1] + "</div>");
@@ -75,6 +75,7 @@ var convertDate = function (d) {
     return dateTime;
 }
 
+
 var newMessage = function () {
     var subject = $('#subject').val();
     var details = $('#details').val();
@@ -82,14 +83,20 @@ var newMessage = function () {
     var d = new Date();
     var dateTime = convertDate(d);
     messages[subject] = [dateTime, details];
-    messageMap[recipient].push([subject, dateTime, details]);
+    console.log(recipient);
+    if (typeof messageMap[recipient] != 'undefined'){
+        messageMap[recipient].push([subject, dateTime, details]);
+    }else{
+        messageMap[recipient] = [[subject, dateTime, details]];
+    }
+    
     $("#messages-panel").prepend("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>" + subject + "</div><div class='col-md-4'>" + dateTime + "</div>");
 
 }
 
 $(document).ready(function () {
     messageMap['Fox, Johnny'] = [
-        ["Johnny's Fight", '4/1 12:00', msg1, 0],//0 = read
+        ["Johnny's Fight", '4/1 12:00', msg1, 0], //0 = read
         ["Johnny sick", '4/2 1:10', msg2, 0]
     ];
     messageMap["Faust, Ben"] = [
@@ -104,11 +111,11 @@ $(document).ready(function () {
 
     //appending each student to the student panel
     for (var i = 0; i < students.length; i++) {
-        if(messageMap[students[i]] != null){
+        if (messageMap[students[i]] != null) {
 
-            var student = "<div class='student-label btn btn-block' onclick=hilightStudent(this)>" + students[i] + "<span class='badge pull-right'>"+messageMap[students[i]].length+"</span></div>";
-        }else{
-            var student = "<div class='student-label btn btn-block' onclick=hilightStudent(this)>" + students[i] +"</div>";
+            var student = "<div class='student-label btn btn-block' onclick=hilightStudent(this)>" + students[i] + "<span class='badge pull-right'>" + messageMap[students[i]].length + "</span></div>";
+        } else {
+            var student = "<div class='student-label btn btn-block' onclick=hilightStudent(this)>" + students[i] + "</div>";
         }
         $("#students-panel").append(student);
 
@@ -134,4 +141,13 @@ $(document).ready(function () {
 
     });
 
+    var select = document.getElementById("recipient");
+    for (var i = 0; i < students.length; i++) {
+        var opt = students[i];
+        var el = document.createElement("option");
+        el.textContent = opt;
+        el.value = opt;
+        select.appendChild(el);
+    }
+    $("#recipient").select2();
 });

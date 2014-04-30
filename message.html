@@ -28,6 +28,8 @@
 		<link rel="stylesheet" type="text/css" href="css/message.css">
 		<link rel="stylesheet" type="text/css" href="css/nav_bar.css">
 		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="external_js/select2-3.4.6/select2.css">
+		
 		<!-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
 
 		<!-- load necessary javascript files-->
@@ -35,6 +37,7 @@
         <script type="text/javascript" src="external_js/jquery-ui.min.js"></script>
 		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/message.js"></script>
+		<script type="text/javascript" src="external_js/select2-3.4.6/select2.js"></script>
 
 	</head>
 
@@ -83,12 +86,15 @@
 							<h4 class="modal-title">New Message</h4>
 						</div>
 						<div class="modal-body">
-
 							<div class='form-group'>
 								<label for='recipient' class='col-lg-2 control-label'>To: </label>
 								<div class='col-lg-10'>
-									<input type='text' class='form-control' id='recipient' placeholder='Enter student name'>
+									<!-- <input type='text' class='form-control' id='recipient' placeholder='Parents of...'> -->
+									<span>Parents of  </span>
+									<select id="recipient">
+   									</select>
 								</div>
+								
 							</div>
 
 							<div class='form-group'>
@@ -118,10 +124,6 @@
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
-
-
-
-
 	</body>
 
 </html>
