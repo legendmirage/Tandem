@@ -5,21 +5,18 @@ var students = ["Adams, Sophie", "Baker, Mike", "Brown, Ashley", "Clark, Leslie"
 ];
 
 var msg1 = "Hi, </br> My kid seems to had a fight with another kid in the class.  He came back with a lot of bruises and he wouldn't tell me what exactly happened. Could you please explain what happened at school today? My son is very shy and introvert and I don't believe that he will start a fight with another kid with not proper reason. Please also include the parents of the other kid if necessary. </br>Thank you.";
-
 var msg2 = "Hi Ms. Smith, </br> My son is sick with a fever and cannot attend school today. Please send me any assignments. Thanks.";
-
 var msg3 = "Hello, </br> Yinfu has a doctor's appointment today and will be late to school.";
-
 var msg4 = "Hello, </br> Sophie had a fever so she can't attend school today.";
 
-
-var messages = {
-    "Johnny's Fight": ['4/1 12:00', msg1],
-    "Ben Sick": ['4/2 12:00', msg2],
-    "Yinfu Absent": ['4/5 12:44', msg3],
-    "Sophie Fever": ['4/6 12:44', msg4],
-    "Johnny sick":['4/2 1:10', msg2]
-};
+function Message(student, subject, time, content, isRead, receive){
+    this.student = student;
+    this.subject = subject;
+    this.time = time;
+    this.content = content;
+    this.isRead = isRead;
+    this.receive = receive;
+}
 
 var messageMap = {};
 
@@ -33,10 +30,18 @@ var hilightStudent = function (elem) {
     var stud = $(elem).text();
     stud = stud.replace(/[0-9]/g, '');
     if (stud in messageMap) {
-
         var len = messageMap[stud].length - 1;
         for (var i = len; i > -1; i--) {
-            $("#messages-panel").append("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>" + messageMap[stud][i][0] + "</div><div class='col-md-4'>" + messageMap[stud][i][1] + "</div>");
+            var m = messageMap[stud][i];
+            var item = document.createElement("div");
+            item.innerHTML = "<div class='col-md-6'>"
+                + m.subject + "</div><div class='col-md-4'>" + m.time;
+            $(item).addClass("message-label btn btn-block row");
+            $(item).data("mes", m);
+            item.onclick=function(){
+                hilightMessage(this, $(this).data("mes"));
+            }
+            $("#messages-panel").prepend(item);
         }
     }
 
@@ -44,34 +49,35 @@ var hilightStudent = function (elem) {
     $("#message-detail").fadeOut();
 }
 
-var hilightMessage = function (elem) {
+var hilightMessage = function (elem, m) {
     $(".message-label").removeClass("btn-success");
     $(elem).addClass("btn-success");
-    var subject = $(elem.firstChild).text();
-    var stud_name = elem.getElementsByTagName('span')[0].innerHTML;
-    
-    
-    console.log(stud_name);
-    document.getElementById("student-name").innerHTML = "x";
-    $("#actual-msg").html(messages[subject][1]);
-    $("#message-header").html(subject);
+    document.getElementById("student-name").innerHTML = m.student;
+    $("#actual-msg").html(m.content);
+    $("#message-header").html(m.subject);
     $("#message-detail").fadeIn()
 }
 
 var loadAllMessages = function () {
     $("#messages-panel").empty();
+
     for (var key in messageMap) {
         var ms = messageMap[key];
         for(var i=0;i<ms.length;i++){
             var m = ms[i];
-                $("#messages-panel").prepend("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>" +
-                m[0] + "</div><div class='col-md-4'>" + m[1] + "<span id='student-name' class='hidden'>"+key+"</span></div>");
+            var item = document.createElement("div");
+            item.innerHTML = "<div class='col-md-6'>"
+                + m.subject + "</div><div class='col-md-4'>" + m.time;
+            $(item).addClass("message-label btn btn-block row");
+            $(item).data("mes", m);
+            item.onclick=function(){
+                hilightMessage(this, $(this).data("mes"));
+            }
+            $("#messages-panel").prepend(item);
 
        }
-            };
-    // for (var msg in message) {
-    //     $("#messages-panel").prepend("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>" + msg + "</div><div class='col-md-4'>" + messages[msg][0] + "</div>");
-    // };
+    }
+
     $(".student-label").removeClass("btn-success");
     $(".message-label").removeClass("btn-success");
     $("#message-detail").fadeOut();
@@ -97,37 +103,42 @@ var newMessage = function () {
     var recipient = $('#recipient').val();
     var d = new Date();
     var dateTime = convertDate(d);
-    messages[subject] = [dateTime, details];
-    console.log(recipient);
-    if (typeof messageMap[recipient] != 'undefined'){
-        messageMap[recipient].push([subject, dateTime, details]);
-    }else{
-        messageMap[recipient] = [[subject, dateTime, details]];
-    }
-    
-    $("#messages-panel").prepend("<div class='message-label btn btn-block row' onclick=hilightMessage(this)><div class='col-md-6'>" + subject + "</div><div class='col-md-4'>" + dateTime + "</div>");
 
+    if (typeof messageMap[recipient] == 'undefined'){
+        messageMap[recipient] = [];
+    }
+    var m = new Message(recipient, subject, dateTime, details, true, false);
+    messageMap[recipient].push(m);
+    var item = document.createElement("div");
+    item.innerHTML = "<div class='col-md-6'>"
+        + m.subject + "</div><div class='col-md-4'>" + m.time;
+    $(item).addClass("message-label btn btn-block row");
+    $(item).data("mes", m);
+    item.onclick=function(){
+        hilightMessage(this, $(this).data("mes"));
+    }
+    $("#messages-panel").prepend(item);
 }
 
 $(document).ready(function () {
     messageMap['Fox, Johnny'] = [
-        ["Johnny's Fight", '4/1 12:00', msg1, 0], //0 = read
-        ["Johnny sick", '4/2 1:10', msg2, 0]
+        new Message("Fox, Johnny", "Johnny's Fight", '4/1 12:00', msg1, true, true),
+        new Message("Fox, Johnny", "Johnny sick", '4/2 1:10', msg2, true, true)
     ];
     messageMap["Faust, Ben"] = [
-        ["Ben Sick", '4/2 12:00', msg2, 1]
+        new Message("Faust, Ben", "Ben Sick", '4/2 12:00', msg2, false, true)
     ];
     messageMap["Craig, Yinfu"] = [
-        ["Yinfu Absent", '4/5 12:44', msg3, 0]
+        new Message("Craig, Yinfu", "Yinfu Absent", '4/5 12:44', msg3, true, true)
     ];
     messageMap["Adams, Sophie"] = [
-        ["Sophie Fever", '4/12 2:14', msg4, 0]
+        new Message("Adams, Sophie", "Sophie Fever", '4/12 2:14', msg4, true, true)
     ];
 
     //appending each student to the student panel
     for (var i = 0; i < students.length; i++) {
-        if (messageMap[students[i]] != null) {
-
+        if (typeof messageMap[students[i]] == undefined) {
+            //no message
             var student = "<div class='student-label btn btn-block' onclick=hilightStudent(this)>" + students[i] + "<span class='badge pull-right'>" + messageMap[students[i]].length + "</span></div>";
         } else {
             var student = "<div class='student-label btn btn-block' onclick=hilightStudent(this)>" + students[i] + "</div>";
@@ -156,6 +167,7 @@ $(document).ready(function () {
 
     });
 
+    //modal recipeints select dropdown
     var select = document.getElementById("recipient");
     for (var i = 0; i < students.length; i++) {
         var opt = students[i];
