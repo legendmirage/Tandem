@@ -17,6 +17,14 @@
 	text-align:center;
 }
 
+#drag-mode-label {
+	text-decoration: underline;
+	color: #444;
+	font-weight: normal;
+	cursor: pointer;
+}
+div.ui-state-disabled.ui-draggable-disabled
+{opacity: 1;}
 .box {
 	/*width:100px;
 	height:100px;*/

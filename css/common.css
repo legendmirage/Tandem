@@ -17,6 +17,7 @@ button{
 .tooltip {
     z-index:2147483647 !important;
 }
+
 .ui-autocomplete {
   position: absolute;
   top: 100%;
