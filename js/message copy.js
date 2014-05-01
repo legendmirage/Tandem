@@ -55,19 +55,13 @@ var hilightStudent = function (elem) {
 }
 
 var hilightMessage = function (elem, m) {
-    if (m.isRead==false){
-        studentMap[m.student].numOfUnread -= 1;
-        m.isRead = true;
-        updateBadge(m.student);
-    }
-    
+    m.isRead = true;
     $(".message-label").removeClass("btn-success");
     $(elem).addClass("btn-success");
     document.getElementById("student-name").innerHTML = m.student;
     $("#actual-msg").html(m.content);
     $("#message-header").html(m.subject);
     $("#message-detail").fadeIn()
-
 }
 
 var loadAllMessages = function () {
@@ -113,15 +107,6 @@ var convertDate = function (d) {
     return dateTime;
 }
 
-var updateBadge = function (name){
-    var id = "#student-"+studentNames.indexOf(name);
-    var num = studentMap[name].numOfUnread;
-    if(num == 0){
-        $(id).html(name);
-    }else{
-        $(id).html(name + "<span id='badge' class='badge pull-right'>" + num + "</span>");
-    }
-}   
 
 var newMessage = function () {
     var subject = $('#subject').val();
@@ -147,9 +132,8 @@ var newMessage = function () {
 }
 
 $(document).ready(function () {
-    $("#message-detail").hide();
     messageMap['Fox, Johnny'] = [
-        new Message("Fox, Johnny", "Johnny's Fight", '4/1 12:00', msg1, false, true),
+        new Message("Fox, Johnny", "Johnny's Fight", '4/1 12:00', msg1, true, true),
         new Message("Fox, Johnny", "Johnny sick", '4/2 1:10', msg2, false, true)
     ];
     messageMap["Faust, Ben"] = [
@@ -167,14 +151,14 @@ $(document).ready(function () {
     for (var i = 0; i < studentNames.length; i++) {
         if(studentNames[i] in studentMap){
             if (studentMap[studentNames[i]].numOfUnread>0){
-                var student = "<div id='student-"+i+"' class='student-label btn btn-block' onclick=hilightStudent(this)>" + studentNames[i] + "<span id='badge' class='badge pull-right'>" + studentMap[studentNames[i]].numOfUnread + "</span></div>";
+                var student = "<div class='student-label btn btn-block' onclick=hilightStudent(this)>" + studentNames[i] + "<span id='badge' class='badge pull-right'>" + studentMap[studentNames[i]].numOfUnread + "</span></div>";
 
             }
         } else {
-            var student = "<div id='student-"+i+"' class='student-label btn btn-block' onclick=hilightStudent(this)>" + studentNames[i] + "</div>";
+            console.log(0)
+            var student = "<div class='student-label btn btn-block' onclick=hilightStudent(this)>" + studentNames[i] + "</div>";
         }
-        
-        $("#students-panel").append(student);
+        $("#student-panel").append(student);
     };
 
     //initialize messages panel and message details to be hidden
@@ -189,9 +173,7 @@ $(document).ready(function () {
 
     $('#sendResponse').click(function (e) {
         e.preventDefault();
-        $('#message-data').hide();
-        $('#message-data').append("<div style='background:#DDDDDD' class='row'><div class='col-md-2'><b>Me:</b></div><div class='col-md-10'>" + $('#responseText').val() + "</div></div></div>");
-        $('#message-data').fadeIn();
+        $('#message-data').append("<div class='row'><div class='col-md-2'>Me:</div><div class='col-md-10'>" + $('#responseText').val() + "</div></div></div>");
         $('#responseText').val('');
 
     });
