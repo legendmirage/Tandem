@@ -6,6 +6,9 @@ button{
 	background: #428BCA;
 	color: white;
 }
+#header-bar{
+  margin-top: 30px;
+}
 .hidden{
 	display: none;
 }
