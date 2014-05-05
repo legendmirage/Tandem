@@ -83,6 +83,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = '/static/'
 
-TEMPLATE_DIRS = ('C:/Users/Akhil/sylvia/Tandem/Tandem/templates,')
+#STATIC_ROOT = '/home/yinfu/Desktop/Tandem/Tandem/Tandem/static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+    '/home/yinfu/Desktop/Tandem/Tandem/Tandem/static/',
+)
+
+#TEMPLATE_DIRS = ('C:/Users/Akhil/sylvia/Tandem/Tandem/templates,') #Sylvia's path
+TEMPLATE_DIRS = ('/home/yinfu/Desktop/Tandem/Tandem/Tandem')  #Yinfu's path

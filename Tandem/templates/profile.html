@@ -11,7 +11,7 @@
                 <div class= "navbar-inner">
                     <ul class="nav nav-pills">
                         <!-- <li class="active"><a href="home.html">Tandem</a></li> -->
-                        <li ><a href="home.html"><img src="images/logo2.png" height="30" alt="Tandem"></a></li>
+                        <li ><a href="home.html"><img src="/static/images/logo2.png" height="30" alt="Tandem"></a></li>
                         <li class="active"><a href="home.html">Class 1</a></li>
                         <li id="settings"><a>Settings</a></li>
                         <li id="inbox"><a href="message.html">Inbox</a></li>
@@ -22,19 +22,19 @@
         </div>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
         <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="external_js/jquery-1.8.3.js"></script>
-        <script src="external_js/jquery-1.9.0.min.js"></script>
-        <script src="external_js/jquery.ui.datepicker.js"></script>
-        <script src="external_js/jquery.ui.widget.js"></script>
-        <script src="external_js/jquery.ui.core.js"></script>
-        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="css/common.css">
-        <script src="bootstrap/js/bootstrap.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="jqtimeline/css/jquery.jqtimeline.css" />
-        <link rel="stylesheet" type="text/css" href="css/profile.css" />
-        <link rel="stylesheet" type="text/css" href="css/nav_bar.css">
-        <script type="text/javascript" src="jqtimeline/js/jquery.jqtimeline.js"></script>
+        <script src="/static/external_js/jquery-1.8.3.js"></script>
+        <script src="/static/external_js/jquery-1.9.0.min.js"></script>
+        <script src="/static/external_js/jquery.ui.datepicker.js"></script>
+        <script src="/static/external_js/jquery.ui.widget.js"></script>
+        <script src="/static/external_js/jquery.ui.core.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+        <script src="/static/bootstrap/js/bootstrap.js"></script>
+        <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/jqtimeline/css/jquery.jqtimeline.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/profile.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css">
+        <script type="text/javascript" src="/static/jqtimeline/js/jquery.jqtimeline.js"></script>
         <script>
             $(function() {
                 console.log($( "#datepicker" ));
@@ -54,7 +54,7 @@
             </div>
             <div id="profile-wrapper" class="container">
                 <div class="column-left">
-                    <img src="images/johnny_fox_prof.jpeg" alt="Johnny Fox profile image" class="prof">
+                    <img src="/static/images/johnny_fox_prof.jpeg" alt="Johnny Fox profile image" class="prof">
                 </div>
                 <div class="column-center">
                     <div display="inline-block"></div>
@@ -66,14 +66,14 @@
                     <h3>Parents / Guardians</h3>
                     <span id="g1label" class="parent">James Fox </span>
                     <div class="icon-wrapper">    
-                        <div id="jfoxclick" onclick="$('#contactparent').text('James Fox');" data-toggle="modal" data-target="#newMessageModal"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></div>
-                        <a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a>
+                        <div id="jfoxclick" onclick="$('#contactparent').text('James Fox');" data-toggle="modal" data-target="#newMessageModal"><img src="/static/images/mailicon.png" alt="Send a message" class="contacticons"></div>
+                        <a href=""><img src="/static/images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a>
                     </div>
                     <br>    
                     <span id="g2label" class="parent">Susan Fox </span>
                     <div class="icon-wrapper">    
-                       <div id="sfoxclick" onclick="$('#contactparent').text('Susan Fox');" data-toggle="modal" data-target="#newMessageModal"><img src="images/mailicon.png" alt="Send a message" class="contacticons"></div>
-                        <a href=""><img src="images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a>
+                       <div id="sfoxclick" onclick="$('#contactparent').text('Susan Fox');" data-toggle="modal" data-target="#newMessageModal"><img src="/static/images/mailicon.png" alt="Send a message" class="contacticons"></div>
+                        <a href=""><img src="/static/images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a>
                     </div>
                 </div>
             </div>
@@ -308,7 +308,7 @@
         //TODO update parent & guardian info!!!
         $("#g1label").text($("#guardian1").val());
         $("#g2label").text($("#guardian2").val());
-      }
+      });
       var fillinfo = function(){
         $("#nickname").val($("#preferred-name").text());
         $("#datepicker2").val($("#dob").text());
