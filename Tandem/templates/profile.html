@@ -31,7 +31,6 @@
         <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/static/css/common.css">
 
-        <link rel="stylesheet" type="text/css" href="/static/css/ui-lightness/jquery-ui-1.10.4.custom.css">
         <script src="/static/bootstrap/js/bootstrap.js"></script>
         <script src="/static/bootstrap/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/jqtimeline/css/jquery.jqtimeline.css" />
@@ -107,6 +106,12 @@
                                 <label for='datepicker' class='col-lg-2 control-label'>Date:</label>
                                 <div class='col-lg-10'>
                                     <input type='text' class='form-control' id='datepicker' >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for='eventstatus' class='col-lg-2 control-label'>Status:</label>
+                                <div class='col-lg-10'>
+                                    <input type='checkbox' id='eventstatus' value="Flag" >   Needs Attention</input>
                                 </div>
                             </div>
                         </div>
@@ -348,7 +353,7 @@
         var edate=$('#datepicker').val();
         //timelineObj.method();
         var numevents=timelineObj.getAllEvents().length+1;
-        var eventObj = {id:numevents, name:$('#eventname').val(), on : new Date($('#datepicker').val()), description: $("#eventdescription").val()};
+        var eventObj = {id:numevents, name:$('#eventname').val(), on : new Date($('#datepicker').val()), description: $("#eventdescription").val(), flag: $("#eventstatus").prop('checked')};
         timelineObj.addEvent(eventObj);
         console.log($("#event_"+numevents), "event");
         $("#event_"+numevents).popover({

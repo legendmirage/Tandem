@@ -21,14 +21,23 @@
 	    z-index: 0;
 	}
 
-	.gt-timeline div.event{
-		background: url(../img/main_img.png) no-repeat 0 -84px;
-		width: 16px;
-		height: 16px;
+	.gt-timeline div.event-flag{
+		background-image: url(../../images/blue_flag.png);
+		width: 25px;
+		height: 24px;
 		cursor: pointer;
 		position: absolute;
 		z-index: 2;
-		top: 44px;
+		top: 34px;
+	}
+	.gt-timeline div.event{
+		background-image: url(../../images/yellow_star.png);
+		width: 25px;
+		height: 24px;
+		cursor: pointer;
+		position: absolute;
+		z-index: 2;
+		top: 34px;
 	}
 
 	.gt-timeline div.selected{
@@ -84,7 +93,18 @@
 			cursor: pointer;
 		}
 	.gt-timeline div.event:hover{
-		background-position: -27px -84px;
+		background-image: url(../../images/big_yellow_star.png);
+		height: 30px;
+		width: 29px;
+		top: 34px;
+		z-index: 3;
+	}
+	.gt-timeline div.event-flag:hover{
+		background-image: url(../../images/big_blue_flag.png);
+		height: 30px;
+		width: 29px;
+		top: 34px;
+		z-index: 3;
 	}
 
 	.gt-timeline div.horizontal-line{

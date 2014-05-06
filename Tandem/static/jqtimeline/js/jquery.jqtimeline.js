@@ -153,7 +153,12 @@
 		var totalMonths = (yn * 12) + mn +4;
 		console.log("totalMonths" , totalMonths);
 		var leftVal = Math.ceil(_this._offset_x + totalMonths * _this.options.gap + (_this.options.gap/31)*n - _this._eDotWidth/2);
-		var $retHtml = $('<div class="event" id="event_'+e.id+'"data-toggle="popover" data-placement="top" style="left:'+leftVal+'px">&nbsp;</div>').data('event',e);
+		if (e.flag){
+			var $retHtml = $('<div class="event-flag" id="event_'+e.id+'"data-toggle="popover" data-placement="top" style="left:'+leftVal+'px">&nbsp;</div>').data('event',e);
+		}
+		else{
+			var $retHtml = $('<div class="event" id="event_'+e.id+'"data-toggle="popover" data-placement="top" style="left:'+leftVal+'px">&nbsp;</div>').data('event',e);
+		}
 		$retHtml.data('eventInfo',_this._aEvents[e.id]);
 		
 		if(_this.options.click){
