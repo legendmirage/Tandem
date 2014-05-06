@@ -108,10 +108,12 @@ $(document).ready(function () {
         }
     });
     var drag = false;
+    desks.draggable();
+    desks.draggable('disable');
     $(".common:checkbox").switchbutton();
 
     $(".ui-switchbutton").click(function () {
-        desks.draggable();
+        
         if(drag==false){
             drag = true;
             desks.draggable({
