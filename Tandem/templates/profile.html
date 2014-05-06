@@ -27,9 +27,11 @@
         <script src="/static/external_js/jquery.ui.datepicker.js"></script>
         <script src="/static/external_js/jquery.ui.widget.js"></script>
         <script src="/static/external_js/jquery.ui.core.js"></script>
-        <script src="/static/external_js/jquery.ui-min.js"></script>
+        <script src="/static/external_js/jquery-ui.min.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+
+        <link rel="stylesheet" type="text/css" href="/static/css/ui-lightness/jquery-ui-1.10.4.custom.css">
         <script src="/static/bootstrap/js/bootstrap.js"></script>
         <script src="/static/bootstrap/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/jqtimeline/css/jquery.jqtimeline.css" />
@@ -407,17 +409,24 @@
       };
       createInitialEvents();
       // 
-  $(function() {
-    $( "#dialog-message" ).dialog({
-      modal: true,
-      buttons: {
-        Ok: function() {
-          $( this ).dialog( "close" );
-        }
+  
+jQuery(document).ready(function() {
+    jQuery("#dialog-message").dialog({
+        autoOpen: false,
+        modal: true,
+        open: function(){
+            jQuery('.ui-widget-overlay').bind('click',function(){
+                jQuery('#dialog-message').dialog('close');
+            })
+        },
+        buttons: {
+            Ok: function() {
+              $( this ).dialog( "close" );
+            }
       }
     });
-  });
-$( "#dialog-message" ).dialog("close");
+}); 
+
 </script>
 
 
