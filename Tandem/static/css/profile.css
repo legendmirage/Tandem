@@ -21,6 +21,11 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+#timeline-wrapper{
+	margin-left: auto;
+	margin-right: auto;
+	position: absolute;
+}
 #contact{
 	border-left: thick dashed #ff0000;
 	float: right;
@@ -90,7 +95,9 @@
 }
 #button-wrapper{
 	display: inline-block;
-	margin-left: 30px;
+	float:right;
+	margin-right: 30px;
+
 }
 .parent{
 	line-height: 35px;

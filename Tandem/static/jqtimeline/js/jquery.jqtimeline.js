@@ -12,7 +12,7 @@
 		defaults = {
 			startYear : (new Date()).getFullYear() -1 , // Start with one less year by default
 			numYears : 3,
-			gap : 25, // gap between lines
+			gap : 150, // gap between lines
 			showToolTip : false,
 			groupEventWithinPx : 6, // Will show common tooltip for events within this range of px
 			events : [],
@@ -28,7 +28,7 @@
 		this._offset_x = 14; // Starting position of the line
 		this._current_offset_x = 14; // var used for laying out months to the hor line
 		this._gap = this.options.gap; 
-		this._eDotWidth = 16; // Width of the event dot shown in the ui
+		this._eDotWidth = 25; // Width of the event dot shown in the ui
 		this._$toolTip = null; // use to have reference of the tooltip
 		this._a$Events = []; // will store all jquery elements of events, marked on the timeline
 		this._aEvents = []; //array of events obj {id,name,on}

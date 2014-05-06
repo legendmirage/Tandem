@@ -76,7 +76,9 @@
                     </div>
                 </div>
             </div>
-            <div id="myTimeline"></div>
+            <div id="timeline-wrapper" class="container">
+                <div id="myTimeline"></div>
+            </div>
             <div id="button-wrapper">
                 <button id="addevent" class='btn btn-success' data-toggle="modal" data-target="#myModal"/>Add Event</button>
             </div>
@@ -342,7 +344,7 @@
         events : ev,
         numYears:1,
         startYear:2014,
-        gap: 60
+        gap: 90
     });
 
     $("#submitform").click(function(evt) {
