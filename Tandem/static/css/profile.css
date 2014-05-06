@@ -97,7 +97,7 @@
 }
 .icon-wrapper{
 	display: inline-block;
-	float: right;
+	float: left;
 	padding-right: 30px;
 }
 /*#addevent{
