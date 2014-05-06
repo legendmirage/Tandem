@@ -6,7 +6,20 @@
 <html>
     <title>Tandem - Student Profile </title>
     <head>
-        {% include 'templates/nav_bar.html' %}
+        <div class = "container">
+            <div id="toolbar" class ="navbar navbar-fixed-top">
+                <div class= "navbar-inner">
+                    <ul class="nav nav-pills">
+                        <!-- <li class="active"><a href="home.html">Tandem</a></li> -->
+                        <li ><a href="home.html"><img src="/static/images/logo2.png" height="30" alt="Tandem"></a></li>
+                        <li class="active"><a href="home.html">Class 1</a></li>
+                        <li id="settings"><a>Settings</a></li>
+                        <li id="inbox"><a href="message.html">Inbox</a></li>
+                        <li id="announce"><a href="announcement.html">Announcements</a></li>
+                </div>
+                </ul>
+            </div>
+        </div>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
         <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
         <script src="/static/external_js/jquery-1.8.3.js"></script>
@@ -14,6 +27,7 @@
         <script src="/static/external_js/jquery.ui.datepicker.js"></script>
         <script src="/static/external_js/jquery.ui.widget.js"></script>
         <script src="/static/external_js/jquery.ui.core.js"></script>
+        <script src="/static/external_js/jquery.ui-min.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/static/css/common.css">
         <script src="/static/bootstrap/js/bootstrap.js"></script>
@@ -266,6 +280,40 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
+<!--Confirmation Modal -->
+<div id='confirmationModal' class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Confirmation</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class='form-group'>
+                                <label for='subject' class='col-lg-2 control-label'>You have successfully changed the following information:</label>
+                                <div class='col-lg-10'>
+                                    <label id="callparent1">Phone Number</label>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+<!--Confirmation dialog-->
+<div id="dialog-message" title="Confirmation">
+  <p>
+    <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+    Your have successfully updated information.
+  </p>
+</div>
+
 	<!-- Initializing timeline with info for initial prototype -->
 	<script type="text/javascript">
     var ev = [{
@@ -323,6 +371,7 @@
         console.log("update");
         $("#g1label").text($("#guardian1").val());
         $("#g2label").text($("#guardian2").val());
+        $( "#dialog-message" ).dialog("open");
       });
       var fillinfo = function(){
         $("#nickname").val($("#preferred-name").text());
@@ -358,8 +407,17 @@
       };
       createInitialEvents();
       // 
-
-
+  $(function() {
+    $( "#dialog-message" ).dialog({
+      modal: true,
+      buttons: {
+        Ok: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  });
+$( "#dialog-message" ).dialog("close");
 </script>
 
 
