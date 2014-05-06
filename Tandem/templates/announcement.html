@@ -5,12 +5,12 @@
 
 <html>
 <head>
-	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<!--<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 	<div class = "container">
 		<div id="toolbar" class ="navbar navbar-fixed-top">
 			<div class= "navbar-inner">
 					<ul class="nav nav-pills">
-						<!-- <li class="active"><a href="home.html">Tandem</a></li> -->
+						<!-- <li class="active"><a href="home.html">Tandem</a></li> 
 						<li ><a href="home.html"><img src="/static/images/logo2.png" height="30" alt="Tandem"></a></li>
 						<li class="active"><a href="home.html">Class 1</a></li>
 						<li id="settings"><a>Settings</a></li>
@@ -20,7 +20,7 @@
 					</ul>
 			</div>
 		</div>
-	</div>
+	</div>-->
 	<title>Tandem - Announcements</title>
 
 	<!--load stylesheets & bootstrap-->
@@ -113,11 +113,12 @@
 
 
 		</script>
-
 	</head>
 
 
 	<body>
+
+	{% include 'templates/nav_bar.html' %}
 		<div class='container'>
 			<div id='header-bar' class='row'>
 				<div id='page-header' class="page-header col-md-4"><h3>Announcements</h3></div>
