@@ -88,8 +88,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
-    '/home/yinfu/Desktop/Tandem/Tandem/Tandem/static/',
+    '/Users/jcweaver/Documents/6.813/Tandem/Tandem/static/',
 )
 
 #TEMPLATE_DIRS = ('C:/Users/Akhil/sylvia/Tandem/Tandem/templates,') #Sylvia's path
-TEMPLATE_DIRS = ('/home/yinfu/Desktop/Tandem/Tandem/Tandem')  #Yinfu's path
+#TEMPLATE_DIRS = ('/home/yinfu/Desktop/Tandem/Tandem/Tandem')  #Yinfu's path
+TEMPLATE_DIRS = ('/Users/jcweaver/Documents/6.813/Tandem/Tandem/') #Joanie's path
+
