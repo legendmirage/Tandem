@@ -5,8 +5,11 @@ from student.models import Student
 
 
 # Create your views here.
-def profile(request):
-	return render_to_response('templates/profile.html')
+def profile(request, student_id):
+	student = Student.objects.get(id=student_id)
+	variables = {"student" : student}
+	#print student.firstName
+	return render_to_response('templates/profile.html', RequestContext(request, variables))
 
 def homepage(request):
 	students = Student.objects.all()
