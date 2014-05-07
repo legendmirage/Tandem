@@ -69,9 +69,12 @@
 		}
 
 		$(document).ready(function() {
+			/*
 			var i = 0;
-			//appending each student to the student panel
+			//appending announcements from hardcoded data
+			
 			for (var subject in announcements) {
+				
 				var announce_box = "<div id='announcement" + i + "'' class='panel panel-default'></div>";
 				$("#announcements-wrapper").prepend(announce_box);
 
@@ -80,12 +83,12 @@
 
 				$("#announcement" + i).append(announce_subject);
 				$("#announcement" + i).append(announce_content);
-
+				
 				$("#content" + i).hide();
 
 				i++;
 
-			};
+			};*/
 
 			$('#announceBTN').click(function(e) {
 				e.preventDefault();
@@ -107,7 +110,24 @@
 				<div id='page-header' class="page-header col-md-4"><h3>Announcements</h3></div>
 				<button id='new-announcement-button' class='btn btn-success' data-toggle='modal' data-target='#newAnnouncementModal'>New</button>
 			</div>
-			<div id="announcements-wrapper" class='row'></div>
+			<div id="announcements-wrapper" class='row'>
+				<div class="panel-group" id="accordion">
+					{% for a in announcements %}
+						<div id='announcement{{ a.id }}' class='panel panel-default'>
+							<div row="{{ a.id }}" class='panel-heading'>
+								<h4 class='panel-title'>
+									<a data-toggle='collapse' data-parent='#accordion' href='#collapse{{ a.id }}'>{{ a.subject }}
+									</a>
+								</h4>
+								<div class='date-time'>{{ a.timestamp }}</div>
+							</div>
+							<div id='collapse{{ a.id }}' class='panel-collapse collapse'>
+								<div class='panel-body'>{{ a.content }}</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
 
 		</div>
 

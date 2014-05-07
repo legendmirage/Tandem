@@ -23,7 +23,9 @@
         <script type="text/javascript" src="/static/external_js/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="/static/external_js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="/static/external_js/jquery.switchbutton.js"></script>
-        <script type="text/javascript" src="/static/js/home.js"></script>
+        <!--<script type="text/javascript" src="/static/js/home.js"></script>-->
+        
+		{% include "templates/homeJS.html" %}
         
 
 		
@@ -38,7 +40,7 @@
 		</div>
 		<div id="seat-container">
 			{% for student in students %}
-				<div class="desk student">
+				<div class="desk student" id="student{{student.id}}" firstName="{{student.firstName}}" lastName="{{student.lastName}}" parentOne="{{student.parent1}}" parentTwo="{{student.parent2}}">
 					<img class="box" src="/static/images/desk.jpg">
 					<div class="names">{{ student.firstName }} {{ student.lastName.0 }}.</div>
 				</div>
