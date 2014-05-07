@@ -286,19 +286,19 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-<!--Confirmation Modal -->
-<div id='confirmationModal' class="modal fade">
+<!--Modal for displaying event info -->
+<div id='eventModal' class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Confirmation</h4>
+                            <h4 class="modal-title" id="event_modal_title">Title</h4>
                         </div>
                         <div class="modal-body">
                             <div class='form-group'>
-                                <label for='subject' class='col-lg-2 control-label'>You have successfully changed the following information:</label>
+                                <label class='col-lg-2 control-label'>Description:</label>
                                 <div class='col-lg-10'>
-                                    <label id="callparent1">Phone Number</label>
+                                    <label id="event_desc">Description</label>
                                 </div>
 
                             </div>
@@ -363,7 +363,7 @@
                         trigger: 'hover',
                         html: true,
                         title: "<h3>"+ename + " "+edate+"</h3>",
-                        content: '<div class="popup"><p>'+edescription+'<p></div>',
+                        content: '<div class="popup"><button data-toggle="modal" data-target="#eventModal"/>View More</button></div>',
                         delay: {show:200, hide:200},
                         container: '#event_'+numevents
                     });
@@ -405,8 +405,8 @@
             $("#event_"+id).popover({
                         trigger: 'hover',
                         html: true,
-                        title: "<h3>"+ename + " "+edate+"</h3>",
-                        content: '<div class="popup"><p>'+edescription+'</p></div>',
+                        title: "<h4>"+ename + " "+edate+"</h4>",
+                        content: "<div class='popup'><button type='button' class='btn btn-success' data-toggle='modal' data-target='#eventModal'>View More</button></div>",
                         delay: {show:200, hide:200},
                         container: '#event_'+numevents
                     });
@@ -425,7 +425,7 @@ jQuery(document).ready(function() {
             })
         },
         buttons: {
-            Ok: function() {
+            OK: function() {
               $( this ).dialog( "close" );
             }
       }
