@@ -14,7 +14,7 @@ button{
 }
 .contacticons{
 	height:30px;
-	padding: 0px 15px;
+	padding-right: 30px;
 	cursor: pointer;
 }
 .tooltip {

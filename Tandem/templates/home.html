@@ -23,7 +23,9 @@
         <script type="text/javascript" src="/static/external_js/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="/static/external_js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="/static/external_js/jquery.switchbutton.js"></script>
-        <script type="text/javascript" src="/static/js/home.js"></script>
+        <!--<script type="text/javascript" src="/static/js/home.js"></script>-->
+        
+		{% include "templates/homeJS.html" %}
         
 
 		
@@ -37,7 +39,13 @@
 			<div id='page-header' class="page-header col-md-4"><h3>Seating Chart</h3></div>
 		</div>
 		<div id="seat-container">
-			<div class="desk student">
+			{% for student in students %}
+				<div class="desk student" id="student{{student.id}}" firstName="{{student.firstName}}" lastName="{{student.lastName}}" parentOne="{{student.parent1}}" parentTwo="{{student.parent2}}">
+					<img class="box" src="/static/images/desk.jpg">
+					<div class="names">{{ student.firstName }} {{ student.lastName.0 }}.</div>
+				</div>
+			{% endfor %}
+			<!--<div class="desk student">
 				<img class="box" src="/static/images/desk.jpg">
 				<div class="names">Leslie C.</div>
 			</div>
@@ -109,7 +117,7 @@
 				<img class="box" src="/static/images/desk.jpg">
 				<div class="names">Tom X.</div>
 			</div>
-		</div>
+		</div>-->
 		<div id="list-container">
 			<h3 id="search-label">Student Search:</h3>
 			<form>

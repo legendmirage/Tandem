@@ -6,16 +6,31 @@
 <html>
     <title>Tandem - Student Profile </title>
     <head>
-        {% include 'templates/nav_bar.html' %}
+        <div class = "container">
+            <div id="toolbar" class ="navbar navbar-fixed-top">
+                <div class= "navbar-inner">
+                    <ul class="nav nav-pills">
+                        <!-- <li class="active"><a href="home.html">Tandem</a></li> -->
+                        <li ><a href="home.html"><img src="/static/images/logo2.png" height="30" alt="Tandem"></a></li>
+                        <li class="active"><a href="home.html">Class 1</a></li>
+                        <li id="settings"><a>Settings</a></li>
+                        <li id="inbox"><a href="message.html">Inbox</a></li>
+                        <li id="announce"><a href="announcement.html">Announcements</a></li>
+                </div>
+                </ul>
+            </div>
+        </div>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
         <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
         <script src="/static/external_js/jquery-1.8.3.js"></script>
-        <script src="/static/external_js/jquery-1.9.0.min.js"></script>
+        
         <script src="/static/external_js/jquery.ui.datepicker.js"></script>
         <script src="/static/external_js/jquery.ui.widget.js"></script>
         <script src="/static/external_js/jquery.ui.core.js"></script>
+        <script src="/static/external_js/jquery-ui.min.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+
         <script src="/static/bootstrap/js/bootstrap.js"></script>
         <script src="/static/bootstrap/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/jqtimeline/css/jquery.jqtimeline.css" />
@@ -52,19 +67,18 @@
                 <div class="column-right">
                     <h3>Parents / Guardians</h3>
                     <span id="g1label" class="parent">James Fox </span>
-                    <div class="icon-wrapper">    
-                        <div id="jfoxclick" onclick="$('#contactparent').text('James Fox');" data-toggle="modal" data-target="#newMessageModal"><img src="/static/images/mailicon.png" alt="Send a message" class="contacticons"></div>
-                        <a href=""><img src="/static/images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a>
-                    </div>
                     <br>    
                     <span id="g2label" class="parent">Susan Fox </span>
+                    <br><br>
                     <div class="icon-wrapper">    
                        <div id="sfoxclick" onclick="$('#contactparent').text('Susan Fox');" data-toggle="modal" data-target="#newMessageModal"><img src="/static/images/mailicon.png" alt="Send a message" class="contacticons"></div>
-                        <a href=""><img src="/static/images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a>
+                        <div data-toggle="modal" data-target="#phoneNumberModal"><img src="/static/images/callicon.png" alt="Call with Google Voice" class="contacticons"></div>
                     </div>
                 </div>
             </div>
-            <div id="myTimeline"></div>
+            <div id="timeline-wrapper" class="container">
+                <div id="myTimeline"></div>
+            </div>
             <div id="button-wrapper">
                 <button id="addevent" class='btn btn-success' data-toggle="modal" data-target="#myModal"/>Add Event</button>
             </div>
@@ -96,9 +110,15 @@
                                     <input type='text' class='form-control' id='datepicker' >
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for='eventstatus' class='col-lg-2 control-label'>Status:</label>
+                                <div class='col-lg-10'>
+                                    <input type='checkbox' id='eventstatus' value="Flag" >   Needs Attention</input>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button id="closeform" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button id="closeform" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button id="submitform" type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
                         </div>
                     </form>
@@ -129,7 +149,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button id="closeform2" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button id="closeform2" type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
                             <button id="submitform2" type="submit" class="btn btn-primary" data-dismiss="modal">Update</button>
                         </div>
                     </form>
@@ -149,44 +169,44 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for='guardian1' class='col-lg-2 control-label'>Guardian 1:</label>
+                                <label for='guardian1' class='col-lg-2 control-label'>Name:</label>
                                 <div class='col-lg-10'>
                                     <input type='text' class='form-control' id='guardian1' >
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for='guardian1phone' class='col-lg-2 control-label'>Guardian 1 Phone:</label>
+                                <label for='guardian1phone' class='col-lg-2 control-label'>Phone:</label>
                                 <div class='col-lg-10'>
                                     <input type='text' class='form-control' id='guardian1phone' >
                                 </div>
                             </div>
                              <div class="form-group">
-                                <label for='guardian1email' class='col-lg-2 control-label'>Guardian 1 Email:</label>
+                                <label for='guardian1email' class='col-lg-2 control-label'>Email:</label>
                                 <div class='col-lg-10'>
                                     <input type='text' class='form-control' id='guardian1email' >
                                 </div>
                             </div>   
                             <div class="form-group">
-                                <label for='guardian2' class='col-lg-2 control-label'>Guardian 2:</label>
+                                <label for='guardian2' class='col-lg-2 control-label'>Name:</label>
                                 <div class='col-lg-10'>
                                     <input type='text' class='form-control' id='guardian2'>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for='guardian2phone' class='col-lg-2 control-label'>Guardian 2 Phone:</label>
+                                <label for='guardian2phone' class='col-lg-2 control-label'>Phone:</label>
                                 <div class='col-lg-10'>
                                     <input type='text' class='form-control' id='guardian2phone' >
                                 </div>
                                 </div>
                                 <div class="form-group">
-                                <label for='guardian2email' class='col-lg-2 control-label'>Guardian 2 Email:</label>
+                                <label for='guardian2email' class='col-lg-2 control-label'>Email:</label>
                                 <div class='col-lg-10'>
                                     <input type='text' class='form-control' id='guardian2phone' >
                                 </div>
                                 </div>
                         </div>
                         <div class="modal-footer">
-                            <button id="Guardian_closeform" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button id="Guardian_closeform" type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
                             <button id="Guardian_submitform" type="submit" class="btn btn-primary" data-dismiss="modal">Update</button>
                         </div>
                     </form>
@@ -240,6 +260,66 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
+<!--Modal for displaying phone numbers -->
+<div id='phoneNumberModal' class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Phone Number</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class='form-group'>
+                                <label for='subject' class='col-lg-2 control-label'>Cell #:</label>
+                                <div class='col-lg-10'>
+                                    <label id="callparent1">Phone Number</label>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+<!--Confirmation Modal -->
+<div id='confirmationModal' class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Confirmation</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class='form-group'>
+                                <label for='subject' class='col-lg-2 control-label'>You have successfully changed the following information:</label>
+                                <div class='col-lg-10'>
+                                    <label id="callparent1">Phone Number</label>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+<!--Confirmation dialog-->
+<div id="dialog-message" title="Confirmation">
+  <p>
+    <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+    Your have successfully updated information.
+  </p>
+</div>
+
 	<!-- Initializing timeline with info for initial prototype -->
 	<script type="text/javascript">
     var ev = [{
@@ -258,13 +338,14 @@
         id : 3,
         name : "Fight",
         on : new Date(2014,2,24),
-        description: "Johnny started a fight with Yinfu Craig during recess about her Yu-Gi-Oh cards. This is the second time I've seen him upset with Yinfu."
+        description: "Johnny started a fight with Yinfu Craig during recess about her Yu-Gi-Oh cards. This is the second time I've seen him upset with Yinfu.",
+        flag: true
     }]
         var tl = $('#myTimeline').jqtimeline({
         events : ev,
         numYears:1,
         startYear:2014,
-        gap: 60
+        gap: 90
     });
 
     $("#submitform").click(function(evt) {
@@ -275,7 +356,7 @@
         var edate=$('#datepicker').val();
         //timelineObj.method();
         var numevents=timelineObj.getAllEvents().length+1;
-        var eventObj = {id:numevents, name:$('#eventname').val(), on : new Date($('#datepicker').val()), description: $("#eventdescription").val()};
+        var eventObj = {id:numevents, name:$('#eventname').val(), on : new Date($('#datepicker').val()), description: $("#eventdescription").val(), flag: $("#eventstatus").prop('checked')};
         timelineObj.addEvent(eventObj);
         console.log($("#event_"+numevents), "event");
         $("#event_"+numevents).popover({
@@ -293,8 +374,11 @@
     });
       $("#Guardian_submitform" ).click(function(evt) {
         //TODO update parent & guardian info!!!
+        evt.preventDefault();
+        console.log("update");
         $("#g1label").text($("#guardian1").val());
         $("#g2label").text($("#guardian2").val());
+        $( "#dialog-message" ).dialog("open");
       });
       var fillinfo = function(){
         $("#nickname").val($("#preferred-name").text());
@@ -330,7 +414,23 @@
       };
       createInitialEvents();
       // 
-
+  
+jQuery(document).ready(function() {
+    jQuery("#dialog-message").dialog({
+        autoOpen: false,
+        modal: true,
+        open: function(){
+            jQuery('.ui-widget-overlay').bind('click',function(){
+                jQuery('#dialog-message').dialog('close');
+            })
+        },
+        buttons: {
+            Ok: function() {
+              $( this ).dialog( "close" );
+            }
+      }
+    });
+}); 
 
 </script>
 
