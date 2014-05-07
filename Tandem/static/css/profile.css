@@ -133,3 +133,7 @@
 textarea {
 	resize: none;
 }
+
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}

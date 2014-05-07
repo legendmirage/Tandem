@@ -20,8 +20,10 @@
 
         <script src="/static/bootstrap/js/bootstrap.js"></script>
         <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/static/js/bootstrap-dialog.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/jqtimeline/css/jquery.jqtimeline.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/profile.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-dialog.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css">
         <script type="text/javascript" src="/static/jqtimeline/js/jquery.jqtimeline.js"></script>
         <script>
@@ -414,6 +416,7 @@ jQuery(document).ready(function() {
         buttons: {
             OK: function() {
               $( this ).dialog( "close" );
+              BootstrapDialog.show({message: "Hi Apple!"});
             }
       }
     });
