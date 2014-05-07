@@ -95,8 +95,10 @@
 }
 #button-wrapper{
 	display: inline-block;
-	float:right;
+	float: right;
 	margin-right: 30px;
+	z-index: 3;
+	position: absolute;
 
 }
 .parent{
