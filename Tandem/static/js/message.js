@@ -9,20 +9,33 @@ var msg2 = "Hi Ms. Smith, </br> My son is sick with a fever and cannot attend sc
 var msg3 = "Hello, </br> Yinfu has a doctor's appointment today and will be late to school.";
 var msg4 = "Hello, </br> Sophie had a fever so she can't attend school today.";
 
-function Message(student, subject, time, content, isRead, receive){
+var id = 1;
+
+
+function MessageThread(student, subject, messages, time, unRead){
+    this.student = student;
+    this.subject = subject;
+    this.messages = messages;
+    this.time = time;
+    this.unRead = unRead;
+}
+
+function Message(id, messageThreadId, student, subject, time, content, receive){
+    this.id = id;
+    this.messageThreadId = messageThreadId;
     this.student = student;
     this.subject = subject;
     this.time = time;
     this.content = content;
-    this.isRead = isRead;
     this.receive = receive;
 }
+
 function Student(name, numOfUnread){
     this.name = name;
     this.numOfUnread = numOfUnread;
 }
 
-var messageMap = {};
+var threadMap = {};
 var studentMap = {};
 
 var hilightStudent = function (elem) {
@@ -33,18 +46,22 @@ var hilightStudent = function (elem) {
 
     //only render msg if exists for student
     var stud = $(elem).text();
-    stud = stud.replace(/[0-9]/g, '');
-    if (stud in messageMap) {
-        var len = messageMap[stud].length - 1;
+    stud = stud.replace(/[0-9]/g, ''); //remove badge num
+
+    if (stud in threadMap) {
+        //from new to old (reverse)
+        var len = threadMap[stud].length - 1;
         for (var i = len; i > -1; i--) {
-            var m = messageMap[stud][i];
+            var t = threadMap[stud][i];
+
             var item = document.createElement("div");
             item.innerHTML = "<div class='col-md-6'>"
-                + m.subject + "</div><div class='col-md-4'>" + m.time;
+                + t.subject + "</div><div class='col-md-4'>" + t.time;
             $(item).addClass("message-label btn btn-block row");
-            $(item).data("mes", m);
+            $(item).data("thread", t);
+            //associate div with thread obj
             item.onclick=function(){
-                hilightMessage(this, $(this).data("mes"));
+                hilightThread(this, $(this).data("thread"));
             }
             $("#messages-panel").prepend(item);
         }
@@ -54,18 +71,27 @@ var hilightStudent = function (elem) {
     $("#message-detail").fadeOut();
 }
 
-var hilightMessage = function (elem, m) {
-    if (m.isRead==false){
-        studentMap[m.student].numOfUnread -= 1;
-        m.isRead = true;
-        updateBadge(m.student);
+var hilightThread = function (elem, t) {
+    if (t.unRead==true){
+        studentMap[t.student].numOfUnread -= 1;
+        t.unRead = false;
+        updateBadge(t.student);
     }
     
     $(".message-label").removeClass("btn-success");
     $(elem).addClass("btn-success");
-    document.getElementById("student-name").innerHTML = m.student;
-    $("#actual-msg").html(m.content);
-    $("#message-header").html(m.subject);
+    document.getElementById("student-name").innerHTML = t.student;
+    var tmp = "";
+    for(var i=0;i<t.messages.length;i++){
+        m = t.messages[i];
+
+        tmp += m.content;
+        tmp += "</br></br><i><font color='#AAAAAA'>";
+        tmp += m.time;
+        tmp += "</font></i>";
+    }
+    $("#actual-msg").html(tmp);
+    $("#message-header").html(t.subject);
     $("#message-detail").fadeIn()
 
 }
@@ -73,13 +99,13 @@ var hilightMessage = function (elem, m) {
 var loadAllMessages = function () {
     $("#messages-panel").empty();
 
-    for (var key in messageMap) {
+    for (var key in threadMap) {
         var student = new Student(key, 0);
         studentMap[key] = student;
-        var ms = messageMap[key];
+        var ms = threadMap[key];
         for(var i=0;i<ms.length;i++){
             var m = ms[i];
-            if(m.isRead==false){
+            if(m.unRead==true){
                 studentMap[key].numOfUnread += 1;
             }
             var item = document.createElement("div");
@@ -88,7 +114,7 @@ var loadAllMessages = function () {
             $(item).addClass("message-label btn btn-block row");
             $(item).data("mes", m);
             item.onclick=function(){
-                hilightMessage(this, $(this).data("mes"));
+                hilightThread(this, $(this).data("mes"));
             }
             $("#messages-panel").prepend(item);
 
@@ -130,37 +156,53 @@ var newMessage = function () {
     var d = new Date();
     var dateTime = convertDate(d);
 
-    if (typeof messageMap[recipient] == 'undefined'){
-        messageMap[recipient] = [];
+    if (typeof threadMap[recipient] == 'undefined'){
+        threadMap[recipient] = [];
     }
-    var m = new Message(recipient, subject, dateTime, details, true, false);
-    messageMap[recipient].push(m);
+
+    id += 1;
+    var m = new Message(id,id,recipient, subject, dateTime, details, true, false);
+    threadMap[recipient].push(m);
     var item = document.createElement("div");
     item.innerHTML = "<div class='col-md-6'>"
         + m.subject + "</div><div class='col-md-4'>" + m.time;
     $(item).addClass("message-label btn btn-block row");
     $(item).data("mes", m);
     item.onclick=function(){
-        hilightMessage(this, $(this).data("mes"));
+        hilightThread(this, $(this).data("mes"));
     }
     $("#messages-panel").prepend(item);
 }
 
 $(document).ready(function () {
     $("#message-detail").hide();
-    messageMap['Fox, Johnny'] = [
-        new Message("Fox, Johnny", "Johnny's Fight", '4/1 12:00', msg1, false, true),
-        new Message("Fox, Johnny", "Johnny sick", '4/2 1:10', msg2, false, true)
+    var m1 = new Message(1,1,"Fox, Johnny", "Johnny's Fight", '4/1 12:00', msg1, true);
+    var m2 = new Message(2,2,"Fox, Johnny", "Johnny sick", '4/2 1:10', msg2, true);
+    var l1 = [];
+    l1.push(m1);
+    var l2 = [];
+    l2.push(m2);
+   
+    threadMap['Fox, Johnny'] = [
+        new MessageThread("Fox, Johnny", "Johnny's Fight", l1, '4/1 12:00', true),
+        new MessageThread("Fox, Johnny", "Johnny's Fight", l2, '4/12 12:00', true)
     ];
-    messageMap["Faust, Ben"] = [
-        new Message("Faust, Ben", "Ben Sick", '4/2 12:00', msg2, false, true)
+
+    m2 = new Message(3,3,"Faust, Ben", "Ben Sick", '4/5 12:00', msg2, true);
+    l2 = [];
+    l2.push(m2);
+
+    threadMap["Faust, Ben"] = [
+        new MessageThread("Faust, Ben", "Ben Sick", l2, '4/5 12:00', true)
     ];
-    messageMap["Craig, Yinfu"] = [
-        new Message("Craig, Yinfu", "Yinfu Absent", '4/5 12:44', msg3, false, true)
-    ];
-    messageMap["Adams, Sophie"] = [
-        new Message("Adams, Sophie", "Sophie Fever", '4/12 2:14', msg4, false, true)
-    ];
+    // threadMap["Craig, Yinfu"] = [
+    //     new Message(4,4,"Craig, Yinfu", "Yinfu Absent", '4/5 12:44', msg3, false, true)
+    // ];
+    // threadMap["Adams, Sophie"] = [
+    //     new Message(5,5,"Adams, Sophie", "Sophie Fever", '4/12 2:14', msg4, false, true)
+    // ];
+
+    id = 6;
 
     loadAllMessages();
     //appending each student to the student panel

@@ -6,5 +6,5 @@ class Student(models.Model):
 	preferredName = models.CharField(max_length=15)
 	parent1 = models.CharField(max_length=40)
 	parent2 = models.CharField(max_length=40)
-	birthdate = models.DateTimeField('Date of Birth')
+	birthdate = models.DateField('Date of Birth')
 

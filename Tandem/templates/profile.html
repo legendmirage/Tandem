@@ -47,18 +47,18 @@
                 </div>
                 <div class="column-center">
                     <div display="inline-block"></div>
-                    <h1 id="student-name">Jonathon Fox</h1>
-                    <span><b>Preferred Name:</b> <span id="preferred-name">Johnny</span></br><span>
-                    <span><b>Date of Birth:</b><span id="dob"> 5/20/2007</span></br><span>
+                    <h1 id="student-name">{{ student.firstName }} {{ student.lastName }}</h1>
+                    <span><b>Preferred Name:</b> <span id="preferred-name">{{ student.preferredName }}</span></br><span>
+                    <span><b>Date of Birth:</b><span id="dob">{{ student.birthdate }}</span></br><span>
                 </div>
                 <div class="column-right">
                     <h3>Parents / Guardians</h3>
-                    <span id="g1label" class="parent">James Fox </span>
+                    <span id="g1label" class="parent">{{ student.parent1 }} </span>
                     <br>    
-                    <span id="g2label" class="parent">Susan Fox </span>
+                    <span id="g2label" class="parent">{{ student.parent2 }}</span>
                     <br><br>
                     <div class="icon-wrapper">    
-                       <div id="sfoxclick" onclick="$('#contactparent').text('Susan Fox');" data-toggle="modal" data-target="#newMessageModal"><img src="/static/images/mailicon.png" alt="Send a message" class="contacticons"></div>
+                       <div id="sfoxclick" onclick="$('#contactparent').text({{ student.parent2 }});" data-toggle="modal" data-target="#newMessageModal"><img src="/static/images/mailicon.png" alt="Send a message" class="contacticons"></div>
                         <div data-toggle="modal" data-target="#phoneNumberModal"><img src="/static/images/callicon.png" alt="Call with Google Voice" class="contacticons"></div>
                     </div>
                 </div>
