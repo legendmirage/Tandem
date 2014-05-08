@@ -293,7 +293,7 @@
                             <div class='form-group'>
                                 <label class='col-lg-2 control-label'>Description:</label>
                                 <div class='col-lg-10'>
-                                    <label id="event_desc">Description</label>
+                                    <label id="event_desc"></label>
                                 </div>
 
                             </div>
@@ -363,7 +363,6 @@
   var createEvent=function (title, year, month, day, description, attention){
         var timelineObj = $('#myTimeline').data('jqtimeline');
         var id=timelineObj.getAllEvents().length+1;
-        console.log(year);
         var date=new Date(year.valueOf()+"-"+month.valueOf()+"-"+day.valueOf());
         var eventObj = {id: id, name: title, on : date, description: description, flag: attention};
         timelineObj.addEvent(eventObj);
@@ -371,7 +370,7 @@
                     trigger: 'hover',
                     html: true,
                     title: "<h4>"+title + " "+month.valueOf()+"/"+day.valueOf()+"/"+year.valueOf()+"</h4>",
-                    content: "<div class='popup'><button type='button' class='btn btn-success' data-toggle='modal' data-target='#eventModal'>View More</button></div>",
+                    content: "<div class='popup'><button type='button' class='btn btn-success event-modal' data-toggle='modal' data-target='#eventModal' id='viewMore'>View More</button></div>",
                     delay: {show:200, hide:200},
                     container: '#event_'+id
                 });
@@ -386,12 +385,20 @@
             createEvent(div.attr("subject"),div.attr("year"),div.attr("month"),div.attr("day"),div.attr("description"),div.attr("attention"));
         }
       }
+      var setUpDescriptionModals=function(){
+
+      }
       var getDate=function(date_string){
 
       }
 
 $(document).ready(function () {
     createStoredEvents();
+    $('#viewMore').click( function () {
+     var mydesc = $(this).data('event-description');
+     $(".modal-body #event_desc").val( mydesc);
+
+});
 });
 
 </script>
