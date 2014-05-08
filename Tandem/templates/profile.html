@@ -20,8 +20,10 @@
 
         <script src="/static/bootstrap/js/bootstrap.js"></script>
         <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/static/js/bootstrap-dialog.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/jqtimeline/css/jquery.jqtimeline.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/profile.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-dialog.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css">
         <script type="text/javascript" src="/static/jqtimeline/js/jquery.jqtimeline.js"></script>
         <script>
@@ -47,15 +49,15 @@
                 </div>
                 <div class="column-center">
                     <div display="inline-block"></div>
-                    <h1 id="student-name">Jonathon Fox</h1>
-                    <span><b>Preferred Name:</b> <span id="preferred-name">Johnny</span></br><span>
-                    <span><b>Date of Birth:</b><span id="dob"> 5/20/2007</span></br><span>
+                    <h1 id="student-name">{{student.firstName}} {{student.lastName}}</h1>
+                    <span><b>Preferred Name:</b> <span id="preferred-name">{{student.preferredName}}</span></br><span>
+                    <span><b>Date of Birth:</b><span id="dob"> {{student.birthdate.date}}</span></br><span>
                 </div>
                 <div class="column-right">
                     <h3>Parents / Guardians</h3>
-                    <span id="g1label" class="parent">James Fox </span>
+                    <span id="g1label" class="parent">{{student.parent1}} </span>
                     <br>    
-                    <span id="g2label" class="parent">Susan Fox </span>
+                    <span id="g2label" class="parent">{{student.parent2}} </span>
                     <br><br>
                     <div class="icon-wrapper">    
                        <div id="sfoxclick" onclick="$('#contactparent').text('Susan Fox');" data-toggle="modal" data-target="#newMessageModal"><img src="/static/images/mailicon.png" alt="Send a message" class="contacticons"></div>
@@ -273,19 +275,19 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-<!--Confirmation Modal -->
-<div id='confirmationModal' class="modal fade">
+<!--Modal for displaying event info -->
+<div id='eventModal' class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Confirmation</h4>
+                            <h4 class="modal-title" id="event_modal_title">Title</h4>
                         </div>
                         <div class="modal-body">
                             <div class='form-group'>
-                                <label for='subject' class='col-lg-2 control-label'>You have successfully changed the following information:</label>
+                                <label class='col-lg-2 control-label'>Description:</label>
                                 <div class='col-lg-10'>
-                                    <label id="callparent1">Phone Number</label>
+                                    <label id="event_desc">Description</label>
                                 </div>
 
                             </div>
@@ -299,13 +301,6 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-<!--Confirmation dialog-->
-<div id="dialog-message" title="Confirmation">
-  <p>
-    <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
-    Your have successfully updated information.
-  </p>
-</div>
 
 	<!-- Initializing timeline with info for initial prototype -->
 	<script type="text/javascript">
@@ -336,35 +331,49 @@
     });
 
     $("#submitform").click(function(evt) {
-        evt.preventDefault();
         var timelineObj = $('#myTimeline').data('jqtimeline');
         var ename=$('#eventname').val();
         var edescription=$("#eventdescription").val();
         var edate=$('#datepicker').val();
-        //timelineObj.method();
-        var numevents=timelineObj.getAllEvents().length+1;
-        var eventObj = {id:numevents, name:$('#eventname').val(), on : new Date($('#datepicker').val()), description: $("#eventdescription").val(), flag: $("#eventstatus").prop('checked')};
-        timelineObj.addEvent(eventObj);
-        console.log($("#event_"+numevents), "event");
-        $("#event_"+numevents).popover({
-                        trigger: 'hover',
-                        html: true,
-                        title: "<h3>"+ename + " "+edate+"</h3>",
-                        content: '<div class="popup"><p>'+edescription+'<p></div>',
-                        delay: {show:200, hide:200},
-                        container: '#event_'+numevents
-                    });
+        BootstrapDialog.show({
+            title: "Event Confirmation",
+            message: "<p>Are you sure you want to add this event?</p>",
+            buttons: [{
+                label: "OK",
+                action: function(dialog) {
+                    evt.preventDefault();
+                    //timelineObj.method();
+                    var numevents=timelineObj.getAllEvents().length+1;
+                    var eventObj = {id:numevents, name:$('#eventname').val(), on : new Date($('#datepicker').val()), description: $("#eventdescription").val(), flag: $("#eventstatus").prop('checked')};
+                    timelineObj.addEvent(eventObj);
+                    $("#event_"+numevents).popover({
+                                    trigger: 'hover',
+                                    html: true,
+                                    title: "<h3>"+ename + " "+edate+"</h3>",
+                                    content: '<div class="popup"><button data-toggle="modal" data-target="#eventModal">View More</button></div>',
+                                    delay: {show:200, hide:200},
+                                    container: '#event_'+numevents
+                                });
+                    dialog.close();
+                }
+                        }, {
+                        label: "Cancel",
+                        action: function(){
+                            alert("No event was added");
+                            dialog.close();
+                        }
+                        }
+                        ]
+
+        });
      });
       $("#submitform2").click(function(evt) {
         $("#preferred-name").text($("#nickname").val());
         $("#dob").text($("#datepicker2").val());
     });
       $("#Guardian_submitform" ).click(function(evt) {
-        //TODO update parent & guardian info!!!
-        evt.preventDefault();
-        console.log("update");
-        $("#g1label").text($("#guardian1").val());
-        $("#g2label").text($("#guardian2").val());
+        // {{student.parent1}} = $("#guardian1").val();
+        // {{student.parent2}} = $("#guardian2").val();
         $( "#dialog-message" ).dialog("open");
       });
       var fillinfo = function(){
@@ -392,8 +401,8 @@
             $("#event_"+id).popover({
                         trigger: 'hover',
                         html: true,
-                        title: "<h3>"+ename + " "+edate+"</h3>",
-                        content: '<div class="popup"><p>'+edescription+'</p></div>',
+                        title: "<h4>"+ename + " "+edate+"</h4>",
+                        content: "<div class='popup'><button type='button' class='btn btn-success' data-toggle='modal' data-target='#eventModal'>View More</button></div>",
                         delay: {show:200, hide:200},
                         container: '#event_'+numevents
                     });
@@ -402,22 +411,7 @@
       createInitialEvents();
       // 
   
-jQuery(document).ready(function() {
-    jQuery("#dialog-message").dialog({
-        autoOpen: false,
-        modal: true,
-        open: function(){
-            jQuery('.ui-widget-overlay').bind('click',function(){
-                jQuery('#dialog-message').dialog('close');
-            })
-        },
-        buttons: {
-            Ok: function() {
-              $( this ).dialog( "close" );
-            }
-      }
-    });
-}); 
+
 
 </script>
 

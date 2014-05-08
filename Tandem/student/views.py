@@ -2,12 +2,14 @@ from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from student.models import Student
+from event.models import Event
 
 
 # Create your views here.
 def profile(request, student_id):
 	student = Student.objects.get(id=student_id)
-	variables = {"student" : student}
+	events = Event.objects.filter(student=student)
+	variables = {"student" : student, "events" : events}
 	#print student.firstName
 	return render_to_response('templates/profile.html', RequestContext(request, variables))
 
