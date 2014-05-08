@@ -16,7 +16,7 @@ class RegistrationForm(forms.Form):
     password1 = forms.CharField(label=("Password"), widget=forms.PasswordInput)
     password2 = forms.CharField(label=("Password confirmation"), widget=forms.PasswordInput,
         help_text = ("Enter the same password as above, for verification."))
-    email = forms.EmailField(required=False)
+    email = forms.CharField(required=False)
 
     def clean_username(self):
         username = self.cleaned_data["username"]

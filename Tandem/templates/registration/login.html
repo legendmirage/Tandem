@@ -31,6 +31,9 @@
         color: white;
         border-width: 2px;
     }
+    .small{
+        font-size: 20px;
+    }
     #reg-button{
         background-color: #4CBED9;
         border-width: 0;
@@ -45,7 +48,7 @@
         <img src="/static/images/logo2.png" height="60" alt="Tandem">
         </br>
         <p>helps teachers connect with student's parents.</br>Better communication.</br>Better education.</br></br></p>
-        <p>If you don't have an account yet, please:</p>
+        <p class="small">If you don't have an account yet, please:</p>
         <a id='reg-button' class="btn btn-success register" href="/register/">Register</a>
         
         {% if form.errors %}
