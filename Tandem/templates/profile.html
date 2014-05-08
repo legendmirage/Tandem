@@ -26,6 +26,7 @@
         <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-dialog.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css">
         <script type="text/javascript" src="/static/jqtimeline/js/jquery.jqtimeline.js"></script>
+        {% include "templates/eventJS.html" %}
         <script>
             $(function() {
                 console.log($( "#datepicker" ));
@@ -301,11 +302,30 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
+<script>
+var createEvent=function (title,date,description,attention){
+        var timelineObj = $('#myTimeline').data('jqtimeline');
+        var id=timelineObj.getAllEvents().length+1;
+        for (var el=0; el<id; el++){
+            var eventObj = {id: id, name: title, on : date, description: description, flag: attention};
+            timelineObj.addEvent(eventObj);
+            $("#event_"+id).popover({
+                        trigger: 'hover',
+                        html: true,
+                        title: "<h4>"+title + " "+date+"</h4>",
+                        content: "<div class='popup'><button type='button' class='btn btn-success' data-toggle='modal' data-target='#eventModal'>View More</button></div>",
+                        delay: {show:200, hide:200},
+                        container: '#event_'+id
+                    });
+        }
+      };
+</script>
 <!-- Django Event stuff -->
-{% for ev in events %}
-<div>event.date</div>
-    <script>createEvent({{event.subject}},{{event.date}},{{event.description}},{{event.attention}});</script>
-{% endfor %}
+<!-- {% for ev in events %}
+
+    <div id="event"+{{ev.id}}></div>
+
+{% endfor %} -->
 
 	<script type="text/javascript">
     var ev=[];
@@ -359,24 +379,6 @@
         $("#guardian1").val($("#g1label").text());
         $("#guardian2").val($("#g2label").text());
       }
-
-      var createEvent=function (title,date,description,attention){
-        var timelineObj = $('#myTimeline').data('jqtimeline');
-        var id=timelineObj.getAllEvents().length+1;
-        for (var el=0; el<id; el++){
-            var eventObj = {id: id, name:title, on : date, description: description, flag: attention};
-            timelineObj.addEvent(eventObj);
-            $("#event_"+id).popover({
-                        trigger: 'hover',
-                        html: true,
-                        title: "<h4>"+title + " "+date+"</h4>",
-                        content: "<div class='popup'><button type='button' class='btn btn-success' data-toggle='modal' data-target='#eventModal'>View More</button></div>",
-                        delay: {show:200, hide:200},
-                        container: '#event_'+id
-                    });
-        }
-      };
-
       // 
   
 

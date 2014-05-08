@@ -10,7 +10,8 @@ from django import forms
 def profile(request, student_id):
 	student = Student.objects.get(id=student_id)
 	events = Event.objects.filter(student=student)
-	variables = {"student" : student, "events" : events}
+	num_events=len(events)
+	variables = {"student" : student, "events" : events, 'num_events': num_events}
 	#print student.firstName
 	return render_to_response('templates/profile.html', RequestContext(request, variables))
 
