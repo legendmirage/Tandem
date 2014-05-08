@@ -3,13 +3,15 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from student.models import Student
 from event.models import Event
+from django import forms
 
 
 # Create your views here.
 def profile(request, student_id):
 	student = Student.objects.get(id=student_id)
 	events = Event.objects.filter(student=student)
-	variables = {"student" : student, "events" : events}
+	num_events=len(events)
+	variables = {"student" : student, "events" : events, 'num_events': num_events}
 	#print student.firstName
 	return render_to_response('profile.html', RequestContext(request, variables))
 
@@ -23,3 +25,11 @@ def homepage(request):
 	variables = {'students' : students, 'student_names' : student_names, 'num_students': num_students, 'student_ids': student_ids}
 
 	return render_to_response('home.html', RequestContext(request, variables))
+
+
+# class EditStudentForm(forms.Form):
+#     preferredName = forms.CharField()
+#     dateofBirth = 
+#     email = forms.EmailField(required=False)
+#     message = forms.CharField(widget=forms.Textarea)
+

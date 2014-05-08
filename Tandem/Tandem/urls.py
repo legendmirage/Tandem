@@ -19,5 +19,6 @@ urlpatterns = patterns('',
     url(r'^register/$', 'accounts.views.registrationView'),
     url(r'^login/$',  login),
     url(r'^logout/$', 'accounts.views.logoutView'),
+
 )
 	
