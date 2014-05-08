@@ -304,6 +304,7 @@
 
 	<!-- Initializing timeline with info for initial prototype -->
 	<script type="text/javascript">
+    var ev=[];
     // var ev = [{
     //     id : 1,
     //     name : "Had fever",
@@ -323,12 +324,12 @@
     //     description: "Johnny started a fight with Yinfu Craig during recess about her Yu-Gi-Oh cards. This is the second time I've seen him upset with Yinfu.",
     //     flag: true
     // }]
-    //     var tl = $('#myTimeline').jqtimeline({
-    //     events : ev,
-    //     numYears:1,
-    //     startYear:2014,
-    //     gap: 90
-    // });
+        var tl = $('#myTimeline').jqtimeline({
+        events : ev,
+        numYears:1,
+        startYear:2014,
+        gap: 90
+    });
 
     $("#submitform").click(function(evt) {
         var timelineObj = $('#myTimeline').data('jqtimeline');
@@ -350,7 +351,7 @@
                                     trigger: 'hover',
                                     html: true,
                                     title: "<h3>"+ename + " "+edate+"</h3>",
-                                    content: "<div class='popup'><button type='button' class='btn btn-success' data-toggle='modal' data-target='#eventModal'>View More</button></div>",
+                                    content:"<div class='popup'><button type='button' class='btn btn-success' data-toggle='modal' data-target='#eventModal'>View More</button></div>",
                                     delay: {show:200, hide:200},
                                     container: '#event_'+numevents
                                 });
@@ -408,7 +409,7 @@
                     });
         }
       };
-     // createInitialEvents();
+      createInitialEvents();
       // 
   
 
