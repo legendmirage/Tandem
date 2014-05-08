@@ -6,4 +6,4 @@ from announcement.models import Announcement
 # Create your views here.
 def announceView(request):
 	variables = {'announcements': Announcement.objects.order_by('-timestamp')}
-	return render_to_response('templates/announcement.html', RequestContext(request, variables))
+	return render_to_response('announcement.html', RequestContext(request, variables))

@@ -13,7 +13,7 @@ def profile(request, student_id):
 	num_events=len(events)
 	variables = {"student" : student, "events" : events, 'num_events': num_events}
 	#print student.firstName
-	return render_to_response('templates/profile.html', RequestContext(request, variables))
+	return render_to_response('profile.html', RequestContext(request, variables))
 
 def homepage(request):
 	students = Student.objects.all()
@@ -24,10 +24,12 @@ def homepage(request):
 
 	variables = {'students' : students, 'student_names' : student_names, 'num_students': num_students, 'student_ids': student_ids}
 
-	return render_to_response('templates/home.html', RequestContext(request, variables))
+	return render_to_response('home.html', RequestContext(request, variables))
+
 
 # class EditStudentForm(forms.Form):
 #     preferredName = forms.CharField()
 #     dateofBirth = 
 #     email = forms.EmailField(required=False)
 #     message = forms.CharField(widget=forms.Textarea)
+
