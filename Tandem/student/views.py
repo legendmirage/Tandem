@@ -12,7 +12,7 @@ def profile(request, student_id):
 	student = Student.objects.get(id=student_id)
 	events = Event.objects.filter(student=student)
 	num_events=len(events)
-	variables = {"student" : student, "events" : events, 'num_events': num_events}
+	variables = {"student" : student, "events" : events, 'num_events': num_events, "stud_id": student.id}
 	#print student.firstName
 	return render_to_response('profile.html', RequestContext(request, variables))
 

@@ -41,83 +41,10 @@
 		<div id="seat-container">
 			{% for student in students %}
 				<div class="desk student" id="student{{student.id}}" firstName="{{student.firstName}}" lastName="{{student.lastName}}" parentOne="{{student.parent1}}" parentTwo="{{student.parent2}}">
-					<img class="box" src="/static/images/desk.jpg">
+					<img class="box" src="/static/image/desk.jpg">
 					<div class="names">{{ student.firstName }} {{ student.lastName.0 }}.</div>
 				</div>
 			{% endfor %}
-			<!--<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Leslie C.</div>
-			</div>
-			<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Ashley B.</div>
-			</div>
-			<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Sally H.</div>
-			</div>
-			<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Kim K.</div>
-			</div>
-			<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Linda C.</div>
-			</div>
-			<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Charles Y.</div>
-			</div>
-			<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Nike F.</div>
-			</div>
-			<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Jason M.</div>
-			</div>
-			<div id="jfox" class="desk" data-toggle="popover" data-placement="right">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Johnny F.</div>
-			</div>
-			<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Mike B.</div>
-			</div>
-			<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Jackie H.</div>
-			</div>
-			<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Sylvia Z.</div>
-			</div>
-			<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Joanie W.</div>
-			</div>
-			<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Yinfu C.</div>
-			</div>
-			<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Ben F.</div>
-			</div>
-			<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Sophie A.</div>
-			</div>
-			<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Peter H.</div>
-			</div>
-			<div class="desk student">
-				<img class="box" src="/static/images/desk.jpg">
-				<div class="names">Tom X.</div>
-			</div>
-		</div>-->
 		<div id="list-container">
 			<h3 id="search-label">Student Search:</h3>
 			<form>
