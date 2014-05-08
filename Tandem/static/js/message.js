@@ -185,7 +185,7 @@ $(document).ready(function () {
    
     threadMap['Fox, Johnny'] = [
         new MessageThread("Fox, Johnny", "Johnny's Fight", l1, '4/1 12:00', true),
-        new MessageThread("Fox, Johnny", "Johnny's Fight", l2, '4/12 12:00', true)
+        new MessageThread("Fox, Johnny", "Johnny sick", l2, '4/12 12:00', true)
     ];
 
     m2 = new Message(3,3,"Faust, Ben", "Ben Sick", '4/5 12:00', msg2, true);
@@ -204,7 +204,7 @@ $(document).ready(function () {
 
     id = 6;
 
-    loadAllMessages();
+    //loadAllMessages();
     //appending each student to the student panel
     for (var i = 0; i < studentNames.length; i++) {
         if(studentNames[i] in studentMap){

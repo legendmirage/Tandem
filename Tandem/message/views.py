@@ -6,9 +6,9 @@ from messagethread.models import Messagethread
 
 # Create your views here.
 def allMessages(request):
-	messages = Message.objects.order_by('-timestamp').order_by('read')
+	messages = Message.objects.order_by('-timestamp')
 	threads = Messagethread.objects.all()
-	threadIDs = [thread.id for thread in threads]
+	threadIDs = [t.id for t in threads]
 	variables = {'messages': messages, 'messageThreads': threads, 'threadIDs': threadIDs}
 	return render_to_response('templates/message.html', RequestContext(request, variables))
 

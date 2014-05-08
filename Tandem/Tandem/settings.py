@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'message',
     'announcement',
     'event',
+    'messagethread',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,13 +90,13 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
     #'/Users/jcweaver/Documents/6.813/Tandem/Tandem/static/',
-    '/Users/jacquelinehung/Dropbox/MIT notes/2014 spring/6.831/group project/Tandem/Tandem/static/', #jackie
-    #'/home/yinfu/Desktop/Tandem/Tandem/Tandem/static/', #yinfu
+    #'/Users/jacquelinehung/Dropbox/MIT notes/2014 spring/6.831/group project/Tandem/Tandem/static/', #jackie
+    '/home/yinfu/Desktop/Tandem/Tandem/Tandem/static/', #yinfu
     # '/Users/jcweaver/Documents/6.813/Tandem/Tandem/static/' #jcweaver
 )
 
 #TEMPLATE_DIRS = ('C:/Users/Akhil/sylvia/Tandem/Tandem/templates,') #Sylvia's path
-# TEMPLATE_DIRS = ('/home/yinfu/Desktop/Tandem/Tandem/Tandem')  #Yinfu's path
+TEMPLATE_DIRS = ('/home/yinfu/Desktop/Tandem/Tandem/Tandem')  #Yinfu's path
 #TEMPLATE_DIRS = ('/Users/jcweaver/Documents/6.813/Tandem/Tandem/') #Joanie's path
-TEMPLATE_DIRS = ("/Users/jacquelinehung/Dropbox/MIT notes/2014 spring/6.831/group project/Tandem/Tandem/") #jackie's path
+#TEMPLATE_DIRS = ("/Users/jacquelinehung/Dropbox/MIT notes/2014 spring/6.831/group project/Tandem/Tandem/") #jackie's path
 
