@@ -248,4 +248,24 @@ $(document).ready(function () {
         select.appendChild(el);
     }
     $("#recipient").select2();
+
+    //search for students---------start
+    select = document.getElementById("search");
+    select.appendChild(document.createElement("option"));
+    for (var i = 0; i < studentNames.length; i++) {
+        var opt = studentNames[i];
+        var el = document.createElement("option");
+        el.textContent = opt;
+        el.value = opt;
+        select.appendChild(el);
+    }
+    $("#search").select2({
+        placeholder: "Click to search for a student"
+    });
+    $("#search").on("select2-selecting", function(e) {
+        var id = studentNames.indexOf(e.val);
+        var elem = document.getElementById("student-"+id);
+        hilightStudent(elem);
+    });
+    //search for students---------end
 });

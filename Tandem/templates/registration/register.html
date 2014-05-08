@@ -1,0 +1,115 @@
+<html lang="en">
+<head>
+
+	<title>Tandem</title>
+
+	<!--load stylesheets & bootstrap-->
+	<link rel="stylesheet" type="text/css" href="/static/css/common.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css">
+	<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+	<link type="text/css" href="/static/css/ui-lightness/jquery-ui-1.10.4.custom.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="/static/css/loginStyle.css" />
+	<!-- load necessary javascript files-->
+	<script type="text/javascript" src="/static/external_js/jquery-1.9.0.min.js"></script>
+
+	<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/static/external_js/jquery.tmpl.min.js"></script>
+	<script type="text/javascript" src="/static/external_js/jquery-ui.min.js"></script>
+	<script src="/static/external_js/modernizr.custom.63321.js"></script>
+	<style>
+		.container-top{
+			margin-top: 30px;
+			text-align: center;
+			font-size: 30px;
+		}
+		#reg-button{
+			background-color: #4CBED9;
+			border-width: 0;
+			float: right;
+			margin-right: 20px;
+			margin-bottom: 20px;
+		}
+		.fieldWrapper{
+			padding: 10px;
+		}
+		.form-1{
+			margin-top: 10px;
+			width: 40%;
+		}
+	</style>
+</head>
+<body>
+	<div class="container-top">
+		<img src="/static/images/logo2.png" height="60" alt="Tandem">
+		</br>Registration Form
+	</div>
+	<form class="form-1" action="{{ request.get_full_path }}" method="POST">{% csrf_token %}
+		<br/>
+
+		<div class="fieldWrapper">
+			{{ form.username.errors }}
+			{{ form.username.error_messages }}
+			
+			{{ form.username.label_tag }}
+			<p class="field">
+			{{ form.username }}
+			<i class="icon-user icon-large"></i>
+			</p>
+			{{ form.username.help_text }}
+		</div>
+
+		<div class="fieldWrapper">
+			{{ form.password1.errors }}
+			{{ form.password1.error_messages }}
+			
+			{{ form.password1.label_tag }}
+			<p class="field">
+			{{ form.password1 }}
+			<i class="icon-lock icon-large"></i>
+			</p>
+			{{ form.password1.help_text }}
+		</div>
+
+		<div class="fieldWrapper">
+			{{ form.password2.errors }}
+			{{ form.password2.error_messages }}
+			{{ form.password2.label_tag }}
+			<p class="field">
+			{{ form.password2 }}
+			<i class="icon-lock icon-large"></i>
+			</p>
+			{{ form.password2.help_text }}
+		</div>
+
+		<div class="fieldWrapper">
+			{{ form.email.errors }}
+			{{ form.email.error_messages }}
+			
+			{{ form.email.label_tag }}
+			<p class="field">
+			{{ form.email }}
+			<i class="icon-envelope icon-large"></i>
+			</p>
+			{{ form.email.help_text }}
+		</div>
+
+<!-- 		{% for field in form %}
+		<div class="fieldWrapper">
+			{{ field.errors }}
+			{{ field.error_messages }}
+			
+			{{ field.label_tag }}
+			<p class="field">
+			{{ field }}
+			<i class="icon-user icon-large"></i>
+			</p>
+			{{ field.help_text }}
+		</div>
+		{% endfor %} -->
+		<br/>
+		<p><input id="reg-button" class="btn btn-success" type="submit" value="Submit"></p>
+		<br/>
+		<br/>
+	</form>
+</body>
+</html>

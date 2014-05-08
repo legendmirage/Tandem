@@ -47,8 +47,9 @@
 } 
 
 .popup{
-	width: 400px;
+	width: 200px;
 	padding: 15px;
+	text-align: center;
 }
 
 .column-left{
@@ -131,4 +132,8 @@
 
 textarea {
 	resize: none;
+}
+
+.no-close .ui-dialog-titlebar-close {
+  display: none;
 }
