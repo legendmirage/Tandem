@@ -1,0 +1,39 @@
+<html lang="en">
+  <head>
+
+    <title>Tandem</title>
+
+    <!--load stylesheets & bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" href="/static/css/ui-lightness/jquery-ui-1.10.4.custom.css" rel="stylesheet" />
+    
+    <!-- load necessary javascript files-->
+    <script type="text/javascript" src="/static/external_js/jquery-1.9.0.min.js"></script>
+        
+        <script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/static/external_js/jquery.tmpl.min.js"></script>
+        <script type="text/javascript" src="/static/external_js/jquery-ui.min.js"></script>
+  </head>
+  <body>
+      {% if form.errors %}
+        <p class="error">Sorry, that's not a valid username or password</p>
+      {% endif %}
+
+      <form class="form-inline" action='.' method='post'>
+        {% csrf_token %}
+        <br/>
+        <div class="fieldWrapper">
+          <label for="username">Username:</label>
+          <input type="text" name="username" value="" id="username"><br />
+        </div>
+      <div class="fieldWrapper">
+        <label for="password">Password:</label>
+          <input type="password" name="password" value="" id="password">
+        </div>
+
+        <input type="submit" value="login" />
+      </form>
+  </body>
+</html>

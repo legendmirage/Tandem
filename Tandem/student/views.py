@@ -11,7 +11,7 @@ def profile(request, student_id):
 	events = Event.objects.filter(student=student)
 	variables = {"student" : student, "events" : events}
 	#print student.firstName
-	return render_to_response('templates/profile.html', RequestContext(request, variables))
+	return render_to_response('profile.html', RequestContext(request, variables))
 
 def homepage(request):
 	students = Student.objects.all()
@@ -22,4 +22,4 @@ def homepage(request):
 
 	variables = {'students' : students, 'student_names' : student_names, 'num_students': num_students, 'student_ids': student_ids}
 
-	return render_to_response('templates/home.html', RequestContext(request, variables))
+	return render_to_response('home.html', RequestContext(request, variables))
