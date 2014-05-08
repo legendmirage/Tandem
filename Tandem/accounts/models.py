@@ -1,9 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django import forms
-
 # Create your models here.
 # Code taken from Sylvia's thesis project
+    
 class RegistrationForm(forms.Form):
     """
     A registration form that creates a User with an email, but the email is not required.

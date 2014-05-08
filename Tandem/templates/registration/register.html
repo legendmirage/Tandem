@@ -45,14 +45,67 @@
 	</div>
 	<form class="form-1" action="{{ request.get_full_path }}" method="POST">{% csrf_token %}
 		<br/>
-		{% for field in form %}
+
+		<div class="fieldWrapper">
+			{{ form.username.errors }}
+			{{ form.username.error_messages }}
+			
+			{{ form.username.label_tag }}
+			<p class="field">
+			{{ form.username }}
+			<i class="icon-user icon-large"></i>
+			</p>
+			{{ form.username.help_text }}
+		</div>
+
+		<div class="fieldWrapper">
+			{{ form.password1.errors }}
+			{{ form.password1.error_messages }}
+			
+			{{ form.password1.label_tag }}
+			<p class="field">
+			{{ form.password1 }}
+			<i class="icon-lock icon-large"></i>
+			</p>
+			{{ form.password1.help_text }}
+		</div>
+
+		<div class="fieldWrapper">
+			{{ form.password2.errors }}
+			{{ form.password2.error_messages }}
+			{{ form.password2.label_tag }}
+			<p class="field">
+			{{ form.password2 }}
+			<i class="icon-lock icon-large"></i>
+			</p>
+			{{ form.password2.help_text }}
+		</div>
+
+		<div class="fieldWrapper">
+			{{ form.email.errors }}
+			{{ form.email.error_messages }}
+			
+			{{ form.email.label_tag }}
+			<p class="field">
+			{{ form.email }}
+			<i class="icon-envelope icon-large"></i>
+			</p>
+			{{ form.email.help_text }}
+		</div>
+
+<!-- 		{% for field in form %}
 		<div class="fieldWrapper">
 			{{ field.errors }}
 			{{ field.error_messages }}
-			{{ field.label_tag }} {{ field }}
+			
+			{{ field.label_tag }}
+			<p class="field">
+			{{ field }}
+			<i class="icon-user icon-large"></i>
+			</p>
 			{{ field.help_text }}
 		</div>
-		{% endfor %}
+		{% endfor %} -->
 		<br/>
 		<p><input id="reg-button" class="btn btn-success" type="submit" value="Submit"></p>
 		<br/>
