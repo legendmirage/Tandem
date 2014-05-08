@@ -10,7 +10,7 @@ var msg3 = "Hello, </br> Yinfu has a doctor's appointment today and will be late
 var msg4 = "Hello, </br> Sophie had a fever so she can't attend school today.";
 
 var id = 1;
-
+var currentThread = null;
 
 function MessageThread(student, subject, messages, time, unRead){
     this.student = student;
@@ -72,6 +72,7 @@ var hilightStudent = function (elem) {
 }
 
 var hilightThread = function (elem, t) {
+    currentThread = t;
     if (t.unRead==true){
         studentMap[t.student].numOfUnread -= 1;
         t.unRead = false;
@@ -83,18 +84,56 @@ var hilightThread = function (elem, t) {
     document.getElementById("student-name").innerHTML = t.student;
     var tmp = "";
     for(var i=0;i<t.messages.length;i++){
-        m = t.messages[i];
 
-        tmp += m.content;
-        tmp += "</br></br><i><font color='#AAAAAA'>";
-        tmp += m.time;
-        tmp += "</font></i>";
+        m = t.messages[i];
+        if(m.receive==true){
+            tmp += "<div class='row'><div class='col-md-2'><b>Parent:</b></div>"
+            +"<div id='actual-msg' class='col-md-10' style='margin-bottom:20px;'>"
+            + m.content + "</br></br><i><font color='#AAAAAA'>"
+            + m.time + "</font></i></br></br>"
+            + "</div></div>";
+        }else{
+            tmp += "<div style='background:#DDDDDD; padding-top:10px;' class='row'><div class='col-md-2'><b>Me:</b></div>"
+            +"<div id='actual-msg' class='col-md-10' style='margin-bottom:20px;'>"
+            + m.content + "</br></br><i><font color='#AAAAAA'>"
+            + m.time + "</font></i></br>"
+            + "</div></div>";
+        }
     }
-    $("#actual-msg").html(tmp);
+    // $("#actual-msg").html(tmp);
+    $("#message-data").html(tmp);
     $("#message-header").html(t.subject);
     $("#message-detail").fadeIn()
 
 }
+
+var refreshThread = function (t) {
+    currentThread = t;
+    
+    document.getElementById("student-name").innerHTML = t.student;
+    var tmp = "";
+    for(var i=0;i<t.messages.length;i++){
+         m = t.messages[i];
+        if(m.receive==true){
+            tmp += "<div class='row'><div class='col-md-2'><b>Parent:</b></div>"
+            +"<div id='actual-msg' class='col-md-10' style='margin-bottom:20px;'>"
+            + m.content + "</br></br><i><font color='#AAAAAA'>"
+            + m.time + "</font></i></br></br>"
+            + "</div></div>";
+        }else{
+            tmp += "<div style='background:#DDDDDD; padding-top:10px;' class='row'><div class='col-md-2'><b>Me:</b></div>"
+            +"<div id='actual-msg' class='col-md-10' style='margin-bottom:20px;'>"
+            + m.content + "</br></br><i><font color='#AAAAAA'>"
+            + m.time + "</font></i></br>"
+            + "</div></div>";
+        }
+    }
+    $("#message-data").html(tmp);
+    $("#message-header").html(t.subject);
+    $("#message-detail").fadeIn()
+
+}
+
 
 var loadAllMessages = function () {
     $("#messages-panel").empty();
@@ -231,10 +270,19 @@ $(document).ready(function () {
 
     $('#sendResponse').click(function (e) {
         e.preventDefault();
-        $('#message-data').hide();
-        $('#message-data').append("<div style='background:#DDDDDD' class='row'><div class='col-md-2'><b>Me:</b></div><div class='col-md-10'>" + $('#responseText').val() + "</div></div></div>");
-        $('#message-data').fadeIn();
+        // $('#message-data').hide();
+        // $('#message-data').append("<div style='background:#DDDDDD' class='row'><div class='col-md-2'><b>Me:</b></div><div class='col-md-10'>" + $('#responseText').val() + "</div></div></div>");
+        // $('#message-data').fadeIn();
+        // $('#responseText').val('');
+        var d = new Date();
+        var dateTime = convertDate(d);
+        id += 1;
+        currentThread.time = dateTime;
+        var m = new Message(id, currentThread.id, currentThread.student, currentThread.subject,
+            dateTime, $('#responseText').val(), false);
         $('#responseText').val('');
+        currentThread.messages.push(m);
+        refreshThread(currentThread);
 
     });
 
