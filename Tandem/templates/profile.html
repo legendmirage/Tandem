@@ -304,31 +304,31 @@
 
 	<!-- Initializing timeline with info for initial prototype -->
 	<script type="text/javascript">
-    var ev = [{
-        id : 1,
-        name : "Had fever",
-        on : new Date(2014,2,11),
-        description: "Johnny's mom called him in sick today with a high fever. Potential of missing a week of school"
-    },
-    {
-        id : 2,
-        name : "Share",
-        on : new Date(2014,2,21),
-        description: "Johnny shared his snack today with Joanie during snack time."
-    },
-    {
-        id : 3,
-        name : "Fight",
-        on : new Date(2014,2,24),
-        description: "Johnny started a fight with Yinfu Craig during recess about her Yu-Gi-Oh cards. This is the second time I've seen him upset with Yinfu.",
-        flag: true
-    }]
-        var tl = $('#myTimeline').jqtimeline({
-        events : ev,
-        numYears:1,
-        startYear:2014,
-        gap: 90
-    });
+    // var ev = [{
+    //     id : 1,
+    //     name : "Had fever",
+    //     on : new Date(2014,2,11),
+    //     description: "Johnny's mom called him in sick today with a high fever. Potential of missing a week of school"
+    // },
+    // {
+    //     id : 2,
+    //     name : "Share",
+    //     on : new Date(2014,2,21),
+    //     description: "Johnny shared his snack today with Joanie during snack time."
+    // },
+    // {
+    //     id : 3,
+    //     name : "Fight",
+    //     on : new Date(2014,2,24),
+    //     description: "Johnny started a fight with Yinfu Craig during recess about her Yu-Gi-Oh cards. This is the second time I've seen him upset with Yinfu.",
+    //     flag: true
+    // }]
+    //     var tl = $('#myTimeline').jqtimeline({
+    //     events : ev,
+    //     numYears:1,
+    //     startYear:2014,
+    //     gap: 90
+    // });
 
     $("#submitform").click(function(evt) {
         var timelineObj = $('#myTimeline').data('jqtimeline');
@@ -350,7 +350,7 @@
                                     trigger: 'hover',
                                     html: true,
                                     title: "<h3>"+ename + " "+edate+"</h3>",
-                                    content: '<div class="popup"><button data-toggle="modal" data-target="#eventModal">View More</button></div>',
+                                    content: "<div class='popup'><button type='button' class='btn btn-success' data-toggle='modal' data-target='#eventModal'>View More</button></div>",
                                     delay: {show:200, hide:200},
                                     container: '#event_'+numevents
                                 });
@@ -408,7 +408,7 @@
                     });
         }
       };
-      createInitialEvents();
+     // createInitialEvents();
       // 
   
 
