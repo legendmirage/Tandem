@@ -11,14 +11,14 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
 
+    url(r'^$', 'accounts.views.homepage'),
+    url(r'^register/$', 'accounts.views.registrationView'),
+    url(r'^login/$',  'accounts.views.loginView'),
+    url(r'^logout/$', 'accounts.views.logoutView'),
+
     url(r'^announcements/$', 'announcement.views.announceView'),
     url(r'^student/(?P<student_id>\d+)$', 'student.views.profile'),
-    url(r'^$', 'student.views.homepage'),
     url(r'^messages/$', 'message.views.allMessages'),
-
-    url(r'^register/$', 'accounts.views.registrationView'),
-    url(r'^login/$',  login),
-    url(r'^logout/$', 'accounts.views.logoutView'),
 
 )
 	

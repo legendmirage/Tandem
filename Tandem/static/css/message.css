@@ -17,6 +17,14 @@
 	font-size: large;
 	margin-left: 3px !important;
 }
+.select-search{
+	width: 250px;
+}
+#s2id_search{
+	margin-top: 60px !important;
+	width: 300px;
+}
+
 #students-panel{
 	margin-top: 0;
 	display: inline-block;

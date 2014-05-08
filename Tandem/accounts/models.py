@@ -1,9 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django import forms
-
 # Create your models here.
 # Code taken from Sylvia's thesis project
+    
 class RegistrationForm(forms.Form):
     """
     A registration form that creates a User with an email, but the email is not required.
@@ -16,7 +16,7 @@ class RegistrationForm(forms.Form):
     password1 = forms.CharField(label=("Password"), widget=forms.PasswordInput)
     password2 = forms.CharField(label=("Password confirmation"), widget=forms.PasswordInput,
         help_text = ("Enter the same password as above, for verification."))
-    email = forms.EmailField(required=False)
+    email = forms.CharField(required=False)
 
     def clean_username(self):
         username = self.cleaned_data["username"]
