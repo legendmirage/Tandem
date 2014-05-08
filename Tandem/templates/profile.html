@@ -301,29 +301,14 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
+<!-- Django Event stuff -->
+{% for ev in events %}
+<div>event.date</div>
+    <script>createEvent({{event.subject}},{{event.date}},{{event.description}},{{event.attention}});</script>
+{% endfor %}
 
-	<!-- Initializing timeline with info for initial prototype -->
 	<script type="text/javascript">
     var ev=[];
-    // var ev = [{
-    //     id : 1,
-    //     name : "Had fever",
-    //     on : new Date(2014,2,11),
-    //     description: "Johnny's mom called him in sick today with a high fever. Potential of missing a week of school"
-    // },
-    // {
-    //     id : 2,
-    //     name : "Share",
-    //     on : new Date(2014,2,21),
-    //     description: "Johnny shared his snack today with Joanie during snack time."
-    // },
-    // {
-    //     id : 3,
-    //     name : "Fight",
-    //     on : new Date(2014,2,24),
-    //     description: "Johnny started a fight with Yinfu Craig during recess about her Yu-Gi-Oh cards. This is the second time I've seen him upset with Yinfu.",
-    //     flag: true
-    // }]
         var tl = $('#myTimeline').jqtimeline({
         events : ev,
         numYears:1,
@@ -344,23 +329,12 @@
                 action: function(dialog) {
                     evt.preventDefault();
                     //timelineObj.method();
-                    var numevents=timelineObj.getAllEvents().length+1;
-                    var eventObj = {id:numevents, name:$('#eventname').val(), on : new Date($('#datepicker').val()), description: $("#eventdescription").val(), flag: $("#eventstatus").prop('checked')};
-                    timelineObj.addEvent(eventObj);
-                    $("#event_"+numevents).popover({
-                                    trigger: 'hover',
-                                    html: true,
-                                    title: "<h3>"+ename + " "+edate+"</h3>",
-                                    content:"<div class='popup'><button type='button' class='btn btn-success' data-toggle='modal' data-target='#eventModal'>View More</button></div>",
-                                    delay: {show:200, hide:200},
-                                    container: '#event_'+numevents
-                                });
+                    createEvent($('#eventname').val(),new Date($('#datepicker').val()),$("#eventdescription").val(),$("#eventstatus").prop('checked'));
                     dialog.close();
                 }
                         }, {
                         label: "Cancel",
                         action: function(){
-                            alert("No event was added");
                             dialog.close();
                         }
                         }
@@ -385,31 +359,24 @@
         $("#guardian1").val($("#g1label").text());
         $("#guardian2").val($("#g2label").text());
       }
-      //initial events need popovers too
-      var createInitialEvents=function (){
+
+      var createEvent=function (title,date,description,attention){
         var timelineObj = $('#myTimeline').data('jqtimeline');
-        var numevents=timelineObj.getAllEvents().length;
-        // console.log("calling", numevents);
-        for (var el=0; el<numevents; el++){
-            // console.log(e);
-            var e=timelineObj.getAllEvents()[el];
-            var id=e.id;
-            var ename=e.name;
-            var edescription=e.description;
-            var month_offset=e.on.getMonth()+1;
-            var edate=month_offset+"/"+e.on.getDate()+"/"+e.on.getFullYear();
-            // console.log("id", id);
+        var id=timelineObj.getAllEvents().length+1;
+        for (var el=0; el<id; el++){
+            var eventObj = {id: id, name:title, on : date, description: description, flag: attention};
+            timelineObj.addEvent(eventObj);
             $("#event_"+id).popover({
                         trigger: 'hover',
                         html: true,
-                        title: "<h4>"+ename + " "+edate+"</h4>",
+                        title: "<h4>"+title + " "+date+"</h4>",
                         content: "<div class='popup'><button type='button' class='btn btn-success' data-toggle='modal' data-target='#eventModal'>View More</button></div>",
                         delay: {show:200, hide:200},
-                        container: '#event_'+numevents
+                        container: '#event_'+id
                     });
         }
       };
-      createInitialEvents();
+
       // 
   
 
