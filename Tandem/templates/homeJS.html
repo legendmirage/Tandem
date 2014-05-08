@@ -41,18 +41,11 @@ $(document).ready(function () {
     }
 
     //popover code
-<<<<<<< HEAD
-    for (i in student_ids) {
-        var id = '#student' + i;
-=======
     for (var i = 0; i < student_ids.length; i++) {
         var array_val = student_ids[i];
         var id = '#student' + array_val;
-        console.log(id);
->>>>>>> 6569b85a86d353947c89e1f12e60cbde7fe62def
         var student = $(id);
         var stud_id = student.attr('id');
-        console.log(stud_id);
         var fName = student.attr('firstName');
         var lName = student.attr('lastName');
         var parent1 = student.attr('parentOne');
