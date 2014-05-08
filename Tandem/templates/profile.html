@@ -26,7 +26,6 @@
         <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-dialog.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css">
         <script type="text/javascript" src="/static/jqtimeline/js/jquery.jqtimeline.js"></script>
-        {% include "templates/eventJS.html" %}
         <script>
             $(function() {
                 console.log($( "#datepicker" ));
@@ -36,6 +35,12 @@
         </script>
     </head>
     <body>
+        <!-- Django Event stuff -->
+{% for ev in events %}
+
+    <div id="event{{ev.id}}" description="{{ev.description}}" subject="{{ev.subject}}" year="{{ev.date.year}}" month="{{ev.date.month}}" day="{{ev.date.day}}" attention="{{ev.attention}}" class="event"></div>
+
+{% endfor %}
         <div class='container'>
             <div id='header-bar' class='row'>
                 <div id='page-header' class="page-header col-md-4">
@@ -52,7 +57,7 @@
                     <div display="inline-block"></div>
                     <h1 id="student-name">{{student.firstName}} {{student.lastName}}</h1>
                     <span><b>Preferred Name:</b> <span id="preferred-name">{{student.preferredName}}</span></br><span>
-                    <span><b>Date of Birth:</b><span id="dob"> {{student.birthdate.date}}</span></br><span>
+                    <span><b>Date of Birth:</b><span id="dob"> {{student.birthdate.date.month}}/{{student.birthdate.date.day}}/{{student.birthdate.date.year}}</span></br><span>
                 </div>
                 <div class="column-right">
                     <h3>Parents / Guardians</h3>
@@ -302,31 +307,6 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-<script>
-var createEvent=function (title,date,description,attention){
-        var timelineObj = $('#myTimeline').data('jqtimeline');
-        var id=timelineObj.getAllEvents().length+1;
-        for (var el=0; el<id; el++){
-            var eventObj = {id: id, name: title, on : date, description: description, flag: attention};
-            timelineObj.addEvent(eventObj);
-            $("#event_"+id).popover({
-                        trigger: 'hover',
-                        html: true,
-                        title: "<h4>"+title + " "+date+"</h4>",
-                        content: "<div class='popup'><button type='button' class='btn btn-success' data-toggle='modal' data-target='#eventModal'>View More</button></div>",
-                        delay: {show:200, hide:200},
-                        container: '#event_'+id
-                    });
-        }
-      };
-</script>
-<!-- Django Event stuff -->
-<!-- {% for ev in events %}
-
-    <div id="event"+{{ev.id}}></div>
-
-{% endfor %} -->
-
 	<script type="text/javascript">
     var ev=[];
         var tl = $('#myTimeline').jqtimeline({
@@ -380,8 +360,39 @@ var createEvent=function (title,date,description,attention){
         $("#guardian2").val($("#g2label").text());
       }
       // 
-  
+  var createEvent=function (title, year, month, day, description, attention){
+        var timelineObj = $('#myTimeline').data('jqtimeline');
+        var id=timelineObj.getAllEvents().length+1;
+        console.log(year);
+        var date=new Date(year.valueOf()+"-"+month.valueOf()+"-"+day.valueOf());
+        var eventObj = {id: id, name: title, on : date, description: description, flag: attention};
+        timelineObj.addEvent(eventObj);
+        $("#event_"+id).popover({
+                    trigger: 'hover',
+                    html: true,
+                    title: "<h4>"+title + " "+month.valueOf()+"/"+day.valueOf()+"/"+year.valueOf()+"</h4>",
+                    content: "<div class='popup'><button type='button' class='btn btn-success' data-toggle='modal' data-target='#eventModal'>View More</button></div>",
+                    delay: {show:200, hide:200},
+                    container: '#event_'+id
+                });
+      }
 
+      var createStoredEvents=function(){
+        var elements = document.getElementsByClassName("event");
+        for (var el=0; el<elements.length; el++){
+            var id=elements[el].id;
+            console.log(id);
+            var div=$("#"+id);
+            createEvent(div.attr("subject"),div.attr("year"),div.attr("month"),div.attr("day"),div.attr("description"),div.attr("attention"));
+        }
+      }
+      var getDate=function(date_string){
+
+      }
+
+$(document).ready(function () {
+    createStoredEvents();
+});
 
 </script>
 
