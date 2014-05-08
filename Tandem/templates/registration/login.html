@@ -1,5 +1,6 @@
 <html lang="en">
-  <head>
+
+<head>
 
     <title>Tandem</title>
 
@@ -8,21 +9,70 @@
     <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css">
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
     <link type="text/css" href="/static/css/ui-lightness/jquery-ui-1.10.4.custom.css" rel="stylesheet" />
-    
+
+    <link rel="stylesheet" type="text/css" href="/static/css/loginStyle.css" />
     <!-- load necessary javascript files-->
     <script type="text/javascript" src="/static/external_js/jquery-1.9.0.min.js"></script>
-        
-        <script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/static/external_js/jquery.tmpl.min.js"></script>
-        <script type="text/javascript" src="/static/external_js/jquery-ui.min.js"></script>
-  </head>
-  <body>
-      <a href="/register/">Register</a>
-      {% if form.errors %}
-        <p class="error">Sorry, that's not a valid username or password</p>
-      {% endif %}
 
-      <form class="form-inline" action='.' method='post'>
+    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/external_js/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="/static/external_js/jquery-ui.min.js"></script>
+
+    <script src="/static/external_js/modernizr.custom.63321.js"></script>
+
+    <style>
+    .container-top{
+        margin-top: 30px;
+        text-align: center;
+        font-size: 25px;
+    }
+    .register{
+        font-size: 20px;
+        color: white;
+        border-width: 2px;
+    }
+    #reg-button{
+        background-color: #4CBED9;
+        border-width: 0;
+    }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container-top">
+        <img src="/static/images/logo2.png" height="60" alt="Tandem">
+        </br>
+        <p>helps teachers connect with student's parents.</br>Better communication.</br>Better education.</br></br></p>
+        <p>If you don't have an account yet, please:</p>
+        <a id='reg-button' class="btn btn-success register" href="/register/">Register</a>
+        
+        {% if form.errors %}
+        <p class="error">Sorry, that's not a valid username or password</p>
+        {% endif %}
+
+        
+    </div>
+    <div class="container-bottom">
+        <form class="form-1" action='.' method='post'>
+            {% csrf_token %}
+            <p class="field">
+                <input type="text" name="username" id="username" placeholder="Username or email" value="">
+                <i class="icon-user icon-large"></i>
+            </p>
+            <p class="field">
+                <input type="password" name="password" id="password" placeholder="Password" value="">
+                <i class="icon-lock icon-large"></i>
+            </p>
+            <p class="submit">
+                <button type="submit" name="submit" value="login"><i class="icon-arrow-right icon-large"></i>
+                </button>
+            </p>
+        </form>
+    </div>
+
+    <!--       <form class="form-inline" action='.' method='post'>
         {% csrf_token %}
         <br/>
         <div class="fieldWrapper">
@@ -35,6 +85,7 @@
         </div>
 
         <input type="submit" value="login" />
-      </form>
-  </body>
+      </form> -->
+</body>
+
 </html>

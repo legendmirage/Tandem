@@ -17,6 +17,7 @@
         <script type="text/javascript" src="/static/external_js/jquery-ui.min.js"></script>
 	</head>
 	<body>
+
 		<form class="form-inline" action="{{ request.get_full_path }}" method="POST">{% csrf_token %}
 			<br/>
 		{% for field in form %}
