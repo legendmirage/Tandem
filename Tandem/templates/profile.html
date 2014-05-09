@@ -7,20 +7,18 @@
     <title>Tandem - Student Profile </title>
     <head>
         {% include 'nav_bar.html' %}
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+
         <script src="/static/external_js/jquery-1.8.3.js"></script>
         
         <script src="/static/external_js/jquery.ui.datepicker.js"></script>
         <script src="/static/external_js/jquery.ui.widget.js"></script>
         <script src="/static/external_js/jquery.ui.core.js"></script>
         <script src="/static/external_js/jquery-ui.min.js"></script>
+        <script src="/static/bootstrap/js/bootstrap.js"></script>
+
         <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/static/css/common.css">
 
-        <script src="/static/bootstrap/js/bootstrap.js"></script>
-        <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-        <script src="/static/js/bootstrap-dialog.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/jqtimeline/css/jquery.jqtimeline.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/common.css">
         <link rel="stylesheet" type="text/css" href="/static/css/profile.css" />
@@ -30,7 +28,7 @@
         <script>
             $(function() {
                 console.log($( "#datepicker" ));
-                $( "#datepicker" ).datepicker();
+                $( "#date" ).datepicker();
                 $("#datepicker2").datepicker({changeMonth: true,changeYear: true});
             });
         </script>
@@ -79,48 +77,122 @@
                 <button id="addevent" class='btn btn-success' data-toggle="modal" data-target="#myModal"/>Add Event</button>
             </div>
         </div>
-        <div class="modal fade" id="myModal">
+
+
+ <!--        <div class="modal fade" id="myModal">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form id="eventform" class="form-horizontal">
+                    <form id="eventform" class="form-horizontal" action='/student/{{student.id}}/addEvent' method='POST'>
+
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"/>&times;</button>
                             <h4 class="modal-title">Add an Event to the Timeline</h4>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group">
-                                <label for='eventname' class='col-lg-2 control-label'>Event:</label>
-                                <div class='col-lg-10'>
-                                    <input type='text' class='form-control' id='eventname' placeholder='Event Name'>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for='eventdescription' class='col-lg-2 control-label'>Details:</label>
-                                <div class='col-lg-10'>
-                                    <textarea id="eventdescription" class='form-control' rows="8"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for='datepicker' class='col-lg-2 control-label'>Date:</label>
-                                <div class='col-lg-10'>
-                                    <input type='text' class='form-control' id='datepicker' >
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for='eventstatus' class='col-lg-2 control-label'>Status:</label>
-                                <div class='col-lg-10'>
-                                    <input type='checkbox' id='eventstatus' value="Flag" >   Needs Attention</input>
-                                </div>
-                            </div>
-                        </div>
+                            {% csrf_token %}
+                            <p class="field">
+                                <input type="text" name="subject" id="subject" placeholder="Event Subject" value="">
+                                <i class="icon-user icon-large"></i>
+                            </p>
+                            <p class="field">
+                                <input type="textarea" name="description" id="description" placeholder="Event Description" value="">
+                                <i class="icon-lock icon-large"></i>
+                            </p>
+                            <p class="field">
+                                <input type='text' class='form-control' id='date' name="date" value="">
+                                <i class="icon-user icon-large"></i>
+                            </p>
+                            <p class="field">
+                                <input type="checkbox" name="attention" id="attention" value="">
+                                <i class="icon-lock icon-large"></i>
+                            </p>
+                            
                         <div class="modal-footer">
                             <button id="closeform" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button id="submitform" type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                            <input id="submitform" type="submit" class="btn btn-primary" data-dismiss="modal" value="Submit">
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
+        </div> -->
+
+    <div id='myModal' class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id='newEventForm' class='form-horizontal' action='/student/{{student.id}}/addEvent'  method='post'>
+                        
+                        {% csrf_token %}
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Add Event</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class='form-group'>
+                                <label for='subject' class='col-lg-2 control-label'>Subject: </label>
+                                <div class='col-lg-10'>
+                                    <input type='text' class='form-control' id='subject' name='subject' placeholder='Enter subject'>
+                                </div>
+
+                            </div>
+
+                            <div class='form-group'>
+                                <label for='details' class='col-lg-2 control-label'>Description: </label>
+                                <div class='col-lg-10'>
+                                    <textarea id='description' class='form-control' name='description' rows='10'></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for='date' class='col-lg-2 control-label'>Date:</label>
+                                <div class='col-lg-10'>
+                                    <input type='text' class='form-control' id='date' name="date">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for='attention' class='col-lg-2 control-label'>Needs Attention:</label>
+                                <div class='col-lg-10'>
+                                    <input type='checkbox' id='attention' name='attention' value="Needs Attention" >
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button id='eventsubmit' type="submit" name='submit' class="btn btn-success">Submit</button>
+                        </div>
+
+                        {% if form.errors %}
+                            <p class="error">Invalid entries. Please double check that you have entered a subject and have entered contents.</p>
+                        {% endif %}
+
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+<!--         <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="eventform" class="form-horizontal" action="student/{{student.id}}/addEvent" method="POST">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"/>&times;</button>
+                            <h4 class="modal-title">Add an Event to the Timeline</h4>
+                        </div>
+                        <div class="modal-body">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                        <div class="modal-footer">
+                            <button id="closeform" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <input id="submitform" type="submit" class="btn btn-primary" data-dismiss="modal" value="Submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> -->
+
+
         <!-- Modal for editing Johnny's info -->
         <div class="modal fade" id="childInfoModal">
             <div class="modal-dialog">
@@ -294,7 +366,7 @@
                             <div class='form-group'>
                                 <label class='col-lg-2 control-label'>Description:</label>
                                 <div class='col-lg-10'>
-                                    <label id="event_desc">Description</label>
+                                    <label id="event_desc"></label>
                                 </div>
 
                             </div>
@@ -317,32 +389,34 @@
         gap: 90
     });
 
-    $("#submitform").click(function(evt) {
-        var timelineObj = $('#myTimeline').data('jqtimeline');
-        var ename=$('#eventname').val();
-        var edescription=$("#eventdescription").val();
-        var edate=$('#datepicker').val();
-        BootstrapDialog.show({
-            title: "Event Confirmation",
-            message: "<p>Are you sure you want to add this event?</p>",
-            buttons: [{
-                label: "OK",
-                action: function(dialog) {
-                    evt.preventDefault();
-                    //timelineObj.method();
-                    createEvent($('#eventname').val(),new Date($('#datepicker').val()),$("#eventdescription").val(),$("#eventstatus").prop('checked'));
-                    dialog.close();
-                }
-                        }, {
-                        label: "Cancel",
-                        action: function(){
-                            dialog.close();
-                        }
-                        }
-                        ]
+    // $("#submitform").click(function(evt) {
+    //     var timelineObj = $('#myTimeline').data('jqtimeline');
+    //     var ename=$('#eventname').val();
+    //     var edescription=$("#eventdescription").val();
+    //     var edate=$('#datepicker').val();
+    //     BootstrapDialog.show({
+    //         title: "Event Confirmation",
+    //         message: "<p>Are you sure you want to add this event?</p>",
+    //         buttons: [{
+    //             label: "OK",
+    //             action: function(dialog) {
+    //                 //timelineObj.method();
+    //                 var date = new Date($('#datepicker').getDate());
+    //                 console.log(date);
+    //                 createEvent($('#eventname').val(),$("#eventdescription").val(),date.getYear(),date.getMonth(),date.getDate(),$("#eventstatus").prop('checked'));
+    //                 console.log('passed');
+    //                 dialog.close();
+    //             }
+    //                     }, {
+    //                     label: "Cancel",
+    //                     action: function(){
+    //                         dialog.close();
+    //                     }
+    //                     }
+    //                     ]
 
-        });
-     });
+    //     });
+     // });
       $("#submitform2").click(function(evt) {
         $("#preferred-name").text($("#nickname").val());
         $("#dob").text($("#datepicker2").val());
@@ -361,39 +435,54 @@
         $("#guardian2").val($("#g2label").text());
       }
       // 
-  var createEvent=function (title, year, month, day, description, attention){
+  var createEvent=function (title, description, year, month, day, attention){
+    console.log("called create event");
         var timelineObj = $('#myTimeline').data('jqtimeline');
         var id=timelineObj.getAllEvents().length+1;
-        console.log(year);
         var date=new Date(year.valueOf()+"-"+month.valueOf()+"-"+day.valueOf());
+        console.log("attention",attention);
         var eventObj = {id: id, name: title, on : date, description: description, flag: attention};
         timelineObj.addEvent(eventObj);
+        console.log(eventObj.flag);
+        console.log("before popover", $("#event_"+id));
         $("#event_"+id).popover({
                     trigger: 'hover',
                     html: true,
                     title: "<h4>"+title + " "+month.valueOf()+"/"+day.valueOf()+"/"+year.valueOf()+"</h4>",
-                    content: "<div class='popup'><button type='button' class='btn btn-success' data-toggle='modal' data-target='#eventModal'>View More</button></div>",
+                    content: "<div class='popup'><button type='button' class='btn btn-success event-modal' data-toggle='modal' data-target='#eventModal' id='viewMore'>View More</button></div>",
                     delay: {show:200, hide:200},
                     container: '#event_'+id
                 });
+        console.log("after popover");
       }
 
       var createStoredEvents=function(){
         var elements = document.getElementsByClassName("event");
+        console.log(elements);
         for (var el=0; el<elements.length; el++){
             var id=elements[el].id;
             console.log(id);
             var div=$("#"+id);
-            createEvent(div.attr("subject"),div.attr("year"),div.attr("month"),div.attr("day"),div.attr("description"),div.attr("attention"));
+            createEvent(div.attr("subject"),div.attr("description"),div.attr("year"),div.attr("month"),div.attr("day"),div.attr("attention"));
         }
+      }
+      var setUpDescriptionModals=function(){
+
       }
       var getDate=function(date_string){
 
       }
 
 $(document).ready(function () {
+    $.getScript("/static/bootstrap/js/bootstrap.min.js");
+    $.getScript("/static/js/bootstrap-dialog.js");
     createStoredEvents();
+    $('#viewMore').click( function () {
+        var mydesc = $(this).data('description');
+        $(".modal-body #event_desc").val( mydesc);
+    });
 });
+
 
 </script>
 
