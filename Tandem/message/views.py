@@ -10,14 +10,25 @@ import datetime
 def allMessages(request):
 	messages = Message.objects.order_by('-timestamp')
 	threads = Messagethread.objects.all()
+	students = Student.objects.order_by('lastName')
 	threadIDs = [t.id for t in threads]
-	variables = {'messages': messages, 'messageThreads': threads, 'threadIDs': threadIDs}
-	return render_to_response('message.html', RequestContext(request, variables))
+	studentNames = [s.lastName + ", " + s.firstName for s in students]
 
-def messagesByThread(request, threadID):
-	t = Messagethread.objects.get(id=threadID)
-	messages = Message.objects.filter(thread=t)
-	variables = {'messagesByThread': messages}
+	numUnread = {} #maps stud id to num unread threads
+	studToThread = {} #maps stud id to threads
+	threadToMsgs = {} #maps thread id to messages
+	for stud in students:
+		numUnread[stud.id] = 0
+		studToThread[stud.id] = []
+	for t in threads:
+		msgs = Message.objects.filter(thread=t);
+		threadToMsgs[t.id] = [msg.as_json() for msg in msgs]
+		if t.unRead:
+			numUnread[t.student.id] += 1
+			studToThread[t.student.id].append(t.as_json())
+
+
+	variables = {'studentNames':studentNames, 'threadToMsgs':threadToMsgs, 'studToThread': studToThread, 'numUnread':numUnread, 'messages': messages, 'messageThreads': threads, 'threadIDs': threadIDs, 'students': students}
 	return render_to_response('message.html', RequestContext(request, variables))
 
 def new(request):

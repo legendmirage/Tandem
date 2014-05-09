@@ -20,9 +20,9 @@
     <!-- load necessary javascript files-->
     <script type="text/javascript" src="/static/external_js/jquery-1.9.0.min.js"></script>
     <script type="text/javascript" src="/static/external_js/jquery-ui.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/external_js/select2-3.4.6/select2.js"></script>
-    <script type="text/javascript" src="/static/js/message.js"></script>
+    {% include 'messageJS.html' %}
+    {% load message_extras %}
 
 </head>
 
@@ -93,17 +93,23 @@
             <div class="row">
                 <div id="students-panel" class="col-md-3">
                     <div id="all-messages-label" class="message-label btn btn-block btn-success" onclick=loadAllMessages()>All messages</div>
+                    {% for stud in students %}
+                        {% if numUnread|get_item:stud.id > 0 %}
+                            <div id='student-{{stud.id}}' class='student-label btn btn-block' onclick=hilightStudent(this)>{{ stud.lastName}}, {{ stud.firstName}}<span id='badge' class='badge pull-right'>{{ numUnread|get_item:stud.id }}</span></div>
+                        {% else %}
+                            <div id='student-{{stud.id}}' class='student-label btn btn-block' onclick=hilightStudent(this)>{{ stud.lastName}}, {{ stud.firstName}}</div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
 
                 <div id="messages-panel" class="col-md-3">
-<!--                     {% for t in messageThreads %}
-                    <div class="messages-label btn btn-block row">
-                        <div class="col-md-6">{{ t.subject }}</div>
-                        <div class="col-md-4">{{ t.timestamp }}
-                            <div>
-                            </div>
-                            {% endfor %}
-                        </div> -->
+                    {% for t in messageThreads %}
+                        <div class="messages-label btn btn-block row">
+                            <div class="col-md-6">{{ t.subject }}</div>
+                            <!--<div class="col-md-4">{{ t.timestamp }}</div>-->
+                        </div>
+                    {% endfor %}
+                    </div> 
                 </div>        
                 <div id="message-detail" class="col-md-6">
                     <div id="message-header"></div>
