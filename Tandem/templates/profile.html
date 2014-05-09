@@ -16,6 +16,8 @@
         <script src="/static/external_js/jquery-ui.min.js"></script>
         <script src="/static/bootstrap/js/bootstrap.js"></script>
 
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/datepicker.css">
         <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/static/css/common.css">
 
@@ -334,13 +336,21 @@
                 <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Phone Number</h4>
+                            <h4 class="modal-title">Primary Guardian Contact Info</h4>
                         </div>
                         <div class="modal-body">
                             <div class='form-group'>
-                                <label for='subject' class='col-lg-2 control-label'>Cell #:</label>
-                                <div class='col-lg-10'>
-                                    <label id="callparent1">Phone Number</label>
+                                <label class='col-lg-3 control-label'>Phone Number:</label>
+                                <div class='col-lg-9'>
+                                    <label id="callparent1">{{student.parent_phone}}</label>
+                                </div>
+
+                            </div>
+                            <br><br>
+                            <div class='form-group'>
+                                <label class='col-lg-3 control-label'>Email:</label>
+                                <div class='col-lg-9'>
+                                    <label id="email1">{{student.parent_email}}</label>
                                 </div>
 
                             </div>
@@ -477,6 +487,7 @@ $(document).ready(function () {
     $.getScript("/static/bootstrap/js/bootstrap.min.js");
     $.getScript("/static/js/bootstrap-dialog.js");
     createStoredEvents();
+
     $('#viewMore').click( function () {
         var mydesc = $(this).data('description');
         $(".modal-body #event_desc").val( mydesc);
