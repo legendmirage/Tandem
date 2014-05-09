@@ -7,13 +7,17 @@ from announcement.models import Announcement
 # Create your views here.
 def announceView(request):
 	variables = {'announcements': Announcement.objects.order_by('-timestamp')}
-<<<<<<< HEAD
-	return render_to_response('templates/announcement.html', RequestContext(request, variables))
+	return render_to_response('announcement.html', RequestContext(request, variables))
 
-def new(request, subj, cont):
-	a = Announcement(subject=subj, content=cont)
-	a.save()
-	return HttpResponse('<div>good job!!!</div>')
+def new(request):
+	if request.POST:
+		subj = request.POST['subject']
+		details = request.POST['details']
+		a = Announcement(subject=subj, content=details)
+		a.save()
+		return HttpResponse('<div>good job!!!</div>')
+	else:
+		return announceView(request)
 
 def edit(request, subject, content):
 	'''
@@ -23,6 +27,3 @@ def edit(request, subject, content):
 			a.
 	'''
 	return HttpResponse('<div>well at least this worked</div>')
-=======
-	return render_to_response('announcement.html', RequestContext(request, variables))
->>>>>>> 6569b85a86d353947c89e1f12e60cbde7fe62def
