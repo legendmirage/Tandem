@@ -355,14 +355,20 @@ $(document).ready(function () {
 
     });
 
-    /*
+    
     $('#sendResponse').click(function (e) {
         e.preventDefault();
+        var d = new Date();
 
-        // $('#message-data').hide();
-        // $('#message-data').append("<div style='background:#DDDDDD' class='row'><div class='col-md-2'><b>Me:</b></div><div class='col-md-10'>" + $('#responseText').val() + "</div></div></div>");
-        // $('#message-data').fadeIn();
-        // $('#responseText').val('');
+
+        $('#message-data').hide();
+        $('#message-data').append("<div style='background:#DDDDDD; padding-top:10px;' class='row'><div class='col-md-2'><b>Me:</b></div>"
+            +"<div id='actual-msg' class='col-md-10' style='margin-bottom:20px;'>"
+            + $('#responseText').val() + "</br></br><i><font color='#AAAAAA'>"
+            + d.toJSON() + "</font></i></br>"
+            + "</div></div>");
+        $('#message-data').fadeIn();
+        $('#responseText').val('');
 
         /*
         var d = new Date();
@@ -373,10 +379,10 @@ $(document).ready(function () {
             dateTime, $('#responseText').val(), false);
         $('#responseText').val('');
         currentThread.messages.push(m);
-        refreshThread(currentThread);
+        refreshThread(currentThread);*/
 
 
-    });*/
+    });
 
     //modal recipeints select dropdown
     var select = document.getElementById("recipient");
