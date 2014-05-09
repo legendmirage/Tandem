@@ -234,16 +234,20 @@ $(document).ready(function () {
     threadMap["Faust, Ben"] = [
         new MessageThread("Faust, Ben", "Ben Sick", l2, '4/5 12:00', true)
     ];
-    // threadMap["Craig, Yinfu"] = [
-    //     new Message(4,4,"Craig, Yinfu", "Yinfu Absent", '4/5 12:44', msg3, false, true)
-    // ];
+
+    m2 = new Message(4,4,"Craig, Yinfu", "Yinfu Absent", '4/5 12:44', msg3, true);
+    l2 = [];
+    l2.push(m2);
+    threadMap["Craig, Yinfu"] = [
+         new MessageThread("Craig, Yinfu", "Yinfu Absent",l2, '4/5 12:44', true)
+    ];
     // threadMap["Adams, Sophie"] = [
     //     new Message(5,5,"Adams, Sophie", "Sophie Fever", '4/12 2:14', msg4, false, true)
     // ];
 
     id = 6;
 
-    //loadAllMessages();
+    loadAllMessages();
     //appending each student to the student panel
     for (var i = 0; i < studentNames.length; i++) {
         if(studentNames[i] in studentMap){
@@ -293,6 +297,7 @@ $(document).ready(function () {
         var el = document.createElement("option");
         el.textContent = opt;
         el.value = opt;
+        console.log(select);
         select.appendChild(el);
     }
     $("#recipient").select2();
