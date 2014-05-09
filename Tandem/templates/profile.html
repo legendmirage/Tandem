@@ -16,6 +16,8 @@
         <script src="/static/external_js/jquery-ui.min.js"></script>
         <script src="/static/bootstrap/js/bootstrap.js"></script>
 
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/datepicker.css">
         <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/static/css/common.css">
 
@@ -477,6 +479,7 @@ $(document).ready(function () {
     $.getScript("/static/bootstrap/js/bootstrap.min.js");
     $.getScript("/static/js/bootstrap-dialog.js");
     createStoredEvents();
+
     $('#viewMore').click( function () {
         var mydesc = $(this).data('description');
         $(".modal-body #event_desc").val( mydesc);
