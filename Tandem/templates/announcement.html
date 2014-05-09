@@ -41,6 +41,7 @@
 										{{ a.subject }}
 									</a>
 									<div class="delete"><a id='deleteEvent' href='/announcements/delete/{{a.id}}'>Delete</a></div>
+									<div class="delete"><a id='editEvent' href='/announcements/edit/{{a.id}}'>Edit</a></div>
 								</h4>
 								<div class='date-time'>{{ a.timestamp }}</div>
 							</div>
@@ -98,6 +99,49 @@
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 
+<div id='editAnnouncementModal' class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form id='editAnnouncementForm' class='form-horizontal' action='/announcements/edit' method='post'>
+						
+						{% csrf_token %}
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">Add Announcement</h4>
+						</div>
+						<div class="modal-body">
+
+							<div class='form-group'>
+								<label for='subject' class='col-lg-2 control-label'>Subject: </label>
+								<div class='col-lg-10'>
+									<input type='text' class='form-control' id='subject' name='subject' placeholder='Enter subject'>
+								</div>
+
+							</div>
+
+							<div class='form-group'>
+								<label for='details' class='col-lg-2 control-label'>Details: </label>
+								<div class='col-lg-10'>
+									<textarea id='details' class='form-control' name='details' rows='10'></textarea>
+								</div>
+							</div>
+
+
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button id='announceBTN' type="submit" name='submit' class="btn btn-success">Announce</button>
+						</div>
+
+						{% if form.errors %}
+				        	<p class="error">Invalid entries. Please double check that you have entered a subject and have entered contents.</p>
+				        {% endif %}
+
+					</form>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 
 
 

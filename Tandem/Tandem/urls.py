@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'accounts.views.logoutView'),
 
     url(r'^announcements/$', 'announcement.views.announceView'),
-    url(r'^announcements/(?P<announcement_id>\d+)/edit/?$', 'announcement.views.edit', name='editAnnounce'),
+    url(r'^announcements/edit/(?P<announcement_id>\d+)/?$', 'announcement.views.edit'),
     url(r'^announcements/new/?$', 'announcement.views.new', name='newAnnounce'),
     url(r'^student/(?P<student_id>\d+)/?$', 'student.views.profile'),
     #url(r'^$', 'student.views.homepage'),
