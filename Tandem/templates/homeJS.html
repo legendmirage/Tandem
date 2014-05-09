@@ -44,7 +44,6 @@ $(document).ready(function () {
     for (var i = 0; i < student_ids.length; i++) {
         var array_val = student_ids[i];
         var id = '#student' + array_val;
-        console.log(id);
         var student = $(id);
         var stud_id = student.attr('id');
         var fName = student.attr('firstName');
@@ -55,7 +54,7 @@ $(document).ready(function () {
             trigger: 'hover',
             html: true,
             title: '<h3>' + fName + ' ' + lName + '</h3>',
-            content: '<div class="container"><img src="/static/images/johnny_fox_prof.jpeg" alt="Johnny Fox profile image" class="prof"><div class="column-right"><h4>Parents / Guardians</h4> <div><span class="parent">'+ parent1 +'</span> <div class="icon-wrapper"> <div id="jfoxclick" onclick="contactJames();" data-toggle="modal" data-target="#newMessageModal" style="display:inline"><img src="/static/images/mailicon.png" alt="Send a message" class="contacticons"></div> <a href=""><img src="/static/images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a> </div></div><br/><div> <span class="parent">'+ parent2 +'</span> <div class="icon-wrapper"> <div id="sfoxclick" onclick="contactSusan();" data-toggle="modal" data-target="#newMessageModal" style="display:inline"><img src="/static/images/mailicon.png" alt="Send a message" class="contacticons"></div> <a href=""><img src="/static/images/callicon.png" alt="Call with Google Voice" width="30" height="30"></a> </div></div></div></div><a class="profile-link" href="/student/' + array_val + '"">View Profile</a>',
+            content: '<div class="container"><img src="/static/image/' + array_val + '.png" alt="Johnny Fox profile image" class="prof"><div class="column-right"><h4>Parents / Guardians</h4> <div><span class="parent">'+ parent1 +'</span> <div class="icon-wrapper"> <div id="jfoxclick" onclick="contactJames();" data-toggle="modal" data-target="#newMessageModal" style="display:inline"><img src="/static/image/mailicon.png" alt="Send a message" class="contacticons"></div> <a href=""><img src="/static/image/callicon.png" alt="Call with Google Voice" width="30" height="30"></a> </div></div><br/><div> <span class="parent">'+ parent2 +'</span> <div class="icon-wrapper"> <div id="sfoxclick" onclick="contactSusan();" data-toggle="modal" data-target="#newMessageModal" style="display:inline"><img src="/static/image/mailicon.png" alt="Send a message" class="contacticons"></div> <a href=""><img src="/static/image/callicon.png" alt="Call with Google Voice" width="30" height="30"></a> </div></div></div></div><a class="profile-link" href="/student/' + array_val + '"">View Profile</a>',
             container: id,
             delay: {
                 show: 200,

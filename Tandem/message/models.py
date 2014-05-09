@@ -7,5 +7,4 @@ class Message(models.Model):
 	content = models.TextField()
 	sentByTeacher = models.BooleanField(default=True)
 	timestamp = models.DateTimeField('Last Updated')
-	read = models.BooleanField(default=False)
-	replied = models.BooleanField(default=False)
+	#thread = models.ForeignKey('messagethread.Messagethread')

@@ -17,9 +17,12 @@
 	<!-- load necessary javascript files-->
 	<script type="text/javascript" src="/static/external_js/jquery-1.9.0.min.js"></script>
 	<script type="text/javascript" src="/static/external_js/jquery-ui.min.js"></script>
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/static/js/announcement.js"></script>
+	<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="/static/external_js/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="/static/external_js/announcement.js"></script>
 	</head>
+
 
 
 	<body>
@@ -53,7 +56,9 @@
 		<div id='newAnnouncementModal' class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form id='newAnnouncementForm' class='form-horizontal'>
+					<form id='newAnnouncementForm' class='form-horizontal' action='/announcements/new' method='post'>
+						
+						{% csrf_token %}
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 							<h4 class="modal-title">Add Announcement</h4>
@@ -63,7 +68,7 @@
 							<div class='form-group'>
 								<label for='subject' class='col-lg-2 control-label'>Subject: </label>
 								<div class='col-lg-10'>
-									<input type='text' class='form-control' id='subject' placeholder='Enter subject'>
+									<input type='text' class='form-control' id='subject' name='subject' placeholder='Enter subject'>
 								</div>
 
 							</div>
@@ -71,7 +76,7 @@
 							<div class='form-group'>
 								<label for='details' class='col-lg-2 control-label'>Details: </label>
 								<div class='col-lg-10'>
-									<textarea id='details' class='form-control' rows='10'></textarea>
+									<textarea id='details' class='form-control' name='details' rows='10'></textarea>
 								</div>
 							</div>
 
@@ -80,8 +85,12 @@
 
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button id='announceBTN' type="submit" class="btn btn-success">Announce</button>
+							<button id='announceBTN' type="submit" name='submit' class="btn btn-success">Announce</button>
 						</div>
+
+						{% if form.errors %}
+				        	<p class="error">Invalid entries. Please double check that you have entered a subject and have entered contents.</p>
+				        {% endif %}
 
 					</form>
 				</div><!-- /.modal-content -->

@@ -224,7 +224,7 @@ $(document).ready(function () {
    
     threadMap['Fox, Johnny'] = [
         new MessageThread("Fox, Johnny", "Johnny's Fight", l1, '4/1 12:00', true),
-        new MessageThread("Fox, Johnny", "Johnny's Fight", l2, '4/12 12:00', true)
+        new MessageThread("Fox, Johnny", "Johnny sick", l2, '4/12 12:00', true)
     ];
 
     m2 = new Message(3,3,"Faust, Ben", "Ben Sick", '4/5 12:00', msg2, true);
@@ -234,9 +234,13 @@ $(document).ready(function () {
     threadMap["Faust, Ben"] = [
         new MessageThread("Faust, Ben", "Ben Sick", l2, '4/5 12:00', true)
     ];
-    // threadMap["Craig, Yinfu"] = [
-    //     new Message(4,4,"Craig, Yinfu", "Yinfu Absent", '4/5 12:44', msg3, false, true)
-    // ];
+
+    m2 = new Message(4,4,"Craig, Yinfu", "Yinfu Absent", '4/5 12:44', msg3, true);
+    l2 = [];
+    l2.push(m2);
+    threadMap["Craig, Yinfu"] = [
+         new MessageThread("Craig, Yinfu", "Yinfu Absent",l2, '4/5 12:44', true)
+    ];
     // threadMap["Adams, Sophie"] = [
     //     new Message(5,5,"Adams, Sophie", "Sophie Fever", '4/12 2:14', msg4, false, true)
     // ];
@@ -293,6 +297,7 @@ $(document).ready(function () {
         var el = document.createElement("option");
         el.textContent = opt;
         el.value = opt;
+        console.log(select);
         select.appendChild(el);
     }
     $("#recipient").select2();

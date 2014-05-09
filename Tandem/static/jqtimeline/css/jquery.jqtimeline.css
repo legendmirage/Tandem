@@ -22,7 +22,7 @@
 	}
 
 	.gt-timeline div.event-flag{
-		background-image: url(../../images/red.png);
+		background-image: url(../../image/red.png);
 		width: 40px;
 		height: 35px;
 		cursor: pointer;
@@ -31,7 +31,7 @@
 		top: 19px;
 	}
 	.gt-timeline div.event{
-		background-image: url(../../images/blue.png);
+		background-image: url(../../image/blue.png);
 		width: 40px;
 		height: 35px;
 		cursor: pointer;
@@ -93,14 +93,14 @@
 			cursor: pointer;
 		}
 	.gt-timeline div.event:hover{
-		background-image: url(../../images/big_blue.png);
+		background-image: url(../../image/big_blue.png);
 /*		height: 30px;
 		width: 29px;
 		top: 34px;*/
 		z-index: 3;
 	}
 	.gt-timeline div.event-flag:hover{
-		background-image: url(../../images/big_red.png);
+		background-image: url(../../image/big_red.png);
 /*		height: 30px;
 		width: 29px;
 		top: 34px;*/

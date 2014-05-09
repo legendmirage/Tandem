@@ -20,6 +20,7 @@
         <link rel="stylesheet" type="text/css" href="/static/css/common.css">
 
         <link rel="stylesheet" type="text/css" href="/static/jqtimeline/css/jquery.jqtimeline.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/common.css">
         <link rel="stylesheet" type="text/css" href="/static/css/profile.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-dialog.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css">
@@ -49,7 +50,7 @@
             </div>
             <div id="profile-wrapper" class="container">
                 <div class="column-left">
-                    <img src="/static/images/johnny_fox_prof.jpeg" alt="Johnny Fox profile image" class="prof">
+                    <img src="/static/image/{{ stud_id }}.png" alt="Johnny Fox profile image" class="prof">
                 </div>
                 <div class="column-center">
                     <div display="inline-block"></div>
@@ -64,8 +65,8 @@
                     <span id="g2label" class="parent">{{student.parent2}} </span>
                     <br><br>
                     <div class="icon-wrapper">    
-                       <div id="sfoxclick" onclick="$('#contactparent').text('Susan Fox');" data-toggle="modal" data-target="#newMessageModal"><img src="/static/images/mailicon.png" alt="Send a message" class="contacticons"></div>
-                        <div data-toggle="modal" data-target="#phoneNumberModal"><img src="/static/images/callicon.png" alt="Call with Google Voice" class="contacticons"></div>
+                       <div id="sfoxclick" onclick="$('#contactparent').text({{ student.parent2 }});" data-toggle="modal" data-target="#newMessageModal"><img src="/static/image/mailicon.png" alt="Send a message" class="contacticons"></div>
+                        <div data-toggle="modal" data-target="#phoneNumberModal"><img src="/static/image/callicon.png" alt="Call with Google Voice" class="contacticons"></div>
                     </div>
                 </div>
             </div>
@@ -78,7 +79,7 @@
         </div>
 
 
-        <div class="modal fade" id="myModal">
+ <!--        <div class="modal fade" id="myModal">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form id="eventform" class="form-horizontal" action='/student/{{student.id}}/addEvent' method='POST'>
@@ -113,7 +114,63 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> -->
+
+    <div id='myModal' class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id='newEventForm' class='form-horizontal' action='/student/{{student.id}}/addEvent'  method='post'>
+                        
+                        {% csrf_token %}
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Add Event</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class='form-group'>
+                                <label for='subject' class='col-lg-2 control-label'>Subject: </label>
+                                <div class='col-lg-10'>
+                                    <input type='text' class='form-control' id='subject' name='subject' placeholder='Enter subject'>
+                                </div>
+
+                            </div>
+
+                            <div class='form-group'>
+                                <label for='details' class='col-lg-2 control-label'>Description: </label>
+                                <div class='col-lg-10'>
+                                    <textarea id='description' class='form-control' name='description' rows='10'></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for='date' class='col-lg-2 control-label'>Date:</label>
+                                <div class='col-lg-10'>
+                                    <input type='text' class='form-control' id='date' name="date">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for='attention' class='col-lg-2 control-label'>Needs Attention:</label>
+                                <div class='col-lg-10'>
+                                    <input type='checkbox' id='attention' name='attention' value="Needs Attention" >
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button id='eventsubmit' type="submit" name='submit' class="btn btn-success">Submit</button>
+                        </div>
+
+                        {% if form.errors %}
+                            <p class="error">Invalid entries. Please double check that you have entered a subject and have entered contents.</p>
+                        {% endif %}
+
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
 <!--         <div class="modal fade" id="myModal">
             <div class="modal-dialog">
@@ -383,10 +440,10 @@
         var timelineObj = $('#myTimeline').data('jqtimeline');
         var id=timelineObj.getAllEvents().length+1;
         var date=new Date(year.valueOf()+"-"+month.valueOf()+"-"+day.valueOf());
-        console.log(date, "date object");
-        console.log(year.valueOf());
+        console.log("attention",attention);
         var eventObj = {id: id, name: title, on : date, description: description, flag: attention};
         timelineObj.addEvent(eventObj);
+        console.log(eventObj.flag);
         console.log("before popover", $("#event_"+id));
         $("#event_"+id).popover({
                     trigger: 'hover',
@@ -417,14 +474,11 @@
       }
 
 $(document).ready(function () {
-    console.log("ready");
     $.getScript("/static/bootstrap/js/bootstrap.min.js");
-    console.log("getting scripts");
     $.getScript("/static/js/bootstrap-dialog.js");
-    console.log("creating");
     createStoredEvents();
     $('#viewMore').click( function () {
-        var mydesc = $(this).data('event-description');
+        var mydesc = $(this).data('description');
         $(".modal-body #event_desc").val( mydesc);
     });
 });

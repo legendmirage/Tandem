@@ -4,115 +4,129 @@
 -->
 
 <html lang="en">
-	<head>
-		{% include 'nav_bar.html' %}
-		<title>Tandem - Messages</title>
+<head>
+    {% include 'nav_bar.html' %}
+    <title>Tandem - Messages</title>
 
-		<!--load stylesheets & bootstrap-->
-		<link rel="stylesheet" type="text/css" href="/static/css/common.css">
-		<link rel="stylesheet" type="text/css" href="/static/css/message.css">
-		<link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css">
-		<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="/static/external_js/select2-3.4.6/select2.css">
-		
-		<!-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
+    <!--load stylesheets & bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/message.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css">
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/external_js/select2-3.4.6/select2.css">
 
-		<!-- load necessary javascript files-->
-		<script type="text/javascript" src="/static/external_js/jquery-1.9.0.min.js"></script>
-        <script type="text/javascript" src="/static/external_js/jquery-ui.min.js"></script>
-		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="/static/js/message.js"></script>
-		<script type="text/javascript" src="/static/external_js/select2-3.4.6/select2.js"></script>
+    <!-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
 
-	</head>
+    <!-- load necessary javascript files-->
+    <script type="text/javascript" src="/static/external_js/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript" src="/static/external_js/jquery-ui.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/external_js/select2-3.4.6/select2.js"></script>
+    <script type="text/javascript" src="/static/js/message.js"></script>
 
-
-	<body>
-		<div class='container'>
-		<div id='header-bar' class='row'>
-			<div id='page-header' class="page-header col-md-4"><h3>Messages Inbox</h3></div>
-			<select id='search' class="select-search"></select>
-			<button id='new-message-button' class='btn btn-success' data-toggle='modal' data-target='#newMessageModal'>New</button>
-		</div>
-
-		<div id="content-wrapper" class="container">
-			<div class="row">
-				<div id="students-panel" class="col-md-3">
-					<div id="all-messages-label" class="message-label btn btn-block btn-success" onclick=loadAllMessages()>All messages</div>
-				</div>
-
-				<div id="messages-panel" class="col-md-3">
-				</div>
-
-				<div id="message-detail" class="col-md-6">
-					<div id="message-header"></div>
-					<div id="message-stud"> Message from parents of
-						<span id="student-name">t</span>
-					</div>
-					<div id='message-data'>
-						<div class='row'>
-							<div class='col-md-2'><b>Parent:</b></div>
-							<div id='actual-msg' class="col-md-10" style="margin-bottom:20px;"></div>
-						</div>
-					</div>
-
-					<div id='responseBox' class='row'>
-						<span>Your Reply:</span>
-						<textarea style="margin-top:10px;margin-bottom:10px;" id='responseText' class='col-md-10'></textarea>
-						<button id='sendResponse' type='submit' class='col-md-2 btn btn-success'>send</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-
-		<div id='newMessageModal' class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form id='newMessageForm' class='form-horizontal'>
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							<h4 class="modal-title">New Message</h4>
-						</div>
-						<div class="modal-body">
-							<div class='form-group'>
-								<label for='recipient' class='col-lg-2 control-label'>To: </label>
-								<div class='col-lg-10'>
-									<!-- <input type='text' class='form-control' id='recipient' placeholder='Parents of...'> -->
-									<span>Parents of  </span>
-									<select class="select-search" id="recipient">
-   									</select>
-								</div>
-								
-							</div>
-
-							<div class='form-group'>
-								<label for='subject' class='col-lg-2 control-label'>Subject: </label>
-								<div class='col-lg-10'>
-									<input type='text' class='form-control' id='subject' placeholder='Enter subject'>
-								</div>
-
-							</div>
-
-							<div class='form-group'>
-								<label for='details' class='col-lg-2 control-label'>Message Details: </label>
-								<div class='col-lg-10'>
-									<textarea id='details' class='form-control' rows='10'></textarea>
-								</div>
-							</div>
+</head>
 
 
-						</div>
+<body>
+	<div id='newMessageModal' class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id='newMessageForm' class='form-horizontal'>
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">New Message</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class='form-group'>
+                            <label for='recipient' class='col-lg-2 control-label'>To:</label>
+                            <div class='col-lg-10'>
+                                <!-- <input type='text' class='form-control' id='recipient' placeholder='Parents of...'> -->
+                                <span>Parents of  </span>
+                                <select class="select-search" id="recipient">
+                                </select>
+                            </div>
 
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button id='sendBTN' type="submit" class="btn btn-success">Send</button>
-						</div>
+                        </div>
 
-					</form>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-	</body>
+                        <div class='form-group'>
+                            <label for='subject' class='col-lg-2 control-label'>Subject:</label>
+                            <div class='col-lg-10'>
+                                <input type='text' class='form-control' id='subject' placeholder='Enter subject'>
+                            </div>
+
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='details' class='col-lg-2 control-label'>Message Details:</label>
+                            <div class='col-lg-10'>
+                                <textarea id='details' class='form-control' rows='10'></textarea>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id='sendBTN' type="submit" class="btn btn-success">Send</button>
+                    </div>
+
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <div class='container'>
+        <div id='header-bar' class='row'>
+            <div id='page-header' class="page-header col-md-4">
+                <h3>Messages Inbox</h3>
+            </div>
+            <select id='search' class="select-search"></select>
+            <button id='new-message-button' class='btn btn-success' data-toggle='modal' data-target='#newMessageModal'>New</button>
+        </div>
+
+        <div id="content-wrapper" class="container">
+            <div class="row">
+                <div id="students-panel" class="col-md-3">
+                    <div id="all-messages-label" class="message-label btn btn-block btn-success" onclick=loadAllMessages()>All messages</div>
+                </div>
+
+                <div id="messages-panel" class="col-md-3">
+<!--                     {% for t in messageThreads %}
+                    <div class="messages-label btn btn-block row">
+                        <div class="col-md-6">{{ t.subject }}</div>
+                        <div class="col-md-4">{{ t.timestamp }}
+                            <div>
+                            </div>
+                            {% endfor %}
+                        </div> -->
+                </div>        
+                <div id="message-detail" class="col-md-6">
+                    <div id="message-header"></div>
+                    <div id="message-stud">Message from parents of
+                        <span id="student-name">t</span>
+                    </div>
+                    <div id='message-data'>
+                        <div class='row'>
+                            <div class='col-md-2'><b>Parent:</b>
+                            </div>
+                            <div id='actual-msg' class="col-md-10" style="margin-bottom:20px;"></div>
+                        </div>
+                    </div>
+
+                    <div id='responseBox' class='row'>
+                        <span>Your Reply:</span>
+                        <textarea style="margin-top:10px;margin-bottom:10px;" id='responseText' class='col-md-10'></textarea>
+                        <button id='sendResponse' type='submit' class='col-md-2 btn btn-success'>send</button>
+                    </div>
+                </div>
+            </div>
+        </div>    
+	</div>  
+    
+</body>
 
 </html>
