@@ -24,5 +24,6 @@ urlpatterns = patterns('',
     url(r'^messages/new/?$', 'message.views.new', name='newMessage'),
     url(r'^student/(?P<student_id>\d+)/addEvent$', 'event.views.new'),
     url(r'^event/delete/(?P<event_id>\d+)/?$', 'event.views.delete'),
+    url(r'^announcements/delete/(?P<announce_id>\d+)/?$', 'announcement.views.delete'),
 )
 	

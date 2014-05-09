@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse
 from announcement.models import Announcement
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 def announceView(request):
@@ -25,3 +26,8 @@ def edit(request, subject, content):
 			a.
 	'''
 	return HttpResponse('<div>well at least this worked</div>')
+
+def delete(request,announce_id):
+	a=Announcement.objects.get(id=announce_id)
+	a.delete()
+	return HttpResponseRedirect('/announcements')
