@@ -266,8 +266,8 @@ $(document).ready(function () {
     $("#message-detail").fadeOut();
 
     $('#sendBTN').click(function (e) {
-        e.preventDefault();
-        newMessage();
+        //e.preventDefault();
+        //newMessage();
         $("#newMessageModal").modal('hide');
 
     });

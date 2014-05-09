@@ -15,9 +15,7 @@ def new(request):
 		details = request.POST['details']
 		a = Announcement(subject=subj, content=details)
 		a.save()
-		return HttpResponse('<div>good job!!!</div>')
-	else:
-		return announceView(request)
+	return announceView(request)
 
 def edit(request, subject, content):
 	'''
