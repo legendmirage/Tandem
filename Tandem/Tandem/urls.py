@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^announcements/$', 'announcement.views.announceView'),
     url(r'^student/(?P<student_id>\d+)$', 'student.views.profile'),
     url(r'^messages/$', 'message.views.allMessages'),
+    url(r'^student/(?P<student_id>\d+)/addEvent$', 'event.views.new'),
 
 )
 	
