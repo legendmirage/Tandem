@@ -27,6 +27,7 @@
         <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-dialog.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css">
         <script type="text/javascript" src="/static/jqtimeline/js/jquery.jqtimeline.js"></script>
+
         <script>
             $(function() {
                 console.log($( "#datepicker" ));
@@ -47,8 +48,8 @@
                 <div id='page-header' class="page-header col-md-4">
                     <h3>Student Profile</h3>
                 </div>
-                <button id="editinfo-btn" class='btn btn-success' data-toggle="modal" data-target="#childInfoModal" onclick="fillinfo();"/>Edit Child's Info</button>
-                <button id="editinfo-btn2" class='btn btn-success' data-toggle="modal" data-target="#guardianInfoModal" onclick="fillinfo2();"/>Edit Guardian Info</button>
+                <!-- <button id="editinfo-btn" class='btn btn-success' data-toggle="modal" data-target="#childInfoModal" onclick="fillinfo();"/>Edit Child's Info</button>
+                <button id="editinfo-btn2" class='btn btn-success' data-toggle="modal" data-target="#guardianInfoModal" onclick="fillinfo2();"/>Edit Guardian Info</button> -->
             </div>
             <div id="profile-wrapper" class="container">
                 <div class="column-left">
@@ -72,12 +73,15 @@
                     </div>
                 </div>
             </div>
+            <!-- <div id="timelineTitle"> Timeline of Events</div>
+            <br> -->
             <div id="timeline-wrapper" class="container">
                 <div id="myTimeline"></div>
             </div>
             <div id="button-wrapper">
                 <button id="addevent" class='btn btn-success' data-toggle="modal" data-target="#myModal"/>Add Event</button>
             </div>
+            <div id="timelineTitle"> Timeline of Events</div>
         </div>
 
 
@@ -249,50 +253,7 @@
         </div>
     </div>
 
-<!-- Message modal for sending a message from parents -->
-    <div id='newMessageModal' class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form id='newMessageForm' class='form-horizontal'>
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">New Message</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class='form-group'>
-                                <label for='subject' class='col-lg-2 control-label'>To:</label>
-                                <div class='col-lg-10'>
-                                    <label id="contactparent"></label>
-                                </div>
 
-                            </div>
-                            <div class='form-group'>
-                                <label for='subject' class='col-lg-2 control-label'>Subject</label>
-                                <div class='col-lg-10'>
-                                    <input type='text' class='form-control' id='subject' placeholder='Enter subject'>
-                                </div>
-
-                            </div>
-
-                            <div class='form-group'>
-                                <label for='details' class='col-lg-2 control-label'>Message Details</label>
-                                <div class='col-lg-10'>
-                                    <textarea id='details' class='form-control' rows='10'></textarea>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button id='sendBTN' type="submit" class="btn btn-success">Send</button>
-                        </div>
-
-                    </form>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
 
 <!--Modal for displaying phone numbers -->
 <div id='phoneNumberModal' class="modal fade">
@@ -304,56 +265,76 @@
                         </div>
                         <div class="modal-body">
                             <div class='form-group'>
-                                <label class='col-lg-3 control-label'>Phone Number:</label>
-                                <div class='col-lg-9'>
-                                    <label id="callparent1">{{student.parent_phone}}</label>
-                                </div>
+                                <div class=' contactInfo'><strong>Phone Number:</strong></div>
+                                    <div id="callparent1">{{student.parent_phone}}</div>
 
                             </div>
                             <br><br>
                             <div class='form-group'>
-                                <label class='col-lg-3 control-label'>Email:</label>
-                                <div class='col-lg-9'>
-                                    <label id="email1">{{student.parent_email}}</label>
-                                </div>
+                                <div class='contactInfo'><strong>Email:</strong></div>
 
+                                    <div id="email1">{{student.parent_email}}</div>
+
+                                </div>
                             </div>
 
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-<!--Modal for displaying event info -->
-<div id='eventModal' class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="event_modal_title">Title</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class='form-group'>
-                                <label class='col-lg-2 control-label'>Description:</label>
-                                <div class='col-lg-10'>
-                                    <label id="event_desc"></label>
-                                </div>
 
+    <div id='newMessageModal' class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id='newMessageForm' class='form-horizontal' action='/messages/new' method='post'>
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">New Message</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class='form-group'>
+                            <label for='recipient' class='col-lg-2 control-label'>To:</label>
+                            <div class='col-lg-10'>
+                                <!-- <input type='text' class='form-control' id='recipient' placeholder='Parents of...'> -->
+                                <span>Parents of  </span>
+                                <label>{{student.firstName}} {{student.lastName}}</label>
+                                <input type="hidden" name="recipient" value="{{student.lastName}},{{student.firstName}}">
                             </div>
 
                         </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+                        <div class='form-group'>
+                            <label for='subject' class='col-lg-2 control-label'>Subject:</label>
+                            <div class='col-lg-10'>
+                                <input type='text' class='form-control' id='subject' name='subject' placeholder='Enter subject'>
+                            </div>
 
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='details' class='col-lg-2 control-label'>Message Details:</label>
+                            <div class='col-lg-10'>
+                                <textarea id='details' name='details' class='form-control' rows='10'></textarea>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id='sendBTN' type="submit" class="btn btn-success">Send</button>
+                    </div>
+
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 
 	<script type="text/javascript">
     var ev=[];
@@ -361,7 +342,7 @@
         events : ev,
         numYears:1,
         startYear:2014,
-        gap: 90
+        gap: 80
     });
 
       $("#submitform2").click(function(evt) {
