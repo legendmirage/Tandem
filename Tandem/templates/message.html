@@ -93,13 +93,14 @@
             <div class="row">
                 <div id="students-panel" class="col-md-3">
                     <div id="all-messages-label" class="message-label btn btn-block btn-success" onclick=loadAllMessages()>All messages</div>
+                    <!--
                     {% for stud in students %}
                         {% if numUnread|get_item:stud.id > 0 %}
                             <div id='student-{{stud.id}}' class='student-label btn btn-block' onclick=hilightStudent(this)>{{ stud.lastName}}, {{ stud.firstName}}<span id='badge' class='badge pull-right'>{{ numUnread|get_item:stud.id }}</span></div>
                         {% else %}
                             <div id='student-{{stud.id}}' class='student-label btn btn-block' onclick=hilightStudent(this)>{{ stud.lastName}}, {{ stud.firstName}}</div>
                         {% endif %}
-                    {% endfor %}
+                    {% endfor %}-->
                 </div>
 
                 <div id="messages-panel" class="col-md-3">
@@ -114,7 +115,7 @@
                 <div id="message-detail" class="col-md-6">
                     <div id="message-header"></div>
                     <div id="message-stud">Message from parents of
-                        <span id="student-name">t</span>
+                        <span id="student-name"></span>
                     </div>
                     <div id='message-data'>
                         <div class='row'>
@@ -126,8 +127,12 @@
 
                     <div id='responseBox' class='row'>
                         <span>Your Reply:</span>
-                        <textarea style="margin-top:10px;margin-bottom:10px;" id='responseText' class='col-md-10'></textarea>
-                        <button id='sendResponse' type='submit' class='col-md-2 btn btn-success'>send</button>
+                        <form id='msgReply' action='/messages/reply' method='post'>
+                            {% csrf_token %}
+                            <textarea style="margin-top:10px;margin-bottom:10px;" id='responseText' name='responseText' class='col-md-10'></textarea>
+                            <button id='sendResponse' type='submit' class='col-md-2 btn btn-success'>send</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
