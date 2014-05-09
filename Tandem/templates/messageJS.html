@@ -38,10 +38,14 @@ function Student(name, numOfUnread){
     this.numOfUnread = numOfUnread;
 }*/
 
-var studentNames = {{ studentNames|jsonify }};
-var numUnread = {{ numUnread|jsonify }};
-var studToThread = {{ studToThread|jsonify }};
-var threadToMsgs = {{ threadToMsgs|jsonify }};
+var studentNames = {{ studentNames|jsonify }}; //dictionary stud id to stud names
+var student_ids = {{ student_ids }}; // list of stud id
+var numUnread = {{ numUnread|jsonify }};  //maps stud id to numUnread
+var studToThread = {{ studToThread|jsonify }}; //maps stud id to thread
+var threadToMsgs = {{ threadToMsgs|jsonify }}; //maps thread id to msg
+var thread_ids = {{ threadIDs|jsonify }}; //list of thread id
+var allThreads = {{ messageThreads|jsonify }}; //list of threads
+
 
 var hilightStudent = function (elem) {
     $(".student-label").removeClass("btn-success");
@@ -58,10 +62,12 @@ var hilightStudent = function (elem) {
     if (threadList.length > 0) {
         for (i in threadList) {
             var t = threadList[i];
-            console.log(t);
             var item = document.createElement("div");
-            item.innerHTML = "<div class='col-md-6'>"
-                + t.subject + "</div><div class='col-md-4'>" // + t.time;
+            if (t.unRead){
+                item.innerHTML = "<div class='col-md-6'>"+ t.subject + "</div><div class='col-md-4'><span id='badge' class='badge pull-right'>1</span></div>";  //+ t.time;
+            } else {
+                item.innerHTML = "<div class='col-md-6'>"+ t.subject + "</div>";
+            }
             $(item).addClass("message-label btn btn-block row");
             $(item).data("thread", t);
             //associate div with thread obj
@@ -101,7 +107,7 @@ var hilightThread = function (elem, t) {
         numUnread[t.student] -= 1;
         t.unRead=false;
         var name = t.student_lastname + ", " + t.student_firstname;
-        updateBadge(t.student, name);
+        updateBadge(t.student, name, t.id, t.subject);
     };
     /*
     if (t.unRead==true){
@@ -112,7 +118,7 @@ var hilightThread = function (elem, t) {
     
     $(".message-label").removeClass("btn-success");
     $(elem).addClass("btn-success");
-    document.getElementById("student-name").innerHTML = t.studentName;
+    document.getElementById("student-name").innerHTML = t.student_firstname + ' ' + t.student_lastname;
     var tmp = "";
     var messages = threadToMsgs[t.id];
     for(var i=0;i<messages.length;i++){
@@ -166,10 +172,29 @@ var refreshThread = function (t) {
 
 }
 
-/*
+
 var loadAllMessages = function () {
     $("#messages-panel").empty();
+    for (i in thread_ids){
+        id = thread_ids[i];
+        t = allThreads[i];
+        var subj = t.subject;
+        var item = document.createElement("div");
+        if (t.unRead){
+            item.innerHTML = "<div class='col-md-6'>"+ t.subject + "</div><div class='col-md-4'><span id='badge' class='badge pull-right'>1</span></div>";  + t.time;
+        } else {
+            item.innerHTML = "<div class='col-md-6'>"+ t.subject + "</div>";
+        }
+        $(item).attr('id', 'thread'+id)
+        $(item).addClass("message-label btn btn-block row");
+        $(item).data("mes", t);
+        item.onclick=function(){
+            hilightThread(this, $(this).data("mes"));
+        }
+        $("#messages-panel").prepend(item);
 
+    }
+    /*
     for (var key in threadMap) {
         var student = new Student(key, 0);
         studentMap[key] = student;
@@ -190,13 +215,13 @@ var loadAllMessages = function () {
             $("#messages-panel").prepend(item);
 
        }
-    }
+    }*/
     
     $(".student-label").removeClass("btn-success");
     $(".message-label").removeClass("btn-success");
     $("#message-detail").fadeOut();
     $("#all-messages-label").addClass("btn-success");
-}*/
+};
 
 /*
 //convert js date object to our date time format
@@ -211,14 +236,16 @@ var convertDate = function (d) {
     return dateTime;
 }*/
 
-var updateBadge = function (stud_id, name){
+var updateBadge = function (stud_id, name, thread_id, subj){
     //var id = "#student-"+studentNames.indexOf(name);//jackie's version
     var id = "#student-"+stud_id; //yinfu's version
     var num = numUnread[stud_id];
     if(num == 0){
         $(id).html(name + "<span id='badge' class='badge pull-right'></span>");
+        $('#thread'+thread_id).html(subj + "<span id='badge' class='badge pull-right'></span>");
     }else{
         $(id).html(name + "<span id='badge' class='badge pull-right'>" + num + "</span>");
+        $('#thread'+thread_id).html(subj + "<span id='badge' class='badge pull-right'>" + num + "</span>");
     }
 }   
 
@@ -281,23 +308,23 @@ $(document).ready(function () {
     //     new Message(5,5,"Adams, Sophie", "Sophie Fever", '4/12 2:14', msg4, false, true)
     // ];
 
-    id = 6;
+    id = 6;*/
 
-    //loadAllMessages();*/
+    loadAllMessages();
     //appending each student to the student panel
-    /*
-    for (var i = 0; i < studentNames.length; i++) {
-        if(studentNames[i] in studentMap){
-            if (studentMap[studentNames[i]].numOfUnread>0){
-                var student = "<div id='student-"+i+"' class='student-label btn btn-block' onclick=hilightStudent(this)>" + studentNames[i] + "<span id='badge' class='badge pull-right'>" + studentMap[studentNames[i]].numOfUnread + "</span></div>";
 
-            }
+    for (i in student_ids) {
+        var key = student_ids[i];
+        if (numUnread[key]>0){
+            var student = "<div id='student-"+key+"' class='student-label btn btn-block' onclick=hilightStudent(this)>" + studentNames[key] + "<span id='badge' class='badge pull-right'>" + numUnread[key] + "</span></div>";
+
+            
         } else {
-            var student = "<div id='student-"+i+"' class='student-label btn btn-block' onclick=hilightStudent(this)>" + studentNames[i] + "</div>";
+            var student = "<div id='student-"+key+"' class='student-label btn btn-block' onclick=hilightStudent(this)>" + studentNames[key] + "</div>";
         }
         
         $("#students-panel").append(student);
-    };*/
+    };
 
     //initialize messages panel and message details to be hidden
     $("#message-detail").fadeOut();
@@ -309,12 +336,35 @@ $(document).ready(function () {
 
     });
 
+    $('#msgReply').submit(function() {
+        //set name
+        var name = $('.student-label.btn-success').text();
+        console.log(name);
+        $('#recipient').value(name);
+
+        var subject = $('.msg-labe.btn-success').text();
+        console.log(subject);
+        $('#subject').value(subject);
+
+        var details = $('#responseText').text();
+        console.log(details);
+        $('#details').value(details);
+
+
+
+
+    });
+
+    /*
     $('#sendResponse').click(function (e) {
         e.preventDefault();
+
         // $('#message-data').hide();
         // $('#message-data').append("<div style='background:#DDDDDD' class='row'><div class='col-md-2'><b>Me:</b></div><div class='col-md-10'>" + $('#responseText').val() + "</div></div></div>");
         // $('#message-data').fadeIn();
         // $('#responseText').val('');
+
+        /*
         var d = new Date();
         var dateTime = convertDate(d);
         id += 1;
@@ -325,7 +375,8 @@ $(document).ready(function () {
         currentThread.messages.push(m);
         refreshThread(currentThread);
 
-    });
+
+    });*/
 
     //modal recipeints select dropdown
     var select = document.getElementById("recipient");
