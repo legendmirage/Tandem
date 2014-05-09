@@ -39,7 +39,7 @@
         <!-- Django Event stuff -->
 {% for ev in events %}
 
-    <div id="event{{ev.id}}" description="{{ev.description}}" subject="{{ev.subject}}" year="{{ev.date.year}}" month="{{ev.date.month}}" day="{{ev.date.day}}" attention="{{ev.attention}}" class="event"></div>
+    <div id="event{{ev.id}}" description="{{ev.description}}" subject="{{ev.subject}}" year="{{ev.date.year}}" month="{{ev.date.month}}" day="{{ev.date.day}}" attention="{{ev.attention}}" class="event" eventid="{{ev.id}}"></div>
 
 {% endfor %}
         <div class='container'>
@@ -381,7 +381,7 @@
         $("#guardian2").val($("#g2label").text());
       }
       // 
-  var createEvent=function (title, description, year, month, day, attention){
+  var createEvent=function (title, description, year, month, day, attention,event_id){
     console.log("called create event");
         var timelineObj = $('#myTimeline').data('jqtimeline');
         var id=timelineObj.getAllEvents().length+1;
@@ -389,17 +389,14 @@
         console.log("attention",attention);
         var eventObj = {id: id, name: title, on : date, description: description, flag: attention};
         timelineObj.addEvent(eventObj);
-        console.log(eventObj.flag);
-        console.log("before popover", $("#event_"+id));
         $("#event_"+id).popover({
                     trigger: 'hover',
                     html: true,
                     title: "<h4>"+title + " "+month.valueOf()+"/"+day.valueOf()+"/"+year.valueOf()+"</h4>",
-                    content: "<div class='popup'>"+description+"</div>",
+                    content: "<div class='popup'>"+description+"<br><a id='deleteEvent' href='/event/delete/"+event_id+"'>Delete</a></div>",
                     delay: {show:200, hide:200},
                     container: '#event_'+id
                 });
-        console.log("after popover");
       }
 
       var createStoredEvents=function(){
@@ -409,7 +406,7 @@
             var id=elements[el].id;
             console.log(id);
             var div=$("#"+id);
-            createEvent(div.attr("subject"),div.attr("description"),div.attr("year"),div.attr("month"),div.attr("day"),div.attr("attention"));
+            createEvent(div.attr("subject"),div.attr("description"),div.attr("year"),div.attr("month"),div.attr("day"),div.attr("attention"),div.attr("eventid"));
         }
       }
       var setUpDescriptionModals=function(){
@@ -424,11 +421,6 @@ $(document).ready(function () {
     $.getScript("/static/js/bootstrap-dialog.js");
     createStoredEvents();
 
-    // $('#viewMore').click( function () {
-    //     var mydesc = $(this).attr('description');
-    //     console.log(mydesc, "Description");
-    //     $(".modal-body #event_desc").val(mydesc);
-    // });
 });
 
 

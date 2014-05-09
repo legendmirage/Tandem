@@ -50,3 +50,8 @@ def new(request,student_id):
 	else:
 		print "returned empty"
 		return render_to_response('profile.html', RequestContext(request, variables))
+def delete(request,event_id):
+	e=Event.objects.get(id=event_id)
+	student_id=e.student.id
+	e.delete()
+	return HttpResponseRedirect('/student/'+str(student_id))
