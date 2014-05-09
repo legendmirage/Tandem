@@ -100,6 +100,7 @@ var hilightThread = function (elem, t) {
     if (t.unRead==true){
         numUnread[t.student] -= 1;
         t.unRead=false;
+        console.log(t.studentName);
         updateBadge(t.student, t.studentName);
     };
     /*
@@ -212,10 +213,12 @@ var convertDate = function (d) {
 
 var updateBadge = function (stud_id, name){
     //var id = "#student-"+studentNames.indexOf(name);//jackie's version
-    var id = stud_id; //yinfu's version
+    var id = "#student-"+stud_id; //yinfu's version
     var num = numUnread[id];
+    console.log(name);
     if(num == 0){
         $(id).html(name);
+        console.log(id);
     }else{
         $(id).html(name + "<span id='badge' class='badge pull-right'>" + num + "</span>");
     }
