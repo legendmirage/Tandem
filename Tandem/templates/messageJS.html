@@ -100,8 +100,8 @@ var hilightThread = function (elem, t) {
     if (t.unRead==true){
         numUnread[t.student] -= 1;
         t.unRead=false;
-        console.log(t.studentName);
-        updateBadge(t.student, t.studentName);
+        var name = t.student_lastname + ", " + t.student_firstname;
+        updateBadge(t.student, name);
     };
     /*
     if (t.unRead==true){
@@ -214,11 +214,9 @@ var convertDate = function (d) {
 var updateBadge = function (stud_id, name){
     //var id = "#student-"+studentNames.indexOf(name);//jackie's version
     var id = "#student-"+stud_id; //yinfu's version
-    var num = numUnread[id];
-    console.log(name);
+    var num = numUnread[stud_id];
     if(num == 0){
-        $(id).html(name);
-        console.log(id);
+        $(id).html(name + "<span id='badge' class='badge pull-right'></span>");
     }else{
         $(id).html(name + "<span id='badge' class='badge pull-right'>" + num + "</span>");
     }
