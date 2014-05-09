@@ -21,7 +21,7 @@ urlpatterns = patterns('',
     url(r'^student/(?P<student_id>\d+)/?$', 'student.views.profile'),
     #url(r'^$', 'student.views.homepage'),
     url(r'^messages/$', 'message.views.allMessages'),
+    url(r'^messages/new/?$', 'message.views.new', name='newMessage'),
     url(r'^student/(?P<student_id>\d+)/addEvent$', 'event.views.new'),
-
 )
 	

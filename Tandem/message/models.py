@@ -2,9 +2,8 @@ from django.db import models
 
 class Message(models.Model):
 	student = models.ForeignKey('student.Student')
-	#teacher = models.ForeignKey('Teacher'), should we use a teacher class?
 	subject = models.CharField(max_length=100)
 	content = models.TextField()
-	sentByTeacher = models.BooleanField(default=True)
+	receive = models.BooleanField(default=False)
 	timestamp = models.DateTimeField('Last Updated')
-	#thread = models.ForeignKey('messagethread.Messagethread')
+	thread = models.ForeignKey('messagethread.Messagethread')
