@@ -30,22 +30,25 @@ def registrationView(request):
     return render_to_response('registration/register.html', RequestContext(request, variables))
 
 def loginView(request):
-	if request.POST:
-		username = request.POST['username']
-		password = request.POST['password']
-		user = authenticate(username=username, password=password)
-		if user is not None:
-			if user.is_active:
-				login(request, user)
-				return HttpResponseRedirect('/')
+	if request.user.is_authenticated():
+		return HttpResponseRedirect('/')
+	else:
+		if request.POST:
+			username = request.POST['username']
+			password = request.POST['password']
+			user = authenticate(username=username, password=password)
+			if user is not None:
+				if user.is_active:
+					login(request, user)
+					return HttpResponseRedirect('/')
+				else:
+					# Return a 'disabled account' error message
+					return HttpResponseRedirect('/')
 			else:
-				# Return a 'disabled account' error message
+				# Return an 'invalid login' error message.
 				return HttpResponseRedirect('/')
 		else:
-			# Return an 'invalid login' error message.
-			return HttpResponseRedirect('/')
-	else:
-		return render_to_response('registration/login.html', RequestContext(request))
+			return render_to_response('registration/login.html', RequestContext(request))
 
 def logoutView(request):
     # @summary: 
