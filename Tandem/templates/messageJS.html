@@ -338,30 +338,55 @@ $(document).ready(function () {
 
     $('#sendResponse').click(function (e) {
         e.preventDefault();
-         //set name
-        var lastname = $('.student-label.btn-success').text().split(',')[0];
-        console.log(name);
-        $('#replyRecipent').val(lastname);
+        //set name
+        var lastname = $('#student-name').text().split(' ')[1];
+        $('#replyRecipient').val(lastname);
 
-        var subject = $('.msg-labe.btn-success').text();
-        console.log(subject);
+        var subject = $('#message-header').text();
         $('#subject').val(subject);
 
-        var details = $('#responseText').text();
-        console.log(details);
+        var details = $('#responseText').val();
         $('#details').val(details);
 
+        //send the msg
+        /*
         $.ajax({
             type: 'POST',
             url: '/messages/reply',
             data: {'replyRecipent':lastname, 'subject':subject, 'details':details},
             contentType: 'application/json',
 
-        });
+        });*/
+        //front end fix
+
+        var d = new Date();
+        $('#message-data').hide();
+        $('#message-data').append("<div style='background:#DDDDDD; padding-top:10px;' class='row'><div class='col-md-2'><b>Me:</b></div>"
+            +"<div id='actual-msg' class='col-md-10' style='margin-bottom:20px;'>"
+            + $('#responseText').val() + "</br></br><i><font color='#AAAAAA'>"
+            + d.toJSON() + "</font></i></br>"
+            + "</div></div>");
+        $('#message-data').fadeIn();
+
+        //reset values
+        $('#responseText').val('');
+        $('#subject').val('');
+        $('#details').val('');
+        $('#replyRecipient').val('');
 
     });
 
     $('#msgReply').submit(function(e) {
+        /*
+        console.log('booo');
+        $('#message-data').hide();
+        $('#message-data').append("<div style='background:#DDDDDD; padding-top:10px;' class='row'><div class='col-md-2'><b>Me:</b></div>"
+            +"<div id='actual-msg' class='col-md-10' style='margin-bottom:20px;'>"
+            + $('#responseText').val() + "</br></br><i><font color='#AAAAAA'>"
+            + d.toJSON() + "</font></i></br>"
+            + "</div></div>");
+        $('#message-data').fadeIn();
+        $('#responseText').val('');
         //set name
         /*
         var lastname = $('.student-label.btn-success').text().split(',')[0];
@@ -383,13 +408,8 @@ $(document).ready(function () {
             contentType: 'application/json',
 
         });
-*/
-        e.preventDefault();
 
-
-
-
-    });
+    });*/
 
     /*
     $('#sendResponse').click(function (e) {

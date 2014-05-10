@@ -128,7 +128,7 @@
                         <span>Your Reply:</span>
                         <form id='msgReply' action='/messages/reply' method='post'>
                             {% csrf_token %}
-                            <input type='hidden' id='replyRecipient' name = 'replyRecipient'>
+                            <input type='hidden' id='replyRecipient' name='replyRecipient' value='hiii'>
                             <textarea style="margin-top:10px;margin-bottom:10px;" id='responseText' name='responseText' class='col-md-10'></textarea>
                             <button id='sendResponse' type='submit' class='col-md-2 btn btn-success'>send</button>
                         </form>
