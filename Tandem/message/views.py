@@ -44,6 +44,18 @@ def new(request):
 		details = request.POST['details']
 		t = Messagethread(student=stud, subject=subj)
 		t.save()
-		m = Message(student=stud, subject=subj, content=details, timestamp=datetime.now(), thread=t)
+		m = Message(student=stud, subject=subj, content=details, timestamp=datetime.datetime.now(), thread=t)
+		m.save()
+	return allMessages(request)
+
+def reply(request):
+	if request.POST:
+		lastname = request.POST['replyRecipient']
+		stud = Student.objects.get(lastName=lastname)
+		subj = request.POST['subject']
+		details = request.POST['responseText']
+		t = Messagethread(student=stud, subject=subj)
+		t.save()
+		m = Message(student=stud, subject=subj, content=details, timestamp=datetime.datetime.now(), thread=t)
 		m.save()
 	return allMessages(request)

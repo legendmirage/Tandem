@@ -114,7 +114,7 @@
                 </div>        
                 <div id="message-detail" class="col-md-6">
                     <div id="message-header"></div>
-                    <div id="message-stud">Message from parents of
+                    <div id="message-stud">Messages with parents of
                         <span id="student-name"></span>
                     </div>
                     <div id='message-data'>
@@ -129,6 +129,7 @@
                         <span>Your Reply:</span>
                         <form id='msgReply' action='/messages/reply' method='post'>
                             {% csrf_token %}
+                            <input type='hidden' id='replyRecipient' name = 'replyRecipient'>
                             <textarea style="margin-top:10px;margin-bottom:10px;" id='responseText' name='responseText' class='col-md-10'></textarea>
                             <button id='sendResponse' type='submit' class='col-md-2 btn btn-success'>send</button>
                         </form>

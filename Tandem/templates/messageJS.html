@@ -328,7 +328,7 @@ $(document).ready(function () {
 
     //initialize messages panel and message details to be hidden
     $("#message-detail").fadeOut();
-
+    
     $('#sendBTN').click(function (e) {
         //e.preventDefault();
         //newMessage();
@@ -336,26 +336,62 @@ $(document).ready(function () {
 
     });
 
-    $('#msgReply').submit(function() {
-        //set name
-        var name = $('.student-label.btn-success').text();
+    $('#sendResponse').click(function (e) {
+        e.preventDefault();
+         //set name
+        var lastname = $('.student-label.btn-success').text().split(',')[0];
         console.log(name);
-        $('#recipient').value(name);
+        $('#replyRecipent').val(lastname);
 
         var subject = $('.msg-labe.btn-success').text();
         console.log(subject);
-        $('#subject').value(subject);
+        $('#subject').val(subject);
 
         var details = $('#responseText').text();
         console.log(details);
-        $('#details').value(details);
+        $('#details').val(details);
+
+        $.ajax({
+            type: 'POST',
+            url: '/messages/reply',
+            data: {'replyRecipent':lastname, 'subject':subject, 'details':details},
+            contentType: 'application/json',
+
+        });
+
+    });
+
+    $('#msgReply').submit(function(e) {
+        //set name
+        /*
+        var lastname = $('.student-label.btn-success').text().split(',')[0];
+        console.log(name);
+        $('#replyRecipent').val(lastname);
+
+        var subject = $('.msg-labe.btn-success').text();
+        console.log(subject);
+        $('#subject').val(subject);
+
+        var details = $('#responseText').text();
+        console.log(details);
+        $('#details').val(details);
+
+        $.ajax({
+            type: 'POST',
+            url: '/messages/reply',
+            data: {'replyRecipent':lastname, 'subject':subject, 'details':details},
+            contentType: 'application/json',
+
+        });
+*/
+        e.preventDefault();
 
 
 
 
     });
 
-    
+    /*
     $('#sendResponse').click(function (e) {
         e.preventDefault();
         var d = new Date();
@@ -379,15 +415,16 @@ $(document).ready(function () {
             dateTime, $('#responseText').val(), false);
         $('#responseText').val('');
         currentThread.messages.push(m);
-        refreshThread(currentThread);*/
+        refreshThread(currentThread);
 
 
-    });
+    });*/
 
-    //modal recipeints select dropdown
+    //modal recipients select dropdown
     var select = document.getElementById("recipient");
-    for (var i = 0; i < studentNames.length; i++) {
-        var opt = studentNames[i];
+    for (var i = 0; i < student_ids.length; i++) {
+        var id = student_ids[i];
+        var opt = studentNames[id];
         var el = document.createElement("option");
         el.textContent = opt;
         el.value = opt;

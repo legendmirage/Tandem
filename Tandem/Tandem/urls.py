@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     #url(r'^$', 'student.views.homepage'),
     url(r'^messages/$', 'message.views.allMessages'),
     url(r'^messages/new/?$', 'message.views.new', name='newMessage'),
+    url(r'^messages/reply/?$', 'message.views.reply', name='replyMessage'),
     url(r'^student/(?P<student_id>\d+)/addEvent$', 'event.views.new'),
 )
 	
