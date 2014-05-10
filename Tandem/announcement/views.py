@@ -22,13 +22,7 @@ def new(request):
 		return announceView(request)
 	return HttpResponseRedirect('/login/')	
 
-def edit(request, subject, content,announce_id):
-	if request.user.is_authenticated():
-		a=Announcement.objects.get(id=announce_id)
-		a.subject=subject
-		a.content=content
-		return HttpResponseRedirect('/announcements')
-	return HttpResponseRedirect('/login/')	
+
 
 def delete(request,announce_id):
 	if request.user.is_authenticated():
