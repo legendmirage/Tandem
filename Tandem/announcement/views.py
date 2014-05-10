@@ -18,11 +18,11 @@ def new(request):
 		a.save()
 	return announceView(request)
 
-def edit(request, subject, content,announce_id):
-	a=Announcement.objects.get(id=announce_id)
-	a.subject=subject
-	a.content=content
-	return HttpResponseRedirect('/announcements')
+# def edit(request,announce_id):
+# 	a=Announcement.objects.get(id=announce_id)
+# 	a.subject=request.POST['subject']
+# 	a.content=content
+# 	return HttpResponseRedirect('/announcements')
 
 def delete(request,announce_id):
 	a=Announcement.objects.get(id=announce_id)
