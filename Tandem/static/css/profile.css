@@ -90,16 +90,12 @@
 	padding-left: 20px;
 	padding-right: 0px;
 }
-#myTimeline{
-	margin-top: 30px;
 
-}
 #button-wrapper{
+	position: absolute;
 	display: inline-block;
 	float: right;
-	margin-right: 30px;
-	z-index: 3;
-	position: absolute;
+	z-index:3;
 
 }
 .parent{
@@ -136,4 +132,33 @@ textarea {
 
 .no-close .ui-dialog-titlebar-close {
   display: none;
+}
+
+.contactInfo{
+	font-size: 13px;
+
+}
+#phoneNumberModal{
+/*	width: 300px;
+	top: $(window).height()/3;
+	left:window/3;*/
+}
+#myTimeline{
+	padding-top: 45px;
+	position: absolute;
+}
+#timelineTitle{
+	padding-top: 100px;
+	position:absolute;
+	font-size: 22px;
+	font-style:bold;
+	display: inline-block;
+	float:center;
+	margin: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 30px;
+}
+#addevent{
+	z-index:3;
 }

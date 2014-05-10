@@ -27,6 +27,7 @@
         <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-dialog.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css">
         <script type="text/javascript" src="/static/jqtimeline/js/jquery.jqtimeline.js"></script>
+
         <script>
             $(function() {
                 console.log($( "#datepicker" ));
@@ -39,7 +40,7 @@
         <!-- Django Event stuff -->
 {% for ev in events %}
 
-    <div id="event{{ev.id}}" description="{{ev.description}}" subject="{{ev.subject}}" year="{{ev.date.year}}" month="{{ev.date.month}}" day="{{ev.date.day}}" attention="{{ev.attention}}" class="event"></div>
+    <div id="event{{ev.id}}" description="{{ev.description}}" subject="{{ev.subject}}" year="{{ev.date.year}}" month="{{ev.date.month}}" day="{{ev.date.day}}" attention="{{ev.attention}}" class="event" eventid="{{ev.id}}"></div>
 
 {% endfor %}
         <div class='container'>
@@ -47,8 +48,8 @@
                 <div id='page-header' class="page-header col-md-4">
                     <h3>Student Profile</h3>
                 </div>
-                <button id="editinfo-btn" class='btn btn-success' data-toggle="modal" data-target="#childInfoModal" onclick="fillinfo();"/>Edit Child's Info</button>
-                <button id="editinfo-btn2" class='btn btn-success' data-toggle="modal" data-target="#guardianInfoModal" onclick="fillinfo2();"/>Edit Guardian Info</button>
+                <!-- <button id="editinfo-btn" class='btn btn-success' data-toggle="modal" data-target="#childInfoModal" onclick="fillinfo();"/>Edit Child's Info</button>
+                <button id="editinfo-btn2" class='btn btn-success' data-toggle="modal" data-target="#guardianInfoModal" onclick="fillinfo2();"/>Edit Guardian Info</button> -->
             </div>
             <div id="profile-wrapper" class="container">
                 <div class="column-left">
@@ -61,7 +62,7 @@
                     <span><b>Date of Birth:</b><span id="dob"> {{student.birthdate.date.month}}/{{student.birthdate.date.day}}/{{student.birthdate.date.year}}</span></br><span>
                 </div>
                 <div class="column-right">
-                    <h3>Parents / Guardians</h3>
+                    <h3>Parent / Guardian(s)</h3>
                     <span id="g1label" class="parent">{{student.parent1}} </span>
                     <br>    
                     <span id="g2label" class="parent">{{student.parent2}} </span>
@@ -72,52 +73,19 @@
                     </div>
                 </div>
             </div>
+            <!-- <div id="timelineTitle"> Timeline of Events</div>
+            <br> -->
             <div id="timeline-wrapper" class="container">
                 <div id="myTimeline"></div>
             </div>
             <div id="button-wrapper">
                 <button id="addevent" class='btn btn-success' data-toggle="modal" data-target="#myModal"/>Add Event</button>
             </div>
+            <div id="timelineTitle"> Timeline of Events</div>
         </div>
 
 
- <!--        <div class="modal fade" id="myModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form id="eventform" class="form-horizontal" action='/student/{{student.id}}/addEvent' method='POST'>
-
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"/>&times;</button>
-                            <h4 class="modal-title">Add an Event to the Timeline</h4>
-                        </div>
-                        <div class="modal-body">
-                            {% csrf_token %}
-                            <p class="field">
-                                <input type="text" name="subject" id="subject" placeholder="Event Subject" value="">
-                                <i class="icon-user icon-large"></i>
-                            </p>
-                            <p class="field">
-                                <input type="textarea" name="description" id="description" placeholder="Event Description" value="">
-                                <i class="icon-lock icon-large"></i>
-                            </p>
-                            <p class="field">
-                                <input type='text' class='form-control' id='date' name="date" value="">
-                                <i class="icon-user icon-large"></i>
-                            </p>
-                            <p class="field">
-                                <input type="checkbox" name="attention" id="attention" value="">
-                                <i class="icon-lock icon-large"></i>
-                            </p>
-                            
-                        <div class="modal-footer">
-                            <button id="closeform" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <input id="submitform" type="submit" class="btn btn-primary" data-dismiss="modal" value="Submit">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> -->
-
+ 
     <div id='myModal' class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -285,50 +253,7 @@
         </div>
     </div>
 
-<!-- Message modal for sending a message from parents -->
-    <div id='newMessageModal' class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form id='newMessageForm' class='form-horizontal'>
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">New Message</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class='form-group'>
-                                <label for='subject' class='col-lg-2 control-label'>To:</label>
-                                <div class='col-lg-10'>
-                                    <label id="contactparent"></label>
-                                </div>
 
-                            </div>
-                            <div class='form-group'>
-                                <label for='subject' class='col-lg-2 control-label'>Subject</label>
-                                <div class='col-lg-10'>
-                                    <input type='text' class='form-control' id='subject' placeholder='Enter subject'>
-                                </div>
-
-                            </div>
-
-                            <div class='form-group'>
-                                <label for='details' class='col-lg-2 control-label'>Message Details</label>
-                                <div class='col-lg-10'>
-                                    <textarea id='details' class='form-control' rows='10'></textarea>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button id='sendBTN' type="submit" class="btn btn-success">Send</button>
-                        </div>
-
-                    </form>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
 
 <!--Modal for displaying phone numbers -->
 <div id='phoneNumberModal' class="modal fade">
@@ -340,55 +265,75 @@
                         </div>
                         <div class="modal-body">
                             <div class='form-group'>
-                                <label class='col-lg-3 control-label'>Phone Number:</label>
-                                <div class='col-lg-9'>
-                                    <label id="callparent1">{{student.parent_phone}}</label>
-                                </div>
+                                <div class=' contactInfo'><strong>Phone Number:</strong></div>
+                                    <div id="callparent1">{{student.parent_phone}}</div>
 
                             </div>
                             <br><br>
                             <div class='form-group'>
-                                <label class='col-lg-3 control-label'>Email:</label>
-                                <div class='col-lg-9'>
-                                    <label id="email1">{{student.parent_email}}</label>
-                                </div>
+                                <div class='contactInfo'><strong>Email:</strong></div>
 
+                                    <div id="email1">{{student.parent_email}}</div>
+
+                                </div>
                             </div>
 
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-<!--Modal for displaying event info -->
-<div id='eventModal' class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="event_modal_title">Title</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class='form-group'>
-                                <label class='col-lg-2 control-label'>Description:</label>
-                                <div class='col-lg-10'>
-                                    <label id="event_desc"></label>
-                                </div>
 
+    <div id='newMessageModal' class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id='newMessageForm' class='form-horizontal' action='/messages/new' method='post'>
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">New Message</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class='form-group'>
+                            <label for='recipient' class='col-lg-2 control-label'>To:</label>
+                            <div class='col-lg-10'>
+                                <span>Parents of  </span>
+                                <label>{{student.firstName}} {{student.lastName}}</label>
+                                <input type="hidden" name="recipient" value="{{student.lastName}},{{student.firstName}}">
                             </div>
 
                         </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <div class='form-group'>
+                            <label for='subject' class='col-lg-2 control-label'>Subject:</label>
+                            <div class='col-lg-10'>
+                                <input type='text' class='form-control' id='subject' name='subject' placeholder='Enter subject'>
+                            </div>
+
                         </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+
+                        <div class='form-group'>
+                            <label for='details' class='col-lg-2 control-label'>Message Details:</label>
+                            <div class='col-lg-10'>
+                                <textarea id='details' name='details' class='form-control' rows='10'></textarea>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id='sendBTN' type="submit" class="btn btn-success">Send</button>
+                    </div>
+
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 
 	<script type="text/javascript">
     var ev=[];
@@ -396,37 +341,9 @@
         events : ev,
         numYears:1,
         startYear:2014,
-        gap: 90
+        gap: 80
     });
 
-    // $("#submitform").click(function(evt) {
-    //     var timelineObj = $('#myTimeline').data('jqtimeline');
-    //     var ename=$('#eventname').val();
-    //     var edescription=$("#eventdescription").val();
-    //     var edate=$('#datepicker').val();
-    //     BootstrapDialog.show({
-    //         title: "Event Confirmation",
-    //         message: "<p>Are you sure you want to add this event?</p>",
-    //         buttons: [{
-    //             label: "OK",
-    //             action: function(dialog) {
-    //                 //timelineObj.method();
-    //                 var date = new Date($('#datepicker').getDate());
-    //                 console.log(date);
-    //                 createEvent($('#eventname').val(),$("#eventdescription").val(),date.getYear(),date.getMonth(),date.getDate(),$("#eventstatus").prop('checked'));
-    //                 console.log('passed');
-    //                 dialog.close();
-    //             }
-    //                     }, {
-    //                     label: "Cancel",
-    //                     action: function(){
-    //                         dialog.close();
-    //                     }
-    //                     }
-    //                     ]
-
-    //     });
-     // });
       $("#submitform2").click(function(evt) {
         $("#preferred-name").text($("#nickname").val());
         $("#dob").text($("#datepicker2").val());
@@ -445,7 +362,7 @@
         $("#guardian2").val($("#g2label").text());
       }
       // 
-  var createEvent=function (title, description, year, month, day, attention){
+  var createEvent=function (title, description, year, month, day, attention,event_id){
     console.log("called create event");
         var timelineObj = $('#myTimeline').data('jqtimeline');
         var id=timelineObj.getAllEvents().length+1;
@@ -453,17 +370,14 @@
         console.log("attention",attention);
         var eventObj = {id: id, name: title, on : date, description: description, flag: attention};
         timelineObj.addEvent(eventObj);
-        console.log(eventObj.flag);
-        console.log("before popover", $("#event_"+id));
         $("#event_"+id).popover({
                     trigger: 'hover',
                     html: true,
                     title: "<h4>"+title + " "+month.valueOf()+"/"+day.valueOf()+"/"+year.valueOf()+"</h4>",
-                    content: "<div class='popup'><button type='button' class='btn btn-success event-modal' data-toggle='modal' data-target='#eventModal' id='viewMore'>View More</button></div>",
+                    content: "<div class='popup'>"+description+"<br><a id='deleteEvent' href='/event/delete/"+event_id+"'>Delete</a></div>",
                     delay: {show:200, hide:200},
                     container: '#event_'+id
                 });
-        console.log("after popover");
       }
 
       var createStoredEvents=function(){
@@ -473,7 +387,7 @@
             var id=elements[el].id;
             console.log(id);
             var div=$("#"+id);
-            createEvent(div.attr("subject"),div.attr("description"),div.attr("year"),div.attr("month"),div.attr("day"),div.attr("attention"));
+            createEvent(div.attr("subject"),div.attr("description"),div.attr("year"),div.attr("month"),div.attr("day"),div.attr("attention"),div.attr("eventid"));
         }
       }
       var setUpDescriptionModals=function(){
@@ -483,15 +397,12 @@
 
       }
 
+
 $(document).ready(function () {
     $.getScript("/static/bootstrap/js/bootstrap.min.js");
     $.getScript("/static/js/bootstrap-dialog.js");
     createStoredEvents();
 
-    $('#viewMore').click( function () {
-        var mydesc = $(this).data('description');
-        $(".modal-body #event_desc").val( mydesc);
-    });
 });
 
 
