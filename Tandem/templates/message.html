@@ -21,6 +21,7 @@
     <script type="text/javascript" src="/static/external_js/jquery-1.9.0.min.js"></script>
     <script type="text/javascript" src="/static/external_js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/static/external_js/select2-3.4.6/select2.js"></script>
+    <script type="text/javascript" src="/static/external_js/jquery.cookie.js"></script>
     {% include 'messageJS.html' %}
     {% load message_extras %}
 
@@ -120,7 +121,8 @@
                         <span>Your Reply:</span>
                         <form id='msgReply' action='/messages/reply' method='post'>
                             {% csrf_token %}
-                            <input type='hidden' id='replyRecipient' name='replyRecipient' value='hiii'>
+                            <input type='hidden' id='replyRecipient' name='replyRecipient' value='recipient name'>
+                            <input type='hidden' id='replySubject' name='replySubject' value='this is the subject'>
                             <textarea style="margin-top:10px;margin-bottom:10px;" id='responseText' name='responseText' class='col-md-10'></textarea>
                             <button id='sendResponse' type='submit' class='col-md-2 btn btn-success'>send</button>
                         </form>
