@@ -1,42 +1,5 @@
 {% load message_extras %}
 <script type="text/javascript">
-/*
-var studentNames = ["Adams, Sophie", "Baker, Mike", "Brown, Ashley", "Clark, Leslie",
-    "Cook, Linda", "Craig, Yinfu", "Farr, Nike", "Faust, Ben", "Fox, Johnny",
-    "Hans, Peter", "He, Sally", "Hung, Jackie", "Kardashian, Kim", "Moon, Jason",
-    "Weaver, Joanie", "Xavier, Tom", "Yoon, Charles", "Zakarian, Sylvia"
-];
-
-var msg1 = "Hi, </br> My kid seems to had a fight with another kid in the class.  He came back with a lot of bruises and he wouldn't tell me what exactly happened. Could you please explain what happened at school today? My son is very shy and introvert and I don't believe that he will start a fight with another kid with not proper reason. Please also include the parents of the other kid if necessary. </br>Thank you.";
-var msg2 = "Hi Ms. Smith, </br> My son is sick with a fever and cannot attend school today. Please send me any assignments. Thanks.";
-var msg3 = "Hello, </br> Yinfu has a doctor's appointment today and will be late to school.";
-var msg4 = "Hello, </br> Sophie had a fever so she can't attend school today.";
-
-var id = 1;
-var currentThread = null;
-
-function MessageThread(student, subject, messages, time, unRead){
-    this.student = student;
-    this.subject = subject;
-    this.messages = messages;
-    this.time = time;
-    this.unRead = unRead;
-}
-
-function Message(id, messageThreadId, student, subject, time, content, receive){
-    this.id = id;
-    this.messageThreadId = messageThreadId;
-    this.student = student;
-    this.subject = subject;
-    this.time = time;
-    this.content = content;
-    this.receive = receive;
-}
-
-function Student(name, numOfUnread){
-    this.name = name;
-    this.numOfUnread = numOfUnread;
-}*/
 
 var studentNames = {{ studentNames|jsonify }}; //dictionary stud id to stud names
 var student_ids = {{ student_ids }}; // list of stud id
@@ -99,7 +62,7 @@ var hilightStudent = function (elem) {
     */
     $(".message-label").removeClass("btn-success");
     $("#message-detail").fadeOut();
-}
+};
 
 var hilightThread = function (elem, t) {
     currentThread = t;
@@ -143,7 +106,7 @@ var hilightThread = function (elem, t) {
     $("#message-header").html(t.subject);
     $("#message-detail").fadeIn()
 
-}
+};
 
 var refreshThread = function (t) {
     currentThread = t;
@@ -164,13 +127,13 @@ var refreshThread = function (t) {
             + m.content + "</br></br><i><font color='#AAAAAA'>"
             + m.time + "</font></i></br>"
             + "</div></div>";
-        }
-    }
+        };
+    };
     $("#message-data").html(tmp);
     $("#message-header").html(t.subject);
-    $("#message-detail").fadeIn()
+    $("#message-detail").fadeIn();
 
-}
+};
 
 
 var loadAllMessages = function () {
@@ -184,7 +147,7 @@ var loadAllMessages = function () {
             item.innerHTML = "<div class='col-md-6'>"+ t.subject + "</div><div class='col-md-4'><span id='badge' class='badge pull-right'>1</span></div>";  + t.time;
         } else {
             item.innerHTML = "<div class='col-md-6'>"+ t.subject + "</div>";
-        }
+        };
         $(item).attr('id', 'thread'+id)
         $(item).addClass("message-label btn btn-block row");
         $(item).data("mes", t);
@@ -246,8 +209,8 @@ var updateBadge = function (stud_id, name, thread_id, subj){
     }else{
         $(id).html(name + "<span id='badge' class='badge pull-right'>" + num + "</span>");
         $('#thread'+thread_id).html(subj + "<span id='badge' class='badge pull-right'>" + num + "</span>");
-    }
-}   
+    };
+};   
 
 /*
 var newMessage = function () {
@@ -275,7 +238,7 @@ var newMessage = function () {
     $("#messages-panel").prepend(item);
 }*/
 
-$(document).ready(function () {
+$(document).ready(function() {
     $("#message-detail").hide();
     /*
     var m1 = new Message(1,1,"Fox, Johnny", "Johnny's Fight", '4/1 12:00', msg1, true);
@@ -328,7 +291,7 @@ $(document).ready(function () {
 
     //initialize messages panel and message details to be hidden
     $("#message-detail").fadeOut();
-
+    
     $('#sendBTN').click(function (e) {
         //e.preventDefault();
         //newMessage();
@@ -336,26 +299,82 @@ $(document).ready(function () {
 
     });
 
-    $('#msgReply').submit(function() {
+    $('#sendResponse').click(function (e) {
+        e.preventDefault();
         //set name
-        var name = $('.student-label.btn-success').text();
+        var lastname = $('#student-name').text().split(' ')[1];
+        $('#replyRecipient').val(lastname);
+
+        var subject = $('#message-header').text();
+        $('#subject').val(subject);
+
+        var details = $('#responseText').val();
+        $('#details').val(details);
+
+        //send the msg
+        /*
+        $.ajax({
+            type: 'POST',
+            url: '/messages/reply',
+            data: {'replyRecipent':lastname, 'subject':subject, 'details':details},
+            contentType: 'application/json',
+
+        });*/
+        //front end fix
+
+        var d = new Date();
+        $('#message-data').hide();
+        $('#message-data').append("<div style='background:#DDDDDD; padding-top:10px;' class='row'><div class='col-md-2'><b>Me:</b></div>"
+            +"<div id='actual-msg' class='col-md-10' style='margin-bottom:20px;'>"
+            + $('#responseText').val() + "</br></br><i><font color='#AAAAAA'>"
+            + d.toJSON() + "</font></i></br>"
+            + "</div></div>");
+        $('#message-data').fadeIn();
+
+        //reset values
+        $('#responseText').val('');
+        $('#subject').val('');
+        $('#details').val('');
+        $('#replyRecipient').val('');
+
+    });
+    /*
+    $('#msgReply').submit(function(e) {
+        
+        console.log('booo');
+        $('#message-data').hide();
+        $('#message-data').append("<div style='background:#DDDDDD; padding-top:10px;' class='row'><div class='col-md-2'><b>Me:</b></div>"
+            +"<div id='actual-msg' class='col-md-10' style='margin-bottom:20px;'>"
+            + $('#responseText').val() + "</br></br><i><font color='#AAAAAA'>"
+            + d.toJSON() + "</font></i></br>"
+            + "</div></div>");
+        $('#message-data').fadeIn();
+        $('#responseText').val('');
+        //set name
+        /*
+        var lastname = $('.student-label.btn-success').text().split(',')[0];
         console.log(name);
-        $('#recipient').value(name);
+        $('#replyRecipent').val(lastname);
 
         var subject = $('.msg-labe.btn-success').text();
         console.log(subject);
-        $('#subject').value(subject);
+        $('#subject').val(subject);
 
         var details = $('#responseText').text();
         console.log(details);
-        $('#details').value(details);
+        $('#details').val(details);
 
+        $.ajax({
+            type: 'POST',
+            url: '/messages/reply',
+            data: {'replyRecipent':lastname, 'subject':subject, 'details':details},
+            contentType: 'application/json',
 
+        });
 
+    });*/
 
-    });
-
-    
+    /*
     $('#sendResponse').click(function (e) {
         e.preventDefault();
         var d = new Date();
@@ -379,20 +398,21 @@ $(document).ready(function () {
             dateTime, $('#responseText').val(), false);
         $('#responseText').val('');
         currentThread.messages.push(m);
-        refreshThread(currentThread);*/
+        refreshThread(currentThread);
 
 
-    });
+    });*/
 
-    //modal recipeints select dropdown
+    //modal recipients select dropdown
     var select = document.getElementById("recipient");
-    for (var i = 0; i < studentNames.length; i++) {
-        var opt = studentNames[i];
+    for (var i = 0; i < student_ids.length; i++) {
+        var id = student_ids[i];
+        var opt = studentNames[id];
         var el = document.createElement("option");
         el.textContent = opt;
         el.value = opt;
         select.appendChild(el);
-    }
+    };
     $("#recipient").select2();
 
     //search for students---------start
@@ -407,7 +427,7 @@ $(document).ready(function () {
         el.textContent = opt;
         el.value = opt;
         select.appendChild(el);
-    }
+    };
     $("#search").select2({
         placeholder: "Click to search for a student"
     });
@@ -417,6 +437,7 @@ $(document).ready(function () {
         hilightStudent(elem);
     });
     //search for students---------end
+
 });
 
 </script>
