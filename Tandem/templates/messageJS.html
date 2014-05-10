@@ -1,6 +1,22 @@
 {% load message_extras %}
 <script type="text/javascript">
 
+//get csrf token for post message reply
+var csrftoken = $.cookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+};
+$.ajaxSetup({
+    crossDomain: false, // obviates need for sameOrigin test
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type)) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
 var studentNames = {{ studentNames|jsonify }}; //dictionary stud id to stud names
 var student_ids = {{ student_ids }}; // list of stud id
 var numUnread = {{ numUnread|jsonify }};  //maps stud id to numUnread
@@ -39,27 +55,7 @@ var hilightStudent = function (elem) {
             }
             $("#messages-panel").prepend(item);
         }
-    }
-    /*
-    if (stud in threadMap) {
-        //from new to old (reverse)
-        var len = threadMap[stud].length - 1;
-        for (var i = len; i > -1; i--) {
-            var t = threadMap[stud][i];
-
-            var item = document.createElement("div");
-            item.innerHTML = "<div class='col-md-6'>"
-                + t.subject + "</div><div class='col-md-4'>" + t.time;
-            $(item).addClass("message-label btn btn-block row");
-            $(item).data("thread", t);
-            //associate div with thread obj
-            item.onclick=function(){
-                hilightThread(this, $(this).data("thread"));
-            }
-            $("#messages-panel").prepend(item);
-        }
-    }
-    */
+    };
     $(".message-label").removeClass("btn-success");
     $("#message-detail").fadeOut();
 };
@@ -72,14 +68,9 @@ var hilightThread = function (elem, t) {
         var name = t.student_lastname + ", " + t.student_firstname;
         updateBadge(t.student, name, t.id, t.subject);
     };
-    /*
-    if (t.unRead==true){
-        studentMap[t.student].numOfUnread -= 1;
-        t.unRead = false;
-        updateBadge(t.student);
-    }*/
     
     $(".message-label").removeClass("btn-success");
+    $('#all-messages-label').addClass('btn-success');
     $(elem).addClass("btn-success");
     document.getElementById("student-name").innerHTML = t.student_firstname + ' ' + t.student_lastname;
     var tmp = "";
@@ -105,6 +96,16 @@ var hilightThread = function (elem, t) {
     $("#message-data").html(tmp);
     $("#message-header").html(t.subject);
     $("#message-detail").fadeIn()
+
+
+    $.ajax({
+        type: 'POST',
+        url: '/messages/readThread',
+        data: {
+            csrfmiddlewaretoken: csrftoken,
+            subject:t.subject}
+
+    });
 
 };
 
@@ -144,7 +145,7 @@ var loadAllMessages = function () {
         var subj = t.subject;
         var item = document.createElement("div");
         if (t.unRead){
-            item.innerHTML = "<div class='col-md-6'>"+ t.subject + "</div><div class='col-md-4'><span id='badge' class='badge pull-right'>1</span></div>";  + t.time;
+            item.innerHTML = "<div class='col-md-6'>"+ t.subject + "</div><div class='col-md-4'><span id='badge' class='badge pull-right'>1</span></div>";
         } else {
             item.innerHTML = "<div class='col-md-6'>"+ t.subject + "</div>";
         };
@@ -157,28 +158,6 @@ var loadAllMessages = function () {
         $("#messages-panel").prepend(item);
 
     }
-    /*
-    for (var key in threadMap) {
-        var student = new Student(key, 0);
-        studentMap[key] = student;
-        var ms = threadMap[key];
-        for(var i=0;i<ms.length;i++){
-            var m = ms[i];
-            if(m.unRead==true){
-                studentMap[key].numOfUnread += 1;
-            }
-            var item = document.createElement("div");
-            item.innerHTML = "<div class='col-md-6'>"
-                + m.subject + "</div><div class='col-md-4'>" + m.time;
-            $(item).addClass("message-label btn btn-block row");
-            $(item).data("mes", m);
-            item.onclick=function(){
-                hilightThread(this, $(this).data("mes"));
-            }
-            $("#messages-panel").prepend(item);
-
-       }
-    }*/
     
     $(".student-label").removeClass("btn-success");
     $(".message-label").removeClass("btn-success");
@@ -210,104 +189,14 @@ var updateBadge = function (stud_id, name, thread_id, subj){
         $(id).html(name + "<span id='badge' class='badge pull-right'>" + num + "</span>");
         $('#thread'+thread_id).html(subj + "<span id='badge' class='badge pull-right'>" + num + "</span>");
     };
-};   
-
-/*
-var newMessage = function () {
-    var subject = $('#subject').val();
-    var details = $('#details').val();
-    var recipient = $('#recipient').val();
-    var d = new Date();
-    var dateTime = convertDate(d);
-
-    if (typeof threadMap[recipient] == 'undefined'){
-        threadMap[recipient] = [];
-    }
-
-    id += 1;
-    var m = new Message(id,id,recipient, subject, dateTime, details, true, false);
-    threadMap[recipient].push(m);
-    var item = document.createElement("div");
-    item.innerHTML = "<div class='col-md-6'>"
-        + m.subject + "</div><div class='col-md-4'>" + m.time;
-    $(item).addClass("message-label btn btn-block row");
-    $(item).data("mes", m);
-    item.onclick=function(){
-        hilightThread(this, $(this).data("mes"));
-    }
-    $("#messages-panel").prepend(item);
-}*/
-
-//get csrf token for post message reply
-/*
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}*/
-var csrftoken = $.cookie('csrftoken');
-
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 };
-$.ajaxSetup({
-    crossDomain: false, // obviates need for sameOrigin test
-    beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type)) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        }
-    }
-});
 
 $(document).ready(function() {
     $("#message-detail").hide();
-    /*
-    var m1 = new Message(1,1,"Fox, Johnny", "Johnny's Fight", '4/1 12:00', msg1, true);
-    var m2 = new Message(2,2,"Fox, Johnny", "Johnny sick", '4/2 1:10', msg2, true);
-    var l1 = [];
-    l1.push(m1);
-    var l2 = [];
-    l2.push(m2);
-   
-    threadMap['Fox, Johnny'] = [
-        new MessageThread("Fox, Johnny", "Johnny's Fight", l1, '4/1 12:00', true),
-        new MessageThread("Fox, Johnny", "Johnny sick", l2, '4/12 12:00', true)
-    ];
-
-    m2 = new Message(3,3,"Faust, Ben", "Ben Sick", '4/5 12:00', msg2, true);
-    l2 = [];
-    l2.push(m2);
-
-    threadMap["Faust, Ben"] = [
-        new MessageThread("Faust, Ben", "Ben Sick", l2, '4/5 12:00', true)
-    ];
-
-    m2 = new Message(4,4,"Craig, Yinfu", "Yinfu Absent", '4/5 12:44', msg3, true);
-    l2 = [];
-    l2.push(m2);
-    threadMap["Craig, Yinfu"] = [
-         new MessageThread("Craig, Yinfu", "Yinfu Absent",l2, '4/5 12:44', true)
-    ];
-    // threadMap["Adams, Sophie"] = [
-    //     new Message(5,5,"Adams, Sophie", "Sophie Fever", '4/12 2:14', msg4, false, true)
-    // ];
-
-    id = 6;*/
 
     loadAllMessages();
-    //appending each student to the student panel
 
+    //appending each student to the student panel
     for (i in student_ids) {
         var key = student_ids[i];
         if (numUnread[key]>0){
@@ -330,34 +219,8 @@ $(document).ready(function() {
         $("#newMessageModal").modal('hide');
 
     });
-
-    /*
-    $('#sendResponse').click(function (e) {
-        //e.preventDefault();
-        //set name
-        var lastname = $('#student-name').text().split(' ')[1];
-        $('#replyRecipient').val(lastname);
-
-        var subject = $('#message-header').text();
-        $('#subject').val(subject);
-
-        var details = $('#responseText').val();
-        $('#details').val(details);
-
-
-    });*/
     
     $('#msgReply').submit(function(e) {
-        /*
-        $('#message-data').hide();
-        $('#message-data').append("<div style='background:#DDDDDD; padding-top:10px;' class='row'><div class='col-md-2'><b>Me:</b></div>"
-            +"<div id='actual-msg' class='col-md-10' style='margin-bottom:20px;'>"
-            + $('#responseText').val() + "</br></br><i><font color='#AAAAAA'>"
-            + d.toJSON() + "</font></i></br>"
-            + "</div></div>");
-        $('#message-data').fadeIn();
-        $('#responseText').val('');
-        */
 
         //set params
         var lastname = $('#student-name').text().split(' ')[1];
@@ -365,48 +228,8 @@ $(document).ready(function() {
 
         var subject = $('#message-header').text();
         $('#replySubject').val(subject);
-
-        //var details = $('#responseText').val();
-        //$('#details').val(details);
-        /*
-        $.ajax({
-            type: 'POST',
-            url: '/messages/reply',
-            data: {'replyRecipent':lastname, 'subject':subject, 'details':details},
-            contentType: 'application/json',
-
-        });*/
-
     });
 
-    /*
-    $('#sendResponse').click(function (e) {
-        e.preventDefault();
-        var d = new Date();
-
-
-        $('#message-data').hide();
-        $('#message-data').append("<div style='background:#DDDDDD; padding-top:10px;' class='row'><div class='col-md-2'><b>Me:</b></div>"
-            +"<div id='actual-msg' class='col-md-10' style='margin-bottom:20px;'>"
-            + $('#responseText').val() + "</br></br><i><font color='#AAAAAA'>"
-            + d.toJSON() + "</font></i></br>"
-            + "</div></div>");
-        $('#message-data').fadeIn();
-        $('#responseText').val('');
-
-        /*
-        var d = new Date();
-        var dateTime = convertDate(d);
-        id += 1;
-        currentThread.time = dateTime;
-        var m = new Message(id, currentThread.id, currentThread.student, currentThread.subject,
-            dateTime, $('#responseText').val(), false);
-        $('#responseText').val('');
-        currentThread.messages.push(m);
-        refreshThread(currentThread);
-
-
-    });*/
 
     //modal recipients select dropdown
     var select = document.getElementById("recipient");

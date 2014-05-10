@@ -74,3 +74,15 @@ def reply(request):
 	return HttpResponseRedirect('/login/')
 
 
+def readThread(request):
+	if request.user.is_authenticated():
+		#if request.is_ajax():
+		#	return ('it works!');
+		subj = request.POST['subject']
+		t = Messagethread.objects.get(subject=subj)
+		t.unRead = False
+		t.save()
+		return 
+	return HttpResponseRedirect('/login/')
+
+
