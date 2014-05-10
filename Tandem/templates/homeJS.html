@@ -52,11 +52,13 @@ $(document).ready(function () {
         var parent2 = student.attr('parentTwo');
         var phone = student.attr('phone');
         var email = student.attr('email');
+        var name = lName +', '+fName;
+        console.log(name);
         $(id).popover({
             trigger: 'hover',
             html: true,
             title: '<h3>' + fName + ' ' + lName + '</h3>',
-            content: '<div class="container"><img src="/static/image/' + array_val + '.png" alt="Johnny Fox profile image" class="prof"><div class="column-right"><h4>Parents / Guardians</h4> <div><span class="parent">'+ parent1 +'</span> <div class="icon-wrapper"> <div id="newmsg_'+i+'" data-toggle="modal" data-target="#newMessageModal" style="display:inline"><img src="/static/image/mailicon.png" alt="Send a message" class="contacticons"></div> <div data-toggle="modal" data-target="#phoneNumberModal" id="phone_'+i+'" onclick="changePhone({phone: '+phone+'} );"><img src="/static/image/callicon.png" alt="See Contact Info" class="contacticons"></div> </div></div><div> <span class="parent">'+ parent2 +'</span></div></div></div><a class="profile-link" href="/student/' + array_val + '"">View Profile</a>',
+            content: '<div class="container"><img src="/static/image/' + array_val + '.png" alt="Johnny Fox profile image" class="prof"><div class="column-right"><h4>Parents / Guardians</h4> <div><span class="parent">'+ parent1 +'</span> <div class="icon-wrapper"> <div id="newmsg_'+i+'" data-toggle="modal" data-target="#newMessageModal" style="display:inline" onclick="changeModal({f: &quot;'+name+'&quot;});"><img src="/static/image/mailicon.png" alt="Send a message" class="contacticons"></div> <div data-toggle="modal" data-target="#phoneNumberModal" id="phone_'+i+'" onclick="changePhone({phone: '+phone+'} );"><img src="/static/image/callicon.png" alt="See Contact Info" class="contacticons"></div> </div></div><div> <span class="parent">'+ parent2 +'</span></div></div></div><a class="profile-link" href="/student/' + array_val + '"">View Profile</a>',
             container: id,
             delay: {
                 show: 200,
@@ -212,7 +214,10 @@ var changeEmail = function(param){
     $("#email1").text(param.email);
 
 }
-var changeStudent = function(param){
-
+var changeModal= function(param){
+    var l=param.f.split(",");
+    $("#contactparent").text(l[1]+" "+l[0]);
+    var rec=document.getElementById("recipient");
+    rec.value=param.f;
 }
 </script>
