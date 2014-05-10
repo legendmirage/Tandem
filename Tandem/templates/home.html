@@ -40,7 +40,7 @@
 		</div>
 		<div id="seat-container">
 			{% for student in students %}
-				<div class="desk student" id="student{{student.id}}" firstName="{{student.firstName}}" lastName="{{student.lastName}}" parentOne="{{student.parent1}}" parentTwo="{{student.parent2}}">
+				<div class="desk student" id="student{{student.id}}" firstName="{{student.firstName}}" lastName="{{student.lastName}}" parentOne="{{student.parent1}}" parentTwo="{{student.parent2}}" phone="{{student.parent_phone}}" email="{{student.parent_email}}">
 					<img class="box" src="/static/image/desk.jpg">
 					<div class="names">{{ student.firstName }} {{ student.lastName.0 }}.</div>
 				</div>
@@ -103,6 +103,36 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+
+
+        <!--Modal for displaying phone numbers -->
+<div id='phoneNumberModal' class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Primary Guardian Contact Info</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class='form-group'>
+                                <div class=' contactInfo'><strong>Phone Number:</strong></div>
+                                    <div id="callparent1">{{student.parent_phone}}</div>
+
+                            </div>
+                            <br><br>
+                            <div class='form-group'>
+                                <div class='contactInfo'><strong>Email:</strong></div>
+
+                                    <div id="email1">{{student.parent_email}}</div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
 			<script>
 				
 

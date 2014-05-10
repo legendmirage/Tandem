@@ -11,13 +11,13 @@ $(document).ready(function () {
     //    "Weaver, Joanie", "Xavier, Tom", "Yoon, Charles", "Zakarian, Sylvia"
     //];
 
-    // for updating contact parent name in message
-    var contactJames = function () {
-        $('#contactparent').text('James Fox');
-    };
-    var contactSusan = function () {
-        $('#contactparent').text('Susan Fox');
-    };
+    // // for updating contact parent name in message
+    // var contactJames = function () {
+    //     $('#contactparent').text('James Fox');
+    // };
+    // var contactSusan = function () {
+    //     $('#contactparent').text('Susan Fox');
+    // };
     var top_offset = 150;
     var left_offset = 200;
     var name_top_offset = 200;
@@ -50,11 +50,13 @@ $(document).ready(function () {
         var lName = student.attr('lastName');
         var parent1 = student.attr('parentOne');
         var parent2 = student.attr('parentTwo');
+        var phone = student.attr('phone');
+        var email = student.attr('email');
         $(id).popover({
             trigger: 'hover',
             html: true,
             title: '<h3>' + fName + ' ' + lName + '</h3>',
-            content: '<div class="container"><img src="/static/image/' + array_val + '.png" alt="Johnny Fox profile image" class="prof"><div class="column-right"><h4>Parents / Guardians</h4> <div><span class="parent">'+ parent1 +'</span> <div class="icon-wrapper"> <div id="jfoxclick" onclick="contactJames();" data-toggle="modal" data-target="#newMessageModal" style="display:inline"><img src="/static/image/mailicon.png" alt="Send a message" class="contacticons"></div> <a href=""><img src="/static/image/callicon.png" alt="Call with Google Voice" width="30" height="30"></a> </div></div><br/><div> <span class="parent">'+ parent2 +'</span> <div class="icon-wrapper"> <div id="sfoxclick" onclick="contactSusan();" data-toggle="modal" data-target="#newMessageModal" style="display:inline"><img src="/static/image/mailicon.png" alt="Send a message" class="contacticons"></div> <a href=""><img src="/static/image/callicon.png" alt="Call with Google Voice" width="30" height="30"></a> </div></div></div></div><a class="profile-link" href="/student/' + array_val + '"">View Profile</a>',
+            content: '<div class="container"><img src="/static/image/' + array_val + '.png" alt="Johnny Fox profile image" class="prof"><div class="column-right"><h4>Parents / Guardians</h4> <div><span class="parent">'+ parent1 +'</span> <div class="icon-wrapper"> <div id="newmsg_'+i+'" data-toggle="modal" data-target="#newMessageModal" style="display:inline"><img src="/static/image/mailicon.png" alt="Send a message" class="contacticons"></div> <div data-toggle="modal" data-target="#phoneNumberModal" id="phone_'+i+'" onclick="changePhone({phone: '+phone+'} );"><img src="/static/image/callicon.png" alt="See Contact Info" class="contacticons"></div> </div></div><div> <span class="parent">'+ parent2 +'</span></div></div></div><a class="profile-link" href="/student/' + array_val + '"">View Profile</a>',
             container: id,
             delay: {
                 show: 200,
@@ -114,8 +116,20 @@ $(document).ready(function () {
                 console.log("hidden");
             }
         });
+        //code for displaying info in modals
+        // console.log($("#newmsg_"+i));
+        // $("#newmsg_"+i).click(function() {
+        //     console.log("click");
+        // });
+        // $("#phone_"+i).click(function(){
+        //     console.log("click"); 
+        //    $("#callparent1").val(phone);
+        // });
+        // console.log($("#phone_"+i));
+
     };
     //end popover code
+
 
     var drag = false;
     desks.draggable();
@@ -187,4 +201,18 @@ $(document).ready(function () {
 
 });
 
+var changePhone = function(param){
+
+    $("#callparent1").text(param.phone);
+    $("#email1").text("tandem14@mit.edu");
+
+}
+var changeEmail = function(param){
+
+    $("#email1").text(param.email);
+
+}
+var changeStudent = function(param){
+
+}
 </script>
